@@ -474,4 +474,4 @@ if(form&&form.id==='adminTournamentForm'){ev.preventDefault();if(!tg||!tg.initDa
 document.addEventListener('click',function(ev){var sh=document.getElementById('favorite-club-sheet');if(!sh||sh.hidden)return;var close=ev.target&&ev.target.closest?ev.target.closest('[data-club-close]'):null;if(close||ev.target===sh){closeClubSheet();return}var opt=ev.target&&ev.target.closest?ev.target.closest('[data-club-key]'):null;if(opt)saveFavoriteClub(opt.getAttribute('data-club-key'))});
 document.querySelectorAll('.nav button').forEach(function(b){b.onclick=function(){var v=b.getAttribute('data-v');if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.selectionChanged()}catch(e){}if(v==='profile'){openMyProfile();return}if(v==='admin'&&!(S.me&&S.me.isAdmin))return;S.view=v;S.archive=null;S.player=null;S.ratingArchive='all';render()}});load(false);setInterval(function(){load(true)},30000)
 })();
-</script></body></html>
+</script><script src="profile-link.js?v=6231142b"></script></body></html>
