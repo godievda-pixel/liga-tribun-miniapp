@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b0d0c">
+<title>Лига Трибун</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--g:#26ce29;--bg:#0b0d0c;--card:#151817;--line:#262c29;--text:#f4f7f5;--muted:#8d9892;--safe:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}body{min-height:100vh}button{font:inherit}.app{max-width:720px;margin:auto;padding:14px 14px calc(92px + var(--safe))}
+.top{display:flex;align-items:center;justify-content:space-between;margin:2px 0 18px}.brand{display:flex;gap:10px;align-items:center}.logo{width:42px;height:42px;border:2px solid var(--g);border-radius:13px;display:grid;place-items:center;color:var(--g);font-weight:950;font-size:19px;letter-spacing:-2px}.brand b{display:block;font-size:16px;letter-spacing:.08em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.live{color:var(--g);font-weight:900;font-size:10px;letter-spacing:.12em}
+.hero{position:relative;overflow:hidden;background:linear-gradient(145deg,#181c1a,#101311);border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:14px}.hero:after{content:"ЛТ";position:absolute;right:-10px;bottom:-31px;font-weight:1000;font-size:120px;letter-spacing:-10px;color:rgba(38,206,41,.055)}.kicker{color:var(--g);font-size:10px;letter-spacing:.13em;font-weight:900;text-transform:uppercase}.hero h1{font-size:27px;line-height:1.04;margin:8px 0;max-width:82%}.muted{color:var(--muted);font-size:12px}.section{margin-top:18px}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:10px}.head h2{font-size:17px;margin:0}.head span{font-size:10px;color:var(--muted)}
+.grid{display:grid;gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}.gname{font-size:14px;font-weight:900;margin-bottom:7px}.team{display:flex;gap:9px;align-items:center;padding:8px 0;border-top:1px solid rgba(255,255,255,.05)}.team:first-of-type{border-top:0}.pos{width:23px;height:23px;border-radius:8px;background:#202522;color:var(--muted);display:grid;place-items:center;font-size:10px;font-weight:900}.team b{display:block;font-size:12px}.team small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.match{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:12px}.meta{font-size:9px;color:var(--muted);font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}.mrow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}.side{min-width:0}.side.r{text-align:right}.name{font-size:12px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.club{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.score{font-size:20px;font-weight:950;min-width:52px;text-align:center}.pen{font-size:8px;color:var(--g);font-weight:850;text-align:center;margin-top:3px}
+.chips{display:flex;gap:7px;overflow:auto;scrollbar-width:none;margin-bottom:10px}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:8px 11px;font-size:11px;font-weight:850}.chip.on{background:var(--g);border-color:var(--g);color:#061107}
+.rr{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:9px;align-items:center;padding:11px 0;border-top:1px solid rgba(255,255,255,.05)}.rrbtn{width:100%;background:transparent;border:0;color:inherit;text-align:left;font:inherit;cursor:pointer}.rrbtn:active{opacity:.72}.rr:first-child{border-top:0}.rk{font-size:12px;font-weight:950;color:var(--muted)}.rk.top{color:var(--g)}.rn b{display:block;font-size:12px}.rn small{font-size:9px;color:var(--muted)}.pts{text-align:right}.pts b{color:var(--g);font-size:16px}.pts small{display:block;font-size:8px;color:var(--muted)}
+.tour{width:100%;color:inherit;text-align:left;display:flex;justify-content:space-between;gap:12px;align-items:center}.tour b{display:block;font-size:13px}.tour small{display:block;font-size:9px;color:var(--muted);margin-top:4px}.arrow{color:var(--g);font-size:20px}.winner{margin-top:8px;color:#ffd25f;font-size:9px}.me-card{width:100%;color:inherit;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px}.me-main{display:flex;align-items:center;gap:11px;min-width:0}.avatar{width:44px;height:44px;border-radius:14px;background:#202522;border:1px solid var(--line);display:grid;place-items:center;font-weight:950;color:var(--g);overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.me-card b{display:block;font-size:14px}.me-card small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.upcoming{border-left:3px solid var(--g)}.upcoming .date{color:var(--g);font-size:10px;font-weight:900;margin-bottom:5px}.upcoming .where{color:var(--muted);font-size:10px;margin-top:4px}.badge{display:inline-block;margin-top:8px;border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:8px;font-weight:900;color:var(--muted)}.reg{display:inline-block;margin-top:9px;color:var(--g);font-size:10px;font-weight:900;text-decoration:none}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px}.stat b{display:block;font-size:20px;color:var(--g)}.stat span{display:block;color:var(--muted);font-size:9px;margin-top:3px}.history{display:flex;justify-content:space-between;gap:12px;align-items:center}.history b{font-size:12px}.history small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.place{font-size:9px;color:#ffd25f;font-weight:850;margin-top:5px}.empty{text-align:center;padding:28px 14px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);font-size:12px}.back{border:0;background:none;color:var(--g);font-weight:850;padding:0;margin-bottom:12px}
+.nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(720px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:9px 12px calc(9px + var(--safe));background:rgba(11,13,12,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:10}.nav button{border:0;background:transparent;color:#717b76;border-radius:13px;padding:9px 4px;font-size:10px;font-weight:850}.nav button.on{background:#182119;color:var(--g)}
+.loading{height:95px;border-radius:18px;background:linear-gradient(90deg,#151817,#1c211e,#151817);background-size:200% 100%;animation:sh 1.1s linear infinite}@keyframes sh{to{background-position:-200% 0}}@media(min-width:580px){.groups,.matches{grid-template-columns:1fr 1fr}}
+</style>
+
+<style id="lt-pages-premium-v1">
+:root{--bg:#050706;--card:#0f1411;--card2:#131a16;--line:rgba(255,255,255,.07);--muted:#8a958f}
+html,body{background:radial-gradient(circle at 50% -10%,rgba(38,206,41,.08),transparent 32%),var(--bg)}
+.app{padding:12px 12px calc(108px + var(--safe))}
+.top{position:sticky;top:0;z-index:8;margin:0;padding:8px 2px 14px;background:linear-gradient(180deg,rgba(5,7,6,.98) 62%,rgba(5,7,6,0));backdrop-filter:blur(16px)}
+.brand{gap:8px}.logo-img{width:46px;height:46px;border:0;border-radius:12px;overflow:hidden;background:#050706}.logo-img img{display:block;width:100%;height:100%;object-fit:cover}
+.brand b{font-size:15px;letter-spacing:.075em}.brand small{font-size:8px}.live{display:flex;align-items:center;gap:6px;border:1px solid rgba(38,206,41,.18);background:rgba(38,206,41,.06);padding:7px 10px;border-radius:999px;font-size:9px}.live:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 12px rgba(38,206,41,.8)}
+.hero{background:linear-gradient(145deg,#141a16,#0b0f0d);border-color:var(--line);border-radius:22px;padding:18px 18px 17px;margin-bottom:12px;box-shadow:0 18px 44px rgba(0,0,0,.20)}.hero:after{display:none}.hero h1{font-size:25px;line-height:1.02;letter-spacing:-.035em;margin:8px 0 10px;max-width:100%}.kicker{font-size:9px}.muted{font-size:10px;line-height:1.45}
+.section{margin-top:20px}.head{padding:0 2px;margin-bottom:9px}.head h2{font-size:15px}.head span{font-size:9px}
+.card,.match,.stat{background:linear-gradient(145deg,var(--card2),var(--card));border-color:var(--line);box-shadow:0 10px 24px rgba(0,0,0,.12)}.card,.match{border-radius:18px}
+.groups{gap:9px}.team{padding:9px 0}.pos{background:rgba(255,255,255,.045)}
+.chips{gap:6px;margin-bottom:12px}.chip{padding:8px 12px;font-size:10px}.chip.on{box-shadow:0 6px 20px rgba(38,206,41,.14)}
+.rr{padding:12px 2px}.rr .pts b{font-size:15px}.card>.rr:nth-child(1),.card>.rr:nth-child(2),.card>.rr:nth-child(3){margin:0 -6px;padding-left:8px;padding-right:8px;border-radius:12px}.card>.rr:nth-child(1){background:linear-gradient(90deg,rgba(38,206,41,.08),transparent)}
+.nav{bottom:8px;width:min(700px,calc(100% - 16px));border:1px solid var(--line);border-radius:20px;padding:6px;background:rgba(12,16,14,.92);backdrop-filter:blur(22px);box-shadow:0 18px 48px rgba(0,0,0,.4)}.nav button{display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:15px;padding:8px 4px 7px;font-size:8px}.nav button.on{background:rgba(38,206,41,.10)}.nav-ico{font-size:15px;line-height:1}
+.loading-screen{min-height:66vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px}.loading-screen img{width:min(270px,72vw);height:auto;display:block;filter:drop-shadow(0 0 26px rgba(38,206,41,.10))}.load-line{width:120px;height:2px;background:#172019;border-radius:999px;overflow:hidden;margin-top:18px}.load-line span{display:block;width:40%;height:100%;background:var(--g);border-radius:999px;animation:ltload 1.1s ease-in-out infinite}.load-caption{font-size:9px;color:var(--muted);margin-top:10px;letter-spacing:.08em;text-transform:uppercase}@keyframes ltload{0%{transform:translateX(-110%)}100%{transform:translateX(250%)}}
+.me-card{border-color:rgba(38,206,41,.16);background:linear-gradient(145deg,#18231c,#0d120f)}
+.empty{background:#0b100d;border-style:solid}
+@media(max-width:380px){.hero h1{font-size:23px}.app{padding-left:10px;padding-right:10px}.brand b{font-size:14px}}
+</style><style id="lt-home-profile-v2">
+.home-section{margin-top:18px}.home-section:first-child{margin-top:8px}
+.announce-grid{display:grid;gap:9px}.announce-card{position:relative;overflow:hidden;padding:16px;border-radius:19px}.announce-card:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:linear-gradient(#26ce29,rgba(38,206,41,.08));border-radius:99px}.announce-date{font-size:10px;font-weight:900;color:#6fff72}.announce-title{font-size:16px;font-weight:950;letter-spacing:-.025em;margin-top:6px}.announce-venue{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.35}.announce-actions{display:flex;align-items:center;gap:8px;margin-top:12px}.announce-status{font-size:8px;font-weight:900;border:1px solid rgba(38,206,41,.2);border-radius:999px;padding:6px 8px;color:#baffbc;background:rgba(38,206,41,.055)}.announce-link{font-size:9px;font-weight:900;color:#26ce29;text-decoration:none;padding:6px 0}
+.profile-home-card{padding:16px;border-radius:21px;border-color:rgba(38,206,41,.16);background:linear-gradient(145deg,#151f19,#0c110e)}.profile-top{display:flex;align-items:center;gap:12px}.profile-open{border:0;background:transparent;color:inherit;padding:0;text-align:left;display:flex;align-items:center;gap:12px;min-width:0;flex:1}.profile-home-card .avatar{width:50px;height:50px;border-radius:16px;flex:0 0 auto}.profile-copy{min-width:0}.profile-copy b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-copy small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.profile-rank-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:14px}.profile-rank-cell{padding:10px;border-radius:13px;background:rgba(0,0,0,.16);border:1px solid rgba(255,255,255,.06)}.profile-rank-cell strong{display:block;font-size:18px;letter-spacing:-.04em}.profile-rank-cell:first-child strong{color:#26ce29}.profile-rank-cell span{display:block;font-size:7px;color:var(--muted);margin-top:2px}
+.favorite-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}.favorite-club{display:flex;align-items:center;gap:9px;min-width:0}.favorite-crest{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.045);display:grid;place-items:center;overflow:hidden;flex:0 0 auto}.favorite-crest img{width:28px;height:28px;object-fit:contain}.favorite-club-copy b{display:block;font-size:10px}.favorite-club-copy small{display:block;font-size:8px;color:var(--muted);margin-top:2px}.favorite-btn{border:1px solid rgba(38,206,41,.18);background:rgba(38,206,41,.07);color:#baffbc;border-radius:12px;padding:8px 10px;font-size:8px;font-weight:900;white-space:nowrap}
+.club-sheet[hidden]{display:none!important}.club-sheet{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;padding:12px}.club-panel{width:min(680px,100%);max-height:min(76dvh,690px);overflow:auto;background:#0b100d;border:1px solid rgba(255,255,255,.08);border-radius:24px 24px 18px 18px;padding:14px 14px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -25px 70px rgba(0,0,0,.5)}.club-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:2px 2px 12px}.club-sheet-head h3{margin:3px 0 0;font-size:18px}.club-sheet-head p{margin:5px 0 0;font-size:9px;color:var(--muted)}.club-close{width:34px;height:34px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#111713;color:#c6d0ca;font-size:18px}.club-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.club-option{border:1px solid rgba(255,255,255,.07);background:#111713;color:#f4f7f5;border-radius:16px;padding:10px;display:flex;align-items:center;gap:9px;text-align:left;min-width:0}.club-option.on{border-color:rgba(38,206,41,.48);background:rgba(38,206,41,.09)}.club-option img{width:34px;height:34px;object-fit:contain;flex:0 0 auto}.club-option span{font-size:9px;font-weight:850;line-height:1.2}.club-saving{opacity:.55;pointer-events:none}.home-empty{padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.06);background:#0c110e;color:var(--muted);font-size:10px;text-align:center}
+.app{padding-bottom:calc(112px + env(safe-area-inset-bottom))}.nav{z-index:50}
+@media(max-width:360px){.club-options{grid-template-columns:1fr}.profile-rank-cell strong{font-size:16px}.favorite-btn{padding:8px}}
+</style>
+<style id="lt-shell-fix-v3">
+html,body{min-height:100%;background:#050706}
+body{overflow-x:hidden}
+.app{width:100%;max-width:720px;min-height:100dvh;margin:0 auto;padding:12px 12px calc(104px + env(safe-area-inset-bottom));position:relative}
+#root{position:relative;z-index:1}
+.top{position:relative;top:auto;z-index:4;padding:6px 2px 14px;margin:0;background:transparent;backdrop-filter:none}
+.brand .logo-img{width:42px;height:42px;border-radius:11px}
+.nav{left:50%;bottom:max(10px,env(safe-area-inset-bottom));width:min(680px,calc(100% - 20px));height:68px;grid-template-columns:repeat(3,1fr);gap:5px;padding:5px;border:1px solid rgba(255,255,255,.075);border-radius:22px;background:rgba(10,14,12,.96);box-shadow:0 16px 50px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.03);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.nav button{min-width:0;height:56px;padding:7px 4px 6px;border-radius:17px;gap:4px;color:#69756f;transition:background .18s ease,color .18s ease,transform .18s ease}
+.nav button:active{transform:scale(.97)}
+.nav button.on{background:linear-gradient(180deg,rgba(38,206,41,.13),rgba(38,206,41,.07));color:#39e33c;box-shadow:inset 0 0 0 1px rgba(38,206,41,.06)}
+.nav-ico{width:20px;height:20px;display:grid;place-items:center}
+.nav-ico svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nav button.on .nav-ico svg{filter:drop-shadow(0 0 6px rgba(38,206,41,.22))}
+.nav button span:last-child{font-size:8px;line-height:1;font-weight:800;letter-spacing:.01em}
+.loading-screen{min-height:0}
+.loading-screen img{width:min(176px,46vw);height:auto;image-rendering:auto;filter:drop-shadow(0 0 18px rgba(38,206,41,.08))}
+.load-line{width:108px;margin-top:22px}
+.is-loading{overflow:hidden}
+.is-loading .app{max-width:none;padding:0;min-height:100dvh}
+.is-loading .top,.is-loading .nav{display:none!important}
+.is-loading #root{position:fixed;inset:0;z-index:100;background:#050706}
+.is-loading .loading-screen{position:absolute;inset:0;min-height:100%;padding:24px;display:flex;align-items:center;justify-content:center}
+.rating-hero{padding:16px 17px 15px;margin-bottom:12px}
+.rating-hero h1{font-size:23px;margin:7px 0 8px}
+.rating-list{margin-top:0}
+.rating-list>.card{padding:8px 12px;border-radius:20px}
+.rating-list .rr{min-height:61px;padding:10px 4px;grid-template-columns:28px minmax(0,1fr) 54px}
+.rating-list .rn b{font-size:12px;line-height:1.2}
+.rating-list .rn small{display:block;margin-top:4px;line-height:1.25}
+.rating-list .pts b{font-size:15px}
+.rating-list .pts small{margin-top:2px}
+@media(max-width:390px){
+  .app{padding-left:10px;padding-right:10px}
+  .nav{width:calc(100% - 14px);bottom:max(7px,env(safe-area-inset-bottom))}
+  .loading-screen img{width:min(160px,44vw)}
+}
+</style>
+<style id="lt-home-premium-v4">
+.top{justify-content:flex-start}
+.home-section{margin-top:22px}
+.home-last{padding-bottom:4px}
+.home-premium-hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(255,255,255,.075);border-radius:26px;padding:22px 19px 18px;background:linear-gradient(145deg,#121a15 0%,#0a0f0c 58%,#080b09 100%);box-shadow:0 22px 60px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.025)}
+.home-premium-hero:before{content:"";position:absolute;right:-78px;top:-75px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(38,206,41,.17),rgba(38,206,41,0) 68%);z-index:-1}
+.home-premium-hero:after{content:"ЛТ";position:absolute;right:12px;top:7px;font-size:92px;font-weight:1000;letter-spacing:-.11em;color:rgba(255,255,255,.018);z-index:-1}
+.home-label{display:block;color:#52e955;font-size:8px;line-height:1.2;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.home-premium-hero h1{margin:10px 0 9px;font-size:29px;line-height:.99;letter-spacing:-.047em;max-width:92%;font-weight:950}
+.home-premium-hero h1 em{font-style:normal;color:#51e854}
+.home-premium-hero>p{margin:0;max-width:88%;color:#89968f;font-size:10px;line-height:1.5}
+.home-hero-actions{display:flex;gap:8px;margin-top:17px}
+.home-primary,.home-secondary{height:39px;border-radius:13px;padding:0 14px;font-size:10px;font-weight:900}
+.home-primary{border:1px solid #35d938;background:#2bd42e;color:#041005;box-shadow:0 8px 24px rgba(38,206,41,.14)}
+.home-primary span{margin-left:8px;font-size:13px}
+.home-secondary{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);color:#dce5df}
+.home-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:17px;padding-top:15px;border-top:1px solid rgba(255,255,255,.055)}
+.home-hero-stats div{min-width:0}
+.home-hero-stats strong{display:block;font-size:15px;line-height:1;color:#f4f7f5}
+.home-hero-stats span{display:block;margin-top:4px;color:#748078;font-size:7px;text-transform:uppercase;letter-spacing:.08em}
+.home-next{display:flex;align-items:center;gap:10px;margin-top:15px;padding:11px 12px;border:1px solid rgba(38,206,41,.11);border-radius:15px;background:rgba(38,206,41,.035)}
+.home-next-dot{width:7px;height:7px;border-radius:50%;background:#2ad72d;box-shadow:0 0 14px rgba(38,206,41,.55);flex:0 0 auto}
+.home-next div:last-child{min-width:0}
+.home-next span,.home-next small{display:block;color:#76827b;font-size:7px}
+.home-next span{text-transform:uppercase;letter-spacing:.09em;font-weight:800}
+.home-next b{display:block;margin:3px 0 2px;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 2px 10px}
+.home-title-row h2{margin:4px 0 0;font-size:17px;line-height:1.08;letter-spacing:-.025em}
+.home-count{min-width:26px;height:26px;padding:0 8px;border:1px solid rgba(255,255,255,.07);border-radius:999px;display:grid;place-items:center;color:#8d9992;font-size:9px;font-weight:850;background:#0c110e}
+.home-text-btn{border:0;background:transparent;color:#43e246;padding:4px 0;font-size:9px;font-weight:900}
+.announce-grid{display:grid;gap:8px}
+.announce-card{position:relative;overflow:hidden;padding:14px;border:1px solid rgba(255,255,255,.07);border-radius:20px;background:linear-gradient(145deg,#111713,#0b100d);box-shadow:0 10px 28px rgba(0,0,0,.13)}
+.announce-featured{border-color:rgba(38,206,41,.16);background:linear-gradient(145deg,#142019,#0c120e)}
+.announce-featured:after{content:"";position:absolute;right:-34px;top:-43px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(38,206,41,.09),transparent 70%)}
+.announce-top{display:flex;gap:12px;align-items:center}
+.announce-date-block{width:48px;height:52px;border:1px solid rgba(255,255,255,.07);border-radius:15px;background:rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 auto}
+.announce-date-block strong{font-size:19px;line-height:1;letter-spacing:-.04em}
+.announce-date-block span{margin-top:3px;font-size:7px;color:#79857e;text-transform:uppercase;font-weight:850}
+.announce-main{min-width:0;flex:1}
+.announce-status{display:inline-block;color:#59ed5c;font-size:7px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+.announce-title{margin-top:5px;font-size:13px;font-weight:950;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.announce-meta{margin-top:4px;color:#818d86;font-size:8px}
+.announce-link{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05);color:#b9c5be;text-decoration:none;font-size:8px;font-weight:850}
+.announce-link span{color:#3fe142;font-size:11px}
+.premium-profile{padding:15px;border-radius:21px;border:1px solid rgba(38,206,41,.15);background:linear-gradient(145deg,#142019,#0c120e);box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.premium-profile .profile-open{width:100%}
+.premium-profile .avatar{width:48px;height:48px;border-radius:15px;background:#0a0f0c}
+.profile-chevron{margin-left:auto;color:#4be54e;font-size:20px}
+.premium-profile .profile-rank-grid{margin-top:14px}
+.premium-profile .profile-rank-cell{padding:10px 9px;background:rgba(0,0,0,.19);border-color:rgba(255,255,255,.055)}
+.premium-profile .favorite-row{margin-top:12px}
+.favorite-plus{font-size:17px;color:#44e447;font-weight:900}
+.profile-unlinked{padding:17px}
+.profile-unlinked h3{font-size:16px;margin:7px 0 6px}
+.profile-unlinked p{margin:0;color:#839087;font-size:9px;line-height:1.5}
+.home-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.home-quick-grid button{min-width:0;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:13px 11px;background:linear-gradient(145deg,#111713,#0b100d);color:#f4f7f5;text-align:left;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:9px;align-items:center}
+.quick-icon{width:30px;height:30px;border-radius:10px;background:rgba(38,206,41,.07);display:grid;place-items:center;color:#43e246}
+.quick-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.home-quick-grid b{display:block;font-size:9px;line-height:1.2}
+.home-quick-grid small{display:block;margin-top:3px;color:#738078;font-size:7px;line-height:1.25}
+.quick-arrow{color:#4be54e;font-size:17px}
+.premium-empty{display:flex;flex-direction:column;gap:4px;border-style:solid;background:#0c110e;padding:20px}
+.premium-empty b{color:#dce5df;font-size:11px}
+.premium-empty span{font-size:8px;line-height:1.4}
+@media(max-width:370px){
+ .home-premium-hero{padding:19px 16px 16px}
+ .home-premium-hero h1{font-size:26px}
+ .home-quick-grid{grid-template-columns:1fr}
+}
+</style>
+
+<style id="lt-milan-shell-v5">
+:root{--bg:#060806;--surface:#0e130f;--surface2:#131a15;--line:rgba(255,255,255,.085);--text:#f3f6f3;--muted:#89938d;--g:#26ce29}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg)}
+body{margin:0;overscroll-behavior:none;background:radial-gradient(circle at 8% 0%,rgba(38,206,41,.10),transparent 28%),radial-gradient(circle at 95% 30%,rgba(255,255,255,.025),transparent 32%),var(--bg)}
+.app{width:100%;max-width:560px;height:100dvh;min-height:0;margin:0 auto;padding:0;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.top{position:relative;top:auto;z-index:20;flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;margin:0;padding:calc(15px + env(safe-area-inset-top)) 16px 13px;background:linear-gradient(180deg,rgba(6,8,6,.98),rgba(6,8,6,.84) 74%,rgba(6,8,6,0));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.brand{gap:9px}.brand .logo-img{width:48px;height:42px;border-radius:0;background:transparent}.brand .logo-img img{object-fit:contain}.brand b{font-size:12px;letter-spacing:.105em}.brand small{font-size:8px;letter-spacing:.02em}
+.profile-chip{border:1px solid var(--line);background:rgba(255,255,255,.03);min-height:38px;border-radius:999px;padding:6px 10px 6px 7px;display:flex;align-items:center;gap:7px;color:#dce3de;font-size:9px;font-weight:800}
+.profile-chip-icon{width:25px;height:25px;border-radius:9px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025)}
+.profile-chip-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.profile-chip-photo{width:25px;height:25px;border-radius:9px;object-fit:cover}.profile-chip.has-photo .profile-chip-icon{display:none}
+#root{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding:4px 16px calc(126px + env(safe-area-inset-bottom));position:relative;z-index:1}
+.nav{position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 20px),540px);height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:8px 7px;border-radius:25px;border:1px solid rgba(255,255,255,.095);background:rgba(13,17,14,.90);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 15px 50px rgba(0,0,0,.52);z-index:50}
+.nav button{border:0;background:transparent;min-height:52px;color:#66716a;display:grid;justify-items:center;align-content:center;gap:4px;padding:0 4px;border-radius:0;font-size:8px;font-weight:800}
+.nav button.on{background:transparent;color:#f3f6f3;box-shadow:none}
+.nav-ico{width:22px;height:22px;display:grid;place-items:center}.nav-ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nav-main{margin-top:-22px!important;color:#88928c!important}
+.nav-main .nav-ico{width:48px;height:48px;border-radius:50%;background:linear-gradient(145deg,#35e53a,#118a16);color:#041005;border:4px solid #090d0a;box-shadow:0 9px 30px rgba(38,206,41,.26)}
+.nav-main.on .nav-ico{outline:1px solid rgba(255,255,255,.28);color:#041005}
+.nav-main.on>span:last-child{color:#f3f6f3}
+.is-loading .app{max-width:none;height:100dvh;padding:0}.is-loading .top,.is-loading .nav{display:none!important}.is-loading #root{position:fixed;inset:0;z-index:100;padding:0;background:#050706}
+.loading-screen img{width:min(158px,42vw)}
+.lt-home-page{animation:ltPageIn .28s ease}@keyframes ltPageIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.home-label{color:#42e846;font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+.lt-manifesto{margin:8px 0 11px;font-size:clamp(35px,10.7vw,52px);line-height:.92;letter-spacing:-.06em;font-weight:950}
+.lt-manifesto span{display:block}.lt-manifesto span:last-child{color:#47e84b}
+.lt-intro{margin:0 0 21px;max-width:430px;color:var(--muted);font-size:12px;line-height:1.5}
+.lt-event-hero{position:relative;isolation:isolate;overflow:hidden;min-height:326px;border-radius:30px;padding:20px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.045),transparent 34%),radial-gradient(circle at 25% 12%,rgba(255,255,255,.07),transparent 30%),linear-gradient(140deg,#071b09 0%,#17841a 52%,#0b3d0d 100%);box-shadow:0 24px 70px rgba(0,0,0,.40)}
+.lt-event-hero:after{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(105deg,transparent 0 34px,rgba(255,255,255,.018) 34px 35px)}
+.lt-hero-watermark{position:absolute;right:-26px;bottom:4px;z-index:-1;font-size:150px;line-height:1;font-weight:1000;letter-spacing:-.12em;color:rgba(255,255,255,.055)}
+.lt-hero-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:rgba(255,255,255,.78);font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.lt-hero-top span:first-child{padding:6px 9px;border:1px solid rgba(255,255,255,.20);border-radius:999px;background:rgba(0,0,0,.14)}
+.lt-hero-main{display:flex;align-items:center;gap:14px;margin:38px 0 28px}
+.lt-date-tile{width:74px;height:78px;border-radius:23px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.16);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.lt-date-tile strong{font-size:30px;line-height:1;letter-spacing:-.05em}.lt-date-tile span{margin-top:5px;font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.68);font-weight:850}
+.lt-hero-copy{min-width:0}.lt-hero-copy h2{margin:0;font-size:26px;line-height:.98;letter-spacing:-.045em;font-weight:950}.lt-hero-copy p{margin:8px 0 0;color:rgba(255,255,255,.72);font-size:10px;line-height:1.4}
+.lt-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.lt-hero-stats div{padding:11px 10px;border:1px solid rgba(255,255,255,.12);border-radius:15px;background:rgba(0,0,0,.15)}.lt-hero-stats strong{display:block;font-size:14px}.lt-hero-stats span{display:block;margin-top:3px;font-size:7px;color:rgba(255,255,255,.62);text-transform:uppercase;letter-spacing:.06em}
+.lt-hero-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}.lt-primary-btn,.lt-secondary-btn{min-height:48px;border-radius:15px;font-weight:900;font-size:10px;display:flex;align-items:center;justify-content:center;text-decoration:none}.lt-primary-btn{border:0;background:#f2f6f2;color:#071008;padding:0 15px;box-shadow:0 10px 26px rgba(0,0,0,.22)}.lt-primary-btn span{margin-left:8px}.lt-secondary-btn{min-width:86px;padding:0 14px;border:1px solid rgba(255,255,255,.17);background:rgba(0,0,0,.18);color:#f0f5f1}
+.lt-section{margin-top:27px}.lt-section-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}.lt-section-head h2{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase}.lt-section-head button,.lt-section-head>span{border:0;background:none;color:#7f8b83;padding:4px 0;font-size:9px;font-weight:800}.lt-section-head button span{color:#3be23f;margin-left:3px}
+.lt-profile-card{border:1px solid var(--line);border-radius:26px;padding:17px;background:radial-gradient(circle at 100% 0%,rgba(38,206,41,.08),transparent 43%),linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015));box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.lt-profile-main{width:100%;border:0;background:none;color:inherit;padding:0;display:flex;align-items:center;gap:11px;text-align:left}.lt-profile-main .avatar{width:50px;height:50px;border-radius:16px}.lt-profile-copy{min-width:0;flex:1}.lt-profile-copy strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lt-profile-copy span{display:block;margin-top:4px;color:var(--muted);font-size:9px}.lt-chevron{color:#48e84b;font-size:22px}
+.lt-profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}.lt-profile-stats div{padding:11px 9px;border-radius:15px;border:1px solid rgba(255,255,255,.055);background:rgba(0,0,0,.16)}.lt-profile-stats strong{display:block;font-size:18px;letter-spacing:-.04em}.lt-profile-stats div:first-child strong{color:#47e84b}.lt-profile-stats span{display:block;margin-top:3px;color:#738078;font-size:7px;text-transform:uppercase;letter-spacing:.07em}
+.lt-profile-empty h3{font-size:16px;margin:8px 0 6px}.lt-profile-empty p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}
+.lt-horizontal{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(222px,72%);gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 2px 4px;scrollbar-width:none}.lt-horizontal::-webkit-scrollbar{display:none}
+.lt-event-card,.lt-archive-card{scroll-snap-align:start;min-height:154px;border:1px solid var(--line);border-radius:23px;padding:16px;background:linear-gradient(145deg,rgba(255,255,255,.048),rgba(255,255,255,.013));color:inherit;text-align:left;position:relative}
+.lt-event-card-top{display:flex;justify-content:space-between;gap:8px;color:#7f8a83;font-size:8px;text-transform:uppercase;letter-spacing:.07em}.lt-event-card-top span{color:#49e94d;font-weight:900}.lt-event-card h3,.lt-archive-card h3{margin:22px 0 7px;font-size:17px;line-height:1.05;letter-spacing:-.03em}.lt-event-card p,.lt-archive-card p{margin:0;color:var(--muted);font-size:9px}.lt-event-card a{position:absolute;left:16px;right:16px;bottom:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,.055);display:flex;justify-content:space-between;color:#c8d2cc;text-decoration:none;font-size:8px;font-weight:850}.lt-event-card a span{color:#43e347}
+.lt-archive-card{display:block;width:100%}.lt-archive-card h3{margin-top:14px}.lt-champion{margin-top:11px;color:#d9bc69;font-size:8px;font-weight:850}.lt-card-arrow{position:absolute;right:15px;bottom:12px;color:#42e746;font-size:20px}
+@media(max-width:370px){#root{padding-left:13px;padding-right:13px}.lt-manifesto{font-size:34px}.lt-event-hero{padding:18px;min-height:315px}.lt-date-tile{width:67px;height:72px}.lt-hero-copy h2{font-size:23px}}
+</style>
+
+<style id="lt-profile-nav-v6">
+.nav{grid-template-columns:repeat(4,1fr);gap:1px;padding:7px 6px}
+.nav button,.nav button.nav-main{margin-top:0!important;min-height:54px;border-radius:16px;color:#68736d!important}
+.nav button .nav-ico,.nav button.nav-main .nav-ico{width:22px;height:22px;border-radius:0;background:transparent;color:inherit;border:0;box-shadow:none}
+.nav button .nav-ico svg,.nav button.nav-main .nav-ico svg{width:18px;height:18px}
+.nav button.on,.nav button.nav-main.on{background:rgba(38,206,41,.075);color:#42e646!important;box-shadow:inset 0 0 0 1px rgba(38,206,41,.035)}
+.nav button.on .nav-ico,.nav button.nav-main.on .nav-ico{outline:0;color:#42e646}
+.nav button.on>span:last-child,.nav button.nav-main.on>span:last-child{color:#42e646}
+.profile-tab-page{animation:ltPageIn .28s ease}
+.profile-tab-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+.profile-tab-title{margin:7px 0 0;font-size:33px;line-height:.96;letter-spacing:-.055em;font-weight:950}
+.profile-tab-sub{margin:0 0 18px;color:var(--muted);font-size:11px;line-height:1.5;max-width:420px}
+.profile-tab-hero{border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:18px;background:radial-gradient(circle at 100% 0%,rgba(38,206,41,.105),transparent 42%),linear-gradient(145deg,#131b15,#0b100d);box-shadow:0 20px 55px rgba(0,0,0,.25)}
+.profile-tab-person{display:flex;align-items:center;gap:12px}
+.profile-tab-avatar{width:56px;height:56px;border-radius:18px;background:#0a0f0b;flex:0 0 auto}
+.profile-tab-person>div:last-child{min-width:0}
+.profile-tab-person strong{display:block;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-tab-person span{display:block;margin-top:4px;color:var(--muted);font-size:9px}
+.profile-tab-primary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:16px}
+.profile-tab-primary-stats div{padding:12px 10px;border-radius:16px;border:1px solid rgba(255,255,255,.055);background:rgba(0,0,0,.17)}
+.profile-tab-primary-stats strong{display:block;font-size:19px;letter-spacing:-.045em}
+.profile-tab-primary-stats div:nth-child(2) strong{color:#46e749}
+.profile-tab-primary-stats span{display:block;margin-top:3px;color:#758078;font-size:7px;text-transform:uppercase;letter-spacing:.075em}
+.profile-tab-favorite{margin-top:14px;padding-top:14px}
+.profile-tab-section{margin-top:26px}
+.profile-tab-section-head{display:flex;align-items:end;justify-content:space-between;margin:0 2px 11px}
+.profile-tab-section-head h2{margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+.profile-tab-section-head span{color:#7d8981;font-size:9px}
+.profile-tab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.profile-metric{min-height:82px;padding:13px;border-radius:19px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(145deg,rgba(255,255,255,.042),rgba(255,255,255,.012));display:flex;flex-direction:column;justify-content:space-between}
+.profile-metric strong{font-size:23px;letter-spacing:-.05em}.profile-metric span{color:#7d8881;font-size:7px;line-height:1.25;text-transform:uppercase;letter-spacing:.065em}
+.profile-history{display:grid;gap:8px}
+.profile-history-card{width:100%;border:1px solid rgba(255,255,255,.075);border-radius:20px;padding:14px;background:linear-gradient(145deg,#111713,#0a0f0c);color:inherit;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.profile-history-main{min-width:0}.profile-history-main strong{display:block;margin-top:6px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-history-main small{display:block;margin-top:5px;color:#7f8a83;font-size:8px}
+.profile-history-side{text-align:right;flex:0 0 auto}.profile-history-side b{display:block;font-size:14px}.profile-history-side span{display:block;margin-top:2px;color:#6e7972;font-size:7px}.profile-history-side i{display:block;margin-top:4px;color:#42e646;font-style:normal;font-size:18px;line-height:1}
+.profile-history-empty,.profile-tab-empty{border:1px solid rgba(255,255,255,.07);border-radius:22px;background:#0c110d;color:#7f8a83;padding:18px;font-size:10px}
+.profile-tab-empty{min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.profile-tab-empty-icon{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;background:rgba(38,206,41,.07);color:#44e648;margin-bottom:13px}
+.profile-tab-empty-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6}
+.profile-tab-empty strong{color:#e8eee9;font-size:13px}.profile-tab-empty span{margin-top:7px;max-width:280px;line-height:1.45}
+@media(max-width:360px){.profile-tab-title{font-size:30px}.profile-tab-grid{grid-template-columns:repeat(2,1fr)}.nav button span:last-child{font-size:7px}}
+</style>
+
+<style id="lt-rating-home-v7">
+.rating-page-head{padding:5px 2px 3px;margin-bottom:15px}
+.rating-page-head h1{margin:7px 0 8px;font-size:34px;line-height:.95;letter-spacing:-.055em;font-weight:950}
+.rating-page-head p{margin:0;max-width:430px;color:#7f8a83;font-size:10px;line-height:1.5}
+.rating-filters{margin:0 0 15px;padding-bottom:2px}
+.rating-filters .chip{background:#0c110e;border-color:rgba(255,255,255,.075);padding:9px 13px;color:#7f8983}
+.rating-filters .chip.on{background:#f0f4f0;border-color:#f0f4f0;color:#071008;box-shadow:0 8px 22px rgba(0,0,0,.16)}
+.rating-premium-wrap{margin-top:0}
+.rating-podium{display:grid;grid-template-columns:1.08fr .96fr .96fr;gap:8px;align-items:end;margin-bottom:11px}
+.rating-podium-card{min-width:0;border:1px solid rgba(255,255,255,.075);border-radius:22px;padding:15px 11px 12px;background:linear-gradient(160deg,#121914,#0a0f0c);color:inherit;text-align:left;position:relative;overflow:hidden;box-shadow:0 14px 35px rgba(0,0,0,.18)}
+.rating-podium-card.place-1{min-height:176px;border-color:rgba(38,206,41,.24);background:radial-gradient(circle at 50% 0%,rgba(38,206,41,.14),transparent 52%),linear-gradient(160deg,#142019,#0a0f0c)}
+.rating-podium-card.place-2,.rating-podium-card.place-3{min-height:158px}
+.rating-medal{width:30px;height:30px;border-radius:11px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);font-size:9px;font-weight:950;color:#9aa59e}
+.place-1 .rating-medal{background:rgba(38,206,41,.10);border-color:rgba(38,206,41,.22);color:#53ec57}
+.rating-podium-name{margin-top:14px;font-size:11px;font-weight:950;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rating-podium-score{margin-top:13px}.rating-podium-score strong{display:block;font-size:25px;line-height:.9;letter-spacing:-.055em;color:#48e84c}.rating-podium-score span{display:block;margin-top:5px;color:#77827b;font-size:6px;text-transform:uppercase;letter-spacing:.08em}
+.rating-podium-meta{margin-top:11px;padding-top:9px;border-top:1px solid rgba(255,255,255,.055);color:#69746d;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rating-table-premium{display:grid;gap:6px}
+.rating-row-premium{width:100%;min-height:64px;border:1px solid rgba(255,255,255,.065);border-radius:18px;background:linear-gradient(145deg,#101612,#0a0f0c);color:inherit;padding:9px 11px;display:grid;grid-template-columns:26px minmax(0,1fr) 48px 43px;gap:8px;align-items:center;text-align:left}
+.rating-rank{font-size:11px;font-weight:950;color:#89958e;text-align:center}
+.rating-person{min-width:0}.rating-person b{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rating-person small{display:block;margin-top:4px;color:#6e7972;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rating-average{text-align:right}.rating-average strong{display:block;color:#49e84d;font-size:15px;letter-spacing:-.035em}.rating-average span,.rating-total span{display:block;color:#657069;font-size:6px;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.rating-total{text-align:right;padding-left:7px;border-left:1px solid rgba(255,255,255,.055)}.rating-total b{display:block;color:#bac4be;font-size:10px}
+.lt-next-placeholder{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:21px 20px;background:radial-gradient(circle at 90% 0%,rgba(38,206,41,.10),transparent 42%),linear-gradient(145deg,#121914,#0a0f0c);box-shadow:0 18px 48px rgba(0,0,0,.22)}
+.lt-placeholder-watermark{position:absolute;right:-18px;bottom:-30px;font-size:120px;font-weight:1000;letter-spacing:-.12em;color:rgba(255,255,255,.025);pointer-events:none}
+.lt-next-placeholder h2{position:relative;margin:10px 0 8px;max-width:82%;font-size:25px;line-height:1;letter-spacing:-.045em}
+.lt-next-placeholder p{position:relative;margin:0;max-width:78%;color:#839087;font-size:10px;line-height:1.5}
+.lt-placeholder-actions{position:relative;display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:19px}
+@media(max-width:390px){
+ .rating-podium{grid-template-columns:1fr 1fr;align-items:stretch}
+ .rating-podium-card.place-1{grid-column:1/-1;min-height:146px}
+ .rating-podium-card.place-2,.rating-podium-card.place-3{min-height:142px}
+}
+</style>
+
+<style id="lt-admin-club-v8">
+.nav.has-admin{grid-template-columns:repeat(5,1fr)}
+.nav button[hidden]{display:none!important}
+.rating-podium-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rating-club-mark{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.055);overflow:hidden;flex:0 0 auto}
+.rating-club-mark img{width:24px;height:24px;object-fit:contain}
+.rating-club-empty{opacity:.32;background:transparent;border-style:dashed}
+.rating-row-premium{grid-template-columns:26px 30px minmax(0,1fr) 48px 43px}
+.rating-row-premium .rating-club-mark{width:30px;height:30px;border-radius:10px}
+.rating-row-premium .rating-club-mark img{width:24px;height:24px}
+.profile-admin-entry{width:100%;border:1px solid rgba(38,206,41,.14);border-radius:20px;padding:14px;background:linear-gradient(145deg,#121a14,#0b100d);color:inherit;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:11px;align-items:center;text-align:left}
+.profile-admin-icon{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:rgba(38,206,41,.08);color:#45e649}
+.profile-admin-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.profile-admin-entry strong{display:block;font-size:11px}.profile-admin-entry small{display:block;margin-top:4px;color:#7e8982;font-size:8px}.profile-admin-entry i{font-style:normal;color:#44e648;font-size:20px}
+.admin-claim-card{border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:15px;background:#0c110d}
+.admin-claim-card strong{display:block;font-size:11px}.admin-claim-card>div>span{display:block;margin-top:5px;color:#7c8780;font-size:8px}
+.admin-claim-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin-top:12px}
+.admin-claim-row input,.admin-claim-row button{min-height:42px;border-radius:13px;font:inherit}
+.admin-claim-row input{min-width:0;border:1px solid rgba(255,255,255,.08);background:#080c09;color:#fff;padding:0 12px;font-size:10px;outline:none}
+.admin-claim-row button{border:1px solid rgba(38,206,41,.18);background:rgba(38,206,41,.09);color:#5bea5e;padding:0 12px;font-size:9px;font-weight:900}
+.admin-page{animation:ltPageIn .28s ease}.admin-title{margin:7px 0 8px;font-size:34px;line-height:.95;letter-spacing:-.055em;font-weight:950}.admin-subtitle{margin:0 0 18px;color:#7e8982;font-size:10px;line-height:1.5;max-width:430px}
+.admin-tournament-form{border:1px solid rgba(38,206,41,.13);border-radius:25px;padding:16px;background:radial-gradient(circle at 100% 0%,rgba(38,206,41,.07),transparent 45%),linear-gradient(145deg,#111813,#0a0f0c);display:grid;gap:11px}
+.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.admin-form-row label,.admin-form-grid label{display:grid;gap:6px}.admin-tournament-form label>span{color:#7c8780;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.admin-tournament-form input,.admin-tournament-form select{width:100%;min-width:0;height:44px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:#080c09;color:#eef3ef;padding:0 11px;font-size:10px;outline:none}
+.admin-tournament-form input:focus,.admin-tournament-form select:focus{border-color:rgba(38,206,41,.45);box-shadow:0 0 0 3px rgba(38,206,41,.055)}
+.admin-create-btn{min-height:48px;border:0;border-radius:15px;background:#2bd52f;color:#041006;font-size:10px;font-weight:950;box-shadow:0 10px 28px rgba(38,206,41,.12)}
+.admin-list-section{margin-top:25px}.admin-tournament-list{display:grid;gap:8px}
+.admin-tournament-card{border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:14px;background:linear-gradient(145deg,#111713,#090e0b);display:grid;grid-template-columns:minmax(0,1fr) 38px;gap:10px;align-items:center}
+.admin-tournament-main{min-width:0}.admin-tournament-badges{display:flex;align-items:center;gap:6px;margin-bottom:7px}.admin-tournament-badges span,.admin-tournament-badges i{font-style:normal;font-size:7px;font-weight:850;border-radius:999px;padding:5px 7px}.admin-tournament-badges span{color:#55e959;background:rgba(38,206,41,.07);border:1px solid rgba(38,206,41,.13)}.admin-tournament-badges i{color:#8d9991;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06)}
+.admin-tournament-main strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.admin-tournament-main small{display:block;margin-top:5px;color:#768179;font-size:8px;line-height:1.35}
+.admin-delete-btn{width:38px;height:38px;border-radius:13px;border:1px solid rgba(255,90,90,.12);background:rgba(255,75,75,.04);color:#bd7373;display:grid;place-items:center}
+.admin-delete-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:390px){.admin-form-grid{grid-template-columns:1fr}.nav.has-admin button>span:last-child{font-size:6.5px}.rating-row-premium{grid-template-columns:24px 28px minmax(0,1fr) 44px}.rating-total{display:none}}
+</style>
+
+<style id="lt-tournament-detail-v9">
+.is-loading .loading-screen{background:radial-gradient(circle at 50% 44%,rgba(38,206,41,.075),transparent 30%),#050706}
+.is-loading .loading-brand-logo{width:min(224px,58vw)!important;max-width:224px;height:auto!important;filter:drop-shadow(0 0 24px rgba(38,206,41,.14))!important;image-rendering:auto!important}
+.is-loading .load-line{width:116px;margin-top:26px}
+.rating-filters{display:none!important}
+.archive-back{margin:3px 0 12px}
+.archive-hero{padding:4px 2px 16px}
+.archive-hero h1{margin:7px 0 7px;font-size:31px;line-height:.98;letter-spacing:-.05em}
+.archive-stage-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 16px;padding:5px;border:1px solid rgba(255,255,255,.07);border-radius:19px;background:#0a0f0c}
+.archive-stage-nav button{min-width:0;border:0;border-radius:14px;background:transparent;color:#738078;padding:10px 7px 9px;font-size:8px;font-weight:900;line-height:1.15;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left}
+.archive-stage-nav button span{font-size:7px;color:#58625c;letter-spacing:.08em}
+.archive-stage-nav button.on{background:linear-gradient(145deg,rgba(38,206,41,.14),rgba(38,206,41,.065));color:#4ce850;box-shadow:inset 0 0 0 1px rgba(38,206,41,.10)}
+.archive-stage-nav button.on span{color:#8af08c}
+.archive-stage-body{animation:ltStageIn .2s ease}
+@keyframes ltStageIn{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
+.archive-subnav{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin:0 0 13px;padding:1px}
+.archive-subnav::-webkit-scrollbar{display:none}
+.archive-subnav button{flex:0 0 auto;min-height:36px;border-radius:12px;border:1px solid rgba(255,255,255,.075);background:#0d120f;color:#7c8780;padding:0 13px;font-size:9px;font-weight:900}
+.archive-subnav button.on{background:#f0f4f0;border-color:#f0f4f0;color:#071008}
+.archive-group-card{border:1px solid rgba(255,255,255,.075);border-radius:24px;padding:15px;background:linear-gradient(145deg,#111813,#090e0b)}
+.archive-group-title{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:12px}
+.archive-group-title h2{margin:4px 0 0;font-size:20px;letter-spacing:-.035em}
+.archive-group-title>span{font-size:8px;color:#758078}
+.archive-standings-head,.archive-standing-row{display:grid;grid-template-columns:26px minmax(0,1fr) 24px 24px 24px 30px;gap:5px;align-items:center}
+.archive-standings-head{padding:0 6px 7px;color:#5f6a63;font-size:6px;text-transform:uppercase;letter-spacing:.07em}
+.archive-standing-row{position:relative;min-height:54px;padding:7px 6px;border-top:1px solid rgba(255,255,255,.05)}
+.archive-standing-row:before{content:"";position:absolute;left:-15px;top:7px;bottom:7px;width:2px;border-radius:99px;background:#2bd62f;opacity:.9}
+.archive-standing-row.qual-silver:before{background:#9aa4a0;opacity:.45}
+.archive-standing-pos{font-size:10px;font-weight:950;color:#7d8981;text-align:center}
+.archive-standing-row>div{min-width:0}
+.archive-standing-row strong{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.archive-standing-row small{display:block;margin-top:3px;color:#68736c;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.archive-standing-row>span:not(.archive-standing-pos){font-size:9px;color:#8b968f;text-align:center}
+.archive-standing-row>b{font-size:13px;color:#45e649;text-align:right}
+.archive-stage-matches,.archive-round{margin-top:20px}
+.archive-section-title{display:flex;align-items:center;justify-content:space-between;margin:0 2px 9px}
+.archive-section-title h2{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.075em}
+.archive-section-title>span{font-size:8px;color:#717c75}
+.archive-bracket-rounds{display:grid;gap:4px}
+.archive-third-place{padding-top:5px;border-top:1px solid rgba(255,255,255,.05)}
+.archive-winners-grid{display:grid;gap:12px}
+.archive-podium{border:1px solid rgba(255,255,255,.08);border-radius:25px;padding:16px;background:radial-gradient(circle at 100% 0%,rgba(38,206,41,.08),transparent 40%),linear-gradient(145deg,#111813,#090e0b)}
+.archive-podium-silver{background:radial-gradient(circle at 100% 0%,rgba(180,190,186,.08),transparent 40%),linear-gradient(145deg,#121615,#090e0b)}
+.archive-podium-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.archive-podium-head>span{font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.075em}
+.archive-podium-head small{font-size:7px;color:#78837c;text-transform:uppercase;letter-spacing:.08em}
+.archive-podium-grid{display:grid;gap:7px}
+.archive-podium-place{min-height:66px;border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:10px 12px;display:grid;grid-template-columns:35px minmax(0,1fr);gap:10px;align-items:center;background:rgba(0,0,0,.13)}
+.archive-podium-place.place-1{min-height:78px;border-color:rgba(38,206,41,.18);background:rgba(38,206,41,.055)}
+.archive-podium-silver .archive-podium-place.place-1{border-color:rgba(200,210,205,.14);background:rgba(255,255,255,.035)}
+.archive-place-num{width:35px;height:35px;border-radius:12px;display:grid;place-items:center;background:rgba(38,206,41,.08);color:#48e84c;font-size:14px;font-weight:950}
+.archive-podium-silver .archive-place-num{background:rgba(255,255,255,.045);color:#c7d0cb}
+.archive-podium-place>div:last-child{min-width:0}
+.archive-podium-place span{display:block;color:#718078;font-size:7px;text-transform:uppercase;letter-spacing:.07em}
+.archive-podium-place strong{display:block;margin-top:3px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.archive-podium-place small{display:block;margin-top:3px;color:#68736d;font-size:7px}
+@media(max-width:390px){
+ .archive-stage-nav button{font-size:7px;padding-left:6px;padding-right:6px}
+ .archive-standings-head,.archive-standing-row{grid-template-columns:23px minmax(0,1fr) 22px 22px 22px 28px}
+ .is-loading .loading-brand-logo{width:min(210px,58vw)!important}
+}
+</style>
+
+<style id="lt-profile-club-declension-v10">
+.profile-favorite-section{margin-top:20px}
+.profile-favorite-card,.player-favorite-card{border:1px solid rgba(38,206,41,.13);border-radius:20px;padding:14px;background:linear-gradient(145deg,#111914,#0a0f0c);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.profile-favorite-card .favorite-club,.player-favorite-card .favorite-club{margin:0;flex:1}
+.profile-favorite-card .favorite-club-copy small,.player-favorite-card .favorite-club-copy small{max-width:290px;line-height:1.35}
+.profile-favorite-card .favorite-btn{flex:0 0 auto}
+@media(max-width:390px){
+ .profile-favorite-card{align-items:stretch;flex-direction:column}
+ .profile-favorite-card .favorite-btn{width:100%;min-height:38px}
+}
+</style>
+
+<style id="lt-profile-polish-v12">
+.profile-tab-page>.kicker{margin-bottom:7px}
+.profile-tab-title{margin-top:0!important;margin-bottom:10px!important;line-height:.98}
+.profile-tab-sub{margin-top:0!important;margin-bottom:20px!important;line-height:1.55}
+.profile-tab-head{margin-bottom:18px}
+.profile-match-icon{display:grid!important;place-items:center!important;color:#56e95a!important}
+.profile-match-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.profile-match-summary .rr{align-items:center}
+</style>
+
+<style id="lt-admin-link-v13">
+.admin-tournament-badges em{font-style:normal;font-size:7px;font-weight:900;border-radius:999px;padding:5px 7px;color:#58ea5c;background:rgba(38,206,41,.08);border:1px solid rgba(38,206,41,.14)}
+.admin-generator-link{margin-top:13px;padding-top:12px;border-top:1px solid rgba(255,255,255,.055)}
+.admin-generator-link label{display:grid;gap:6px}
+.admin-generator-link label>span{color:#717d75;font-size:7px;font-weight:850;text-transform:uppercase;letter-spacing:.075em}
+.admin-generator-link select{width:100%;height:40px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:#080c09;color:#eef3ef;padding:0 10px;font-size:9px;outline:none}
+.admin-generator-actions{display:flex;gap:7px;margin-top:8px}
+.admin-generator-actions button{min-height:36px;border-radius:11px;border:1px solid rgba(38,206,41,.17);background:rgba(38,206,41,.09);color:#52ea56;padding:0 11px;font-size:8px;font-weight:900}
+.admin-generator-actions button.ghost{border-color:rgba(255,255,255,.08);background:rgba(255,255,255,.025);color:#87928b}
+.admin-generator-link>small{display:block;margin-top:7px;color:#657068;font-size:7px;line-height:1.35}
+</style>
+
+<style id="lt-premium-loading-bracket-v14">
+/* top-3: subtle medal colors */
+.rating-podium-card.place-1{
+  border-color:rgba(235,191,78,.30)!important;
+  background:
+    radial-gradient(circle at 18% 0%,rgba(235,191,78,.14),transparent 42%),
+    linear-gradient(160deg,#17160f,#0b0f0c)!important;
+  box-shadow:0 16px 38px rgba(0,0,0,.22),inset 0 0 36px rgba(235,191,78,.025)!important
+}
+.rating-podium-card.place-2{
+  border-color:rgba(202,211,216,.22)!important;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(202,211,216,.10),transparent 44%),
+    linear-gradient(160deg,#151817,#0b0f0d)!important
+}
+.rating-podium-card.place-3{
+  border-color:rgba(190,120,65,.24)!important;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(190,120,65,.11),transparent 44%),
+    linear-gradient(160deg,#17130f,#0b0f0d)!important
+}
+.rating-podium-card.place-1 .rating-medal{color:#f2cc68!important;border-color:rgba(235,191,78,.35)!important;background:rgba(235,191,78,.09)!important}
+.rating-podium-card.place-2 .rating-medal{color:#d7dfe3!important;border-color:rgba(205,215,220,.28)!important;background:rgba(205,215,220,.07)!important}
+.rating-podium-card.place-3 .rating-medal{color:#cf8c59!important;border-color:rgba(190,120,65,.30)!important;background:rgba(190,120,65,.08)!important}
+.rating-podium-card.place-1 .rating-podium-score strong{color:#f0c85f!important}
+.rating-podium-card.place-2 .rating-podium-score strong{color:#d4dde1!important}
+.rating-podium-card.place-3 .rating-podium-score strong{color:#c98755!important}
+
+/* in-app skeleton loader */
+.skeleton-page{padding:6px 2px 4px;animation:skFade .18s ease}
+.sk{display:block;position:relative;overflow:hidden;background:#111713;border:1px solid rgba(255,255,255,.035)}
+.sk:after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.055),transparent);animation:skSweep 1.15s ease-in-out infinite}
+.sk-kicker{width:72px;height:9px;border-radius:999px;margin-bottom:11px}
+.sk-title{width:62%;height:31px;border-radius:10px;margin-bottom:10px}
+.sk-subtitle{width:43%;height:10px;border-radius:999px;margin-bottom:20px}
+.skeleton-tabs{display:flex;gap:7px;margin-bottom:14px}.skeleton-tabs .sk{width:86px;height:36px;border-radius:13px}
+.skeleton-grid{display:grid;gap:9px}
+.skeleton-card{height:92px;border:1px solid rgba(255,255,255,.055);border-radius:20px;padding:15px;background:linear-gradient(145deg,#0f1511,#090d0b)}
+.sk-line{height:12px;width:66%;border-radius:999px}.sk-line.short{width:48%}.sk-line.small{height:8px;width:38%;margin-top:9px}
+.skeleton-card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:18px}.sk-dot{width:27px;height:27px;border-radius:9px}.sk-score{width:54px;height:18px;border-radius:8px}
+@keyframes skSweep{to{transform:translateX(100%)}}@keyframes skFade{from{opacity:.25}to{opacity:1}}
+@media(min-width:580px){.skeleton-grid{grid-template-columns:1fr 1fr}}
+
+/* Gold / Silver playoff palette */
+.archive-tier-nav button[data-archive-tier="gold"].on{
+  color:#171006!important;background:linear-gradient(145deg,#f1cc68,#c99d32)!important;border-color:rgba(244,207,105,.72)!important;
+  box-shadow:0 8px 24px rgba(201,157,50,.13)
+}
+.archive-tier-nav button[data-archive-tier="silver"].on{
+  color:#101415!important;background:linear-gradient(145deg,#dce4e7,#aeb9bd)!important;border-color:rgba(220,228,231,.65)!important;
+  box-shadow:0 8px 24px rgba(174,185,189,.10)
+}
+.archive-playoff-shell{border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:14px;background:#0a0f0c;overflow:hidden}
+.archive-playoff-shell.tier-gold{border-color:rgba(235,191,78,.18);background:radial-gradient(circle at 10% 0%,rgba(235,191,78,.07),transparent 28%),#0a0f0c}
+.archive-playoff-shell.tier-silver{border-color:rgba(200,210,215,.16);background:radial-gradient(circle at 10% 0%,rgba(205,215,220,.06),transparent 28%),#0a0f0c}
+.archive-playoff-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px;padding:0 2px}
+.archive-playoff-kicker{display:block;font-size:7px;font-weight:950;text-transform:uppercase;letter-spacing:.11em;margin-bottom:5px}
+.tier-gold .archive-playoff-kicker{color:#e8bd55}.tier-silver .archive-playoff-kicker{color:#c6d0d4}
+.archive-playoff-head h2{margin:0;font-size:18px;letter-spacing:-.03em}
+.archive-swipe-hint{font-size:7px;color:#6d7771;text-transform:uppercase;letter-spacing:.07em}
+.bracket-scroll{overflow-x:auto;overflow-y:hidden;padding:2px 2px 10px;margin:0 -4px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.bracket-board{display:flex;align-items:stretch;gap:18px;width:max-content;min-width:100%;padding:0 4px}
+.bracket-col{width:212px;flex:0 0 212px;scroll-snap-align:start;display:flex;flex-direction:column}
+.bracket-col-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:30px;margin-bottom:9px}
+.bracket-col-head>span{font-size:9px;font-weight:950;text-transform:uppercase;letter-spacing:.07em}
+.bracket-col-head small{font-size:7px;color:#6f7a73}
+.bracket-col-matches{display:flex;flex-direction:column;justify-content:space-around;gap:12px;flex:1;min-height:220px}
+.bracket-match{position:relative;border:1px solid rgba(255,255,255,.075);border-radius:15px;background:linear-gradient(145deg,#111713,#090e0b);overflow:visible;box-shadow:0 10px 28px rgba(0,0,0,.15)}
+.bracket-col:not(:last-child) .bracket-match:after{content:"";position:absolute;right:-19px;top:50%;width:18px;height:1px;background:rgba(255,255,255,.10)}
+.tier-gold .bracket-match{border-color:rgba(235,191,78,.13)}
+.tier-gold .bracket-col:not(:last-child) .bracket-match:after{background:rgba(235,191,78,.22)}
+.tier-silver .bracket-match{border-color:rgba(205,215,220,.12)}
+.tier-silver .bracket-col:not(:last-child) .bracket-match:after{background:rgba(205,215,220,.18)}
+.bracket-team{min-height:45px;padding:9px 10px;display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:8px;align-items:center}
+.bracket-team+.bracket-team{border-top:1px solid rgba(255,255,255,.055)}
+.bracket-team-copy{min-width:0}.bracket-team strong{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bracket-team small{display:block;margin-top:3px;color:#68736d;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bracket-team>b{text-align:right;font-size:13px;color:#9aa49e}
+.tier-gold .bracket-team.winner{background:rgba(235,191,78,.055)}.tier-gold .bracket-team.winner>b{color:#efc75e}
+.tier-silver .bracket-team.winner{background:rgba(205,215,220,.045)}.tier-silver .bracket-team.winner>b{color:#d7e0e4}
+.bracket-pen{position:absolute;right:8px;bottom:-7px;padding:3px 6px;border-radius:999px;background:#0a0f0c;border:1px solid rgba(255,255,255,.08);font-size:6px;color:#78827c;text-transform:uppercase;letter-spacing:.06em}
+.bracket-third{margin-top:15px;padding-top:13px;border-top:1px solid rgba(255,255,255,.06);max-width:212px}
+@media(max-width:390px){
+  .bracket-col{width:196px;flex-basis:196px}.bracket-board{gap:16px}
+  .archive-playoff-shell{padding:12px}
+}
+</style>
+
+<style id="lt-winners-skeleton-home-v15">
+/* Winners: the whole Gold podium reads as Gold, the whole Silver podium as Silver. */
+.archive-podium-gold{
+  border-color:rgba(235,191,78,.23)!important;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(235,191,78,.12),transparent 42%),
+    linear-gradient(145deg,#17150e,#0a0e0b)!important;
+  box-shadow:inset 0 0 44px rgba(235,191,78,.018)
+}
+.archive-podium-gold .archive-podium-head>span{color:#efc960}
+.archive-podium-gold .archive-podium-place{
+  border-color:rgba(235,191,78,.12)!important;
+  background:linear-gradient(145deg,rgba(235,191,78,.055),rgba(235,191,78,.016))!important
+}
+.archive-podium-gold .archive-podium-place.place-1{
+  border-color:rgba(235,191,78,.30)!important;
+  background:linear-gradient(145deg,rgba(235,191,78,.13),rgba(235,191,78,.035))!important
+}
+.archive-podium-gold .archive-place-num{
+  background:rgba(235,191,78,.10)!important;
+  color:#f1ca62!important;
+  border:1px solid rgba(235,191,78,.14)
+}
+.archive-podium-gold .archive-podium-place span{color:#9d874f}
+.archive-podium-gold .archive-podium-place strong{color:#f3efe1}
+
+.archive-podium-silver{
+  border-color:rgba(205,215,220,.20)!important;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(205,215,220,.10),transparent 42%),
+    linear-gradient(145deg,#151918,#0a0e0c)!important;
+  box-shadow:inset 0 0 44px rgba(205,215,220,.015)
+}
+.archive-podium-silver .archive-podium-head>span{color:#d4dde1}
+.archive-podium-silver .archive-podium-place{
+  border-color:rgba(205,215,220,.11)!important;
+  background:linear-gradient(145deg,rgba(205,215,220,.05),rgba(205,215,220,.012))!important
+}
+.archive-podium-silver .archive-podium-place.place-1{
+  border-color:rgba(205,215,220,.25)!important;
+  background:linear-gradient(145deg,rgba(205,215,220,.105),rgba(205,215,220,.025))!important
+}
+.archive-podium-silver .archive-place-num{
+  background:rgba(205,215,220,.085)!important;
+  color:#dbe3e6!important;
+  border:1px solid rgba(205,215,220,.13)
+}
+.archive-podium-silver .archive-podium-place span{color:#839097}
+.archive-podium-silver .archive-podium-place strong{color:#f0f3f2}
+
+/* Main announcement watermark: use the real tournament mark, not letters. */
+.lt-hero-logo-watermark{
+  right:-38px!important;
+  bottom:-18px!important;
+  width:235px;
+  height:155px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0!important;
+  color:transparent!important;
+  opacity:.105;
+  transform:rotate(-4deg);
+  pointer-events:none
+}
+.lt-hero-logo-watermark img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:grayscale(1) brightness(3.2);
+}
+
+/* Skeleton: cleaner geometry, no uneven card widths or clipped shimmer. */
+.skeleton-page{width:100%;max-width:100%;overflow:hidden;padding:7px 1px 5px}
+.skeleton-tabs{
+  width:100%;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  margin-bottom:14px
+}
+.skeleton-tabs .sk{width:100%!important;min-width:0;height:34px;border-radius:12px}
+.skeleton-grid{width:100%;grid-template-columns:1fr!important;gap:9px}
+.skeleton-card{width:100%;min-width:0;height:auto;min-height:92px;padding:14px;border-radius:19px}
+.skeleton-card-bottom{width:100%;margin-top:17px}
+.sk-title{width:min(280px,72%);height:29px}
+.sk-subtitle{width:min(190px,49%);height:9px;margin-bottom:18px}
+.sk-line{max-width:100%}
+.sk-score{width:50px;height:16px}
+@media(min-width:580px){
+  .skeleton-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:390px){
+  .lt-hero-logo-watermark{width:205px;height:132px;right:-34px!important;bottom:-10px!important}
+  .skeleton-tabs{gap:6px}
+}
+</style>
+
+<style id="lt-group-table-polish-v16">
+/* Group standings: top-3 belong to Gold, so use a restrained gold accent. */
+.archive-standing-row.qual-gold{
+  background:linear-gradient(90deg,rgba(235,191,78,.045),transparent 36%)
+}
+.archive-standing-row.qual-gold:before{
+  background:#e8bd55!important;
+  opacity:.95!important;
+  box-shadow:0 0 12px rgba(232,189,85,.12)
+}
+.archive-standing-row.qual-gold .archive-standing-pos{
+  color:#d7b454
+}
+.archive-standing-row.qual-gold>b{
+  color:#efc75e!important
+}
+
+/* 4–5 places retain a neutral/silver qualification cue. */
+.archive-standing-row.qual-silver:before{
+  background:#9da8a3!important;
+  opacity:.42!important
+}
+
+/* Keep header geometry pixel-aligned with the data rows. */
+.archive-standings-head{
+  padding:0 6px 8px!important;
+  letter-spacing:.045em!important;
+  line-height:1;
+  align-items:center!important;
+}
+.archive-standings-head>span{
+  display:block;
+  min-width:0;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.archive-standings-head>span:nth-child(1){
+  text-align:center
+}
+.archive-standings-head>span:nth-child(2){
+  text-align:left;
+  padding-left:0
+}
+.archive-standings-head>span:nth-child(3),
+.archive-standings-head>span:nth-child(4),
+.archive-standings-head>span:nth-child(5){
+  text-align:center
+}
+.archive-standings-head>span:nth-child(6){
+  text-align:right
+}
+.archive-standing-row>span,
+.archive-standing-row>b{
+  font-variant-numeric:tabular-nums
+}
+</style>
+
+<style id="lt-group-silver-qualification-v17">
+.archive-standing-row.qual-silver{
+  background:linear-gradient(90deg,rgba(205,215,220,.035),transparent 36%)
+}
+.archive-standing-row.qual-silver:before{
+  background:#aeb9bd!important;
+  opacity:.72!important;
+  box-shadow:0 0 10px rgba(205,215,220,.07)
+}
+.archive-standing-row.qual-silver .archive-standing-pos{
+  color:#aeb8bd
+}
+.archive-standing-row.qual-silver>b{
+  color:#c9d2d6!important
+}
+</style>
+
+<style id="lt-photo-report-contacts-v18">
+.admin-photo-report{margin-top:13px;padding-top:12px;border-top:1px solid rgba(255,255,255,.055)}
+.admin-photo-report label{display:grid;gap:6px}
+.admin-photo-report label>span{color:#717d75;font-size:7px;font-weight:850;text-transform:uppercase;letter-spacing:.075em}
+.admin-photo-report input{width:100%;height:40px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:#080c09;color:#eef3ef;padding:0 10px;font-size:9px;outline:none}
+.admin-photo-report input:focus{border-color:rgba(38,206,41,.38);box-shadow:0 0 0 3px rgba(38,206,41,.045)}
+.admin-photo-report .admin-generator-actions a{min-height:36px;border-radius:11px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);color:#98a29c;padding:0 11px;font-size:8px;font-weight:900;display:inline-flex;align-items:center;text-decoration:none}
+.archive-photo-report{margin-top:14px;border:1px solid rgba(38,206,41,.13);border-radius:17px;padding:11px 12px;background:linear-gradient(145deg,rgba(38,206,41,.07),rgba(38,206,41,.022));display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;text-decoration:none;color:inherit}
+.archive-photo-icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(38,206,41,.09);color:#51e955}
+.archive-photo-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.archive-photo-report b{display:block;font-size:10px}.archive-photo-report small{display:block;margin-top:3px;color:#748078;font-size:7px}.archive-photo-report i{font-style:normal;color:#53e957;font-size:15px}
+.lt-contacts-section{margin-bottom:10px}
+.lt-contact-card{border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:14px;background:radial-gradient(circle at 100% 0%,rgba(38,206,41,.07),transparent 42%),linear-gradient(145deg,#111713,#090e0b);display:grid;gap:13px}
+.lt-contact-copy{display:grid;grid-template-columns:40px minmax(0,1fr);gap:11px;align-items:center}
+.lt-contact-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(38,206,41,.08);color:#50e954}
+.lt-contact-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lt-contact-copy strong{display:block;font-size:11px}.lt-contact-copy small{display:block;margin-top:4px;color:#758078;font-size:8px;line-height:1.35}
+.lt-contact-card>a{min-height:42px;border:1px solid rgba(38,206,41,.15);border-radius:13px;background:rgba(38,206,41,.075);color:#54e958;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:950}
+</style>
+
+<style id="lt-contact-photo-refresh-v19">
+.lt-contacts-section{margin-top:14px!important;margin-bottom:24px!important}
+.lt-contacts-section .lt-section-head{margin-bottom:9px}
+.admin-photo-report{
+  margin-top:14px!important;
+  padding:13px!important;
+  border:1px solid rgba(38,206,41,.12)!important;
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(38,206,41,.045),rgba(38,206,41,.012))
+}
+.admin-photo-title{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  gap:9px;
+  align-items:center;
+  margin-bottom:12px
+}
+.admin-photo-icon{
+  width:34px;height:34px;border-radius:11px;
+  display:grid;place-items:center;
+  background:rgba(38,206,41,.08);
+  color:#55e958
+}
+.admin-photo-icon svg{
+  width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round
+}
+.admin-photo-title strong{display:block;font-size:10px}
+.admin-photo-title small{display:block;margin-top:3px;color:#718078;font-size:7px;line-height:1.35}
+.admin-create-photo-row>label>span{display:flex;align-items:center;gap:6px}
+.admin-create-photo-row>label>span i{font-style:normal;color:#66736a;font-size:7px;text-transform:none;letter-spacing:0}
+.admin-create-photo-row>small{display:block;margin-top:6px;color:#66736c;font-size:7px;line-height:1.35}
+.tour-photo-badge{
+  display:inline-flex;
+  margin-top:8px;
+  padding:4px 7px;
+  border:1px solid rgba(38,206,41,.14);
+  border-radius:999px;
+  background:rgba(38,206,41,.055);
+  color:#54e957;
+  font-size:7px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.06em
+}
+</style>
+
+<style id="lt-direct-archive-photo-v20">
+.archive-photo-admin{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid rgba(38,206,41,.12);
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(38,206,41,.045),rgba(38,206,41,.012))
+}
+.archive-photo-admin>div:first-child strong{display:block;font-size:10px}
+.archive-photo-admin>div:first-child small{display:block;margin-top:3px;color:#718078;font-size:7px}
+.archive-photo-admin-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:10px}
+.archive-photo-admin-row input{
+  min-width:0;height:40px;border:1px solid rgba(255,255,255,.08);border-radius:12px;
+  background:#080c09;color:#eef3ef;padding:0 10px;font-size:9px;outline:none
+}
+.archive-photo-admin-row input:focus{border-color:rgba(38,206,41,.38);box-shadow:0 0 0 3px rgba(38,206,41,.045)}
+.archive-photo-admin-row button{
+  min-height:40px;border-radius:12px;border:1px solid rgba(38,206,41,.16);
+  background:rgba(38,206,41,.09);color:#55e959;padding:0 13px;font-size:8px;font-weight:950
+}
+@media(max-width:390px){.archive-photo-admin-row{grid-template-columns:1fr}.archive-photo-admin-row button{width:100%}}
+</style>
+
+<style id="lt-juventus-outline-v21">
+.club-logo-juventus{
+  filter:
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff)
+    drop-shadow(1px 1px 0 #fff)
+    drop-shadow(-1px -1px 0 #fff)
+    drop-shadow(1px -1px 0 #fff)
+    drop-shadow(-1px 1px 0 #fff)!important;
+}
+</style>
+</head>
+<body class="is-loading">
+<div class="app"><div class="top"><div class="brand"><div class="logo logo-img"><img src="data:image/webp;base64,UklGRtwIAABXRUJQVlA4WAoAAAAQAAAAdwAAdwAAQUxQSNYEAAABCmrYtpexrSTtzD62bdu2bdu2bdu2bdu2bXNh72mbNNfVZpK10sNf+0NEQHDbRpIUt7YaBrbGXdWdOZ4Af1sN97/+t5caoOqS2IBilvybuhLFDDPOxNMjIiAR8czAiEQslBSyyoJYZSEiYgYmYp5lZiZkqFLOPAswMxGhk3TmWZhmldEqhSNMpk3BVImJGYCJOLMHiTZczh1dJynZOGIGgBKcFygYSuhKQ8REUJrM7idVNHa1pkRX4JUpFhZwjM3dQN253GwIbhQA6I4FAFhxiojHBrZeoC4587k+4cejSnjW5lUoX6zuACYQoHT9jr1UJDIWK2TVNg1Qub1CyKl/r2JFU25vjgbBXD2lHkz+jQVshXlEHh+iMBbT/WAHgPEE4J5ppbg+2lHYN8YUkUCY8ANbDPISXmipsb4qdSQ+njgeo74ySMBkeKKA5bBw7/PBlcbvpxNJrD7Vfti/dQU6osCBdkUBJ9lheaUMByMo/5xbpJFIxA0BbLcCywdfjyfaL9sIypaJBotzbeZtTvjIhZfQZXQp9AWOAu8dUUx9zkV48WV4IV4EF1+CF1X+BVCHYMCL65n4/EtWjgUwHOk/z+xtwtVKhQ5as4tYd2mcaomd/KB9YSTVSlJoj/KZDVRur5cK05Yc+8inXn3lNXgVXoFXX2J8c+6knXpF0c7Xs4XxP3vjOQuVwD62CNjmx/GFAsRx37AB3axCVxiNpTuavTftb7M5zx7KCX42EBq3rhMR3ILDCiLtKsu/qVpTA5XA7H+UPgznS7h3I8HZoaZY3eXSYU2bB+KsK5JGmPwrW/hn36Sb2UJvTob7p3O8cb4x2s/1Im3iQxyM9UZohn1FS7h1Lxah8SCRAjBc4Q+qzS8TygY8ie0nQ5wh0i5WcjA+XkkTKQhWCCwD4aYiaQCCW0LcLEh2LcQbpb8M6QVEUuUZ/fOS/TzQCKk4z2Z+nh6iZNfDtX21nN7K7VkiAWA4079ARvdO24SXwjF+CvzEbRhQL+fX/psWGD4dVdXeEiYHf9Q9mhhbYhfrDc/wy8zd4QmODv/ParVHI7xb5wndaw2cb1QxoIYBoORkfQYCXO96xwS8AucWSQMs29FeCruBSKF7vCwwGvh1AqmqOPPnRcA7VqRNtMce1P4ZDnSyS/eDpeaQt63jtV7zLwPjeyPG9wim+BoLP2eL1BfqwWBveMz1Dg025iXiewrGfCvUMO6UCXhYMeTpbBZRe7N0dMC7LD5SjfBE6OPUKyNJ5QnVejNQuT3a8eCpgGe+H0dh9PYobvE0DAMVX0wilM/bPrCNGt4bwWnMewW9DbxjM5/iNPTM7osu1RjfGh24sKWrVAqm7Al598f3Ujjc3x51YVYSKfjGE4LreZnrPRxqzH1TSxWd7fx9CtBu50XJKfq0CXymGldhdbKTzQKrsK9IorOqKQIcLRi841XBC9uk9uTkf2j2p3k1IRn7BefryTNdVEIipI69WqTSy9wZFKSZHHHHfX9VcLcdVniUo54v9qjk3P02oMfaCry50qdDsTozOI15OxvSafFnFHOtvepqq/DKgM5fWGN0ofyxRlidiVZZiVZcmVdDpDXmB1nHWWzVKiqsSKuvxKuvxkgjSvgL/HT0d/k9SyUhha+Hghp42r+thvtf/+8LAFZQOCDgAwAA8BUAnQEqeAB4AD6VRp9LJaOioaWS6kCwEoliDb3ltnK59y2DrwHIf7u+DeSHqzxufx32F+YB+hPSW8wH6xfrx77PoN9AD+x9QPz3n7rfA3+5X7t+1J1AETBOIzvIh+rXWKnwLUpEvT3kPDKmjzSXV+ZXxG9x0J/bGEWDkh46O0v8n1BFx04JQyFIy199lvUlpZ8CMBAjMUk2xFs3+U4xaTYwIFFUdb8khS/5pj+pygulFXGwqcn7AAD++ndAAAAKz+Pvj2DgNRSW9zlS//mfClu+iqbMlRpI/ngix/SADPA3MqBtF5QSx0WTIhau0FxkCCVtsj9+CS7xPKitqJo5RyW0lwBtrVBm8R/NIHQfz5X2+Te8FlRZCzB3vK2hizTLOth7z7Af30/AfmkkHibqKLkT+MgPl4bDxQFcMBROYaWuql9X0w+LW/tBim0cBcMTUeC/4yUfnN/jvF2iK1Ug7wXvzcEoXZvgqDEDn1uIK3bc4hedAJ+wW0r3KagDitvJ4RV1ckh1PqB36f4udRUkjwi0/0Fr559i9JOOw6bxTDyCf+Fg7Tpjogot+GrnmpcPwt822o/Zb1yqWo7pxySKxappIEMvzgFj2KnrOXwEHXLOZvkEdKB5T49A+Q9thWHYR92R65B/RzwE1aQBbJ7cubyh4iHAq0k5XhVNXXPZu79DtP//9E2jk2xMZstepNHfbdEPuGpr58shihCwRg+YsiVz5Z7KuQcX92acUcb/AgG7QC6j/Ob7V3VnqvvXmgjyhZ83f+p+iNSYzX5Re/YK1pPMGasT9iBnW2CiGOO/9LZ9xfZS/0J3Zqs839f6R+GlfHi6jh/3jAx1IsA3jkTMXh+zsktKpf+2W9n08XzTbk3oHBhYUpH/aL1SPW0s0eiYb8ozBb3uuqMc8gsKZThXGbxEhzUyvH6C0MZ/6GJ6H8efUTvErqYvE30iL+zoxyr+jMonPaiEucownwF5y4dipEk8TW8tktP/kAfohta9ELenG269+YMfCffdQsWbHBw6aPjTdGPbq0kacBHs5Fc/D0SUTn9jrpuFUpAA2c1NLQ2NUjaMk7yFG7zHnh+EleWst9ZNioP27wnxRWbJE+ThKTcnyVxlwKleNFDOfwFbg0Ajvad/C//w/z/0BDUVmT0Fz0GyNzlLtfGBEqiR5a4vxkfbod/LG44Sc4W09T5s9Ke81CQKmH7z36yTS///xkh+KBenG8RtMwsoLnKXUGXt51tf7+JbcZH04byROrP0IpCVpyvSdKLlA5Th7RDNb/1HIE4GZdN10vp0ETAB7eeJOg/zDex/1d5zyAAAAAAAAAA=" alt="Лига Трибун"></div><div><b>ЛИГА ТРИБУН</b><small>турниры среди фанатов клубов</small></div></div><button class="profile-chip" type="button" data-top-profile aria-label="Профиль"><span class="profile-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5.5 20c.8-3.4 3.2-5.4 6.5-5.4s5.7 2 6.5 5.4"/></svg></span><img id="topProfilePhoto" class="profile-chip-photo" alt="" hidden><span id="topProfileLabel">Профиль</span></button></div><main id="root"><div class="loading-screen"><img class="loading-brand-logo" src="https://godievda-pixel.github.io/liga-tribun-miniapp/assets/liga-tribun-loading.svg?v=3cd4e1dc6ece" alt="Лига Трибун"><div class="load-line"><span></span></div><div class="load-caption">Загружаем турниры</div></div></main>
+<nav class="nav">
+<button class="on" data-v="home"><span class="nav-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.8 12 3.8l8.5 7v8.7a1 1 0 0 1-1 1H15v-6h-6v6H4.5a1 1 0 0 1-1-1z"/></svg></span><span>Главная</span></button>
+<button data-v="tours"><span class="nav-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V6A1.5 1.5 0 0 1 5 4.5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><span>Турниры</span></button>
+<button data-v="rating"><span class="nav-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9h3v10H5Zm5.5 0V5h3v14h-3ZM16 19v-7h3v7h-3Z"/></svg></span><span>Рейтинг</span></button>
+<button data-v="profile"><span class="nav-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.7-3.4 3.2-5.4 6.5-5.4s5.8 2 6.5 5.4"/></svg></span><span>Профиль</span></button>
+<button id="adminNav" data-v="admin" hidden><span class="nav-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.8 19 7v5.1c0 4.2-2.7 7.2-7 8.8-4.3-1.6-7-4.6-7-8.8V7l7-3.2Z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Админ</span></button>
+</nav></div><div id="favorite-club-sheet" class="club-sheet" hidden><div class="club-panel" role="dialog" aria-modal="true" aria-labelledby="club-sheet-title"><div class="club-sheet-head"><div><div class="kicker">Профиль</div><h3 id="club-sheet-title">Любимый клуб</h3><p>Выбери один клуб. Его можно изменить в любой момент.</p></div><button class="club-close" type="button" data-club-close aria-label="Закрыть">×</button></div><div id="club-options" class="club-options"></div></div></div>
+<script>window.LT_CLUB_LOGOS=window.LT_CLUB_LOGOS||{};</script>
+<script src="./assets/clubs/manifest.js"></script>
+<script>
+(function(){
+var API="https://dkefzepiiudehhzbbrjn.supabase.co/functions/v1/qptg-live";
+var tg=window.Telegram&&Telegram.WebApp?Telegram.WebApp:null;if(tg){try{tg.ready();tg.expand();tg.setHeaderColor('#0b0d0c');tg.setBackgroundColor('#0b0d0c')}catch(e){}}
+var S={data:null,view:'home',ratingArchive:'all',archive:null,player:null,me:null,meChecked:false},R=document.getElementById('root');
+var CLUBS=[{key:'milan',label:'Милан'},{key:'chelsea',label:'Челси'},{key:'real-madrid',label:'Реал'},{key:'juventus',label:'Ювентус'},{key:'arsenal',label:'Арсенал'},{key:'inter',label:'Интер'},{key:'lazio',label:'Лацио'},{key:'roma',label:'Рома'},{key:'man-city',label:'Манчестер Сити'},{key:'liverpool',label:'Ливерпуль'},{key:'man-united',label:'Манчестер Юнайтед'}];
+function clubInfo(key){return CLUBS.find(function(c){return c.key===key})||null}
+function clubLogo(key){return (window.LT_CLUB_LOGOS||{})[key]||''}
+function clubImg(key,alt){var src=clubLogo(key);return src?'<img class="club-logo club-logo-'+e(key)+'" src="'+e(src)+'" alt="'+e(alt||'')+'">':''}
+function homeLogoWatermark(){var el=document.querySelector('.logo-img img');return '<div class="lt-hero-watermark lt-hero-logo-watermark">'+(el&&el.src?'<img src="'+e(el.src)+'" alt="">':'')+'</div>'}
+function openClubSheet(){var sh=document.getElementById('favorite-club-sheet'),box=document.getElementById('club-options');if(!sh||!box)return;var selected=S.me&&S.me.profile&&S.me.profile.favoriteClub||'';box.innerHTML=CLUBS.map(function(c){return'<button type="button" class="club-option '+(selected===c.key?'on':'')+'" data-club-key="'+e(c.key)+'">'+clubImg(c.key,c.label)+'<span>'+e(c.label)+'</span></button>'}).join('');sh.hidden=false;document.body.style.overflow='hidden'}
+function closeClubSheet(){var sh=document.getElementById('favorite-club-sheet');if(sh)sh.hidden=true;document.body.style.overflow=''}
+async function saveFavoriteClub(key){if(!tg||!tg.initData)return;var c=clubInfo(key);if(!c)return;var sh=document.getElementById('favorite-club-sheet');if(sh)sh.classList.add('club-saving');try{var r=await fetch(API+'?app=favorite-club',{method:'POST',body:JSON.stringify({initData:tg.initData,club:key}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'save failed');if(S.me&&S.me.profile)S.me.profile.favoriteClub=d.favoriteClub;var pname=S.me&&S.me.profile&&S.me.profile.participantName;if(pname&&S.data&&S.data.rating&&S.data.rating.solo&&Array.isArray(S.data.rating.solo.rows))S.data.rating.solo.rows=S.data.rating.solo.rows.map(function(x){return keyNameSafe(x.teamName)===keyNameSafe(pname)?Object.assign({},x,{favoriteClub:d.favoriteClub}):x});if(S.player&&pname&&keyNameSafe(S.player.teamName)===keyNameSafe(pname))S.player.favoriteClub=d.favoriteClub;if(S.me&&S.me.player)S.me.player.favoriteClub=d.favoriteClub;closeClubSheet();if(S.view==='home')home();if(S.view==='profile')profile();if(S.view==='rating')rating();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось сохранить любимый клуб. Попробуйте ещё раз.');else alert('Не удалось сохранить любимый клуб.')}finally{if(sh)sh.classList.remove('club-saving')}}
+function e(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function date(v){try{return new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(v))}catch(x){return''}}function dt(v){try{return new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(v))}catch(x){return''}}
+function fl(v){return v==='solo'?'Одиночный':'Парный'}
+function tmap(s){var m={};(s.groups||[]).forEach(function(g){(g.teams||[]).forEach(function(t){m[t.id]=t})});return m}
+function matches(s){var tm=tmap(s),out=[],gr=s.groupRounds||{};(s.groups||[]).forEach(function(g){(gr[g.id]||[]).forEach(function(r){(r.matches||[]).forEach(function(x){if(x.bye||String(x.sa||'')===''||String(x.sb||'')==='')return;out.push({stage:g.name+' · тур '+r.number,a:tm[x.a]||{name:'—'},b:tm[x.b]||{name:'—'},sa:x.sa,sb:x.sb,clubA:x.clubA||'',clubB:x.clubB||'',penWinner:x.penWinner||''})})})});var po=s.playoffs||{};['gold','silver','bronze'].forEach(function(k){var b=po[k],title=k==='gold'?'Золото':k==='silver'?'Серебро':'Бронза';if(!b||!Array.isArray(b.rounds))return;b.rounds.forEach(function(round,i){(round||[]).forEach(function(x){if(!x||!x.a||!x.b||String(x.sa||'')===''||String(x.sb||'')==='')return;out.push({stage:title+' · раунд '+(i+1),a:x.a,b:x.b,sa:x.sa,sb:x.sb,clubA:x.clubA||'',clubB:x.clubB||'',penWinner:x.penWinner||''})})})});return out}
+function mc(x){var p='';if(x.penWinner){var w=x.penWinner===(x.a&&x.a.id)?x.a.name:x.b.name;p='<div class="pen">по пенальти · '+e(w)+'</div>'}return '<div class="match"><div class="meta">'+e(x.stage)+'</div><div class="mrow"><div class="side"><div class="name">'+e(x.a.name)+'</div><div class="club">'+e(x.clubA)+'</div></div><div><div class="score">'+e(x.sa)+' : '+e(x.sb)+'</div>'+p+'</div><div class="side r"><div class="name">'+e(x.b.name)+'</div><div class="club">'+e(x.clubB)+'</div></div></div></div>'}
+function skeleton(kind){var cards=kind==='profile'?3:kind==='archive'?5:4;return '<section class="skeleton-page"><div class="sk sk-kicker"></div><div class="sk sk-title"></div><div class="sk sk-subtitle"></div><div class="skeleton-tabs"><span class="sk"></span><span class="sk"></span><span class="sk"></span></div><div class="skeleton-grid">'+Array.from({length:cards}).map(function(_,i){return '<article class="skeleton-card"><div class="sk sk-line '+(i%2?'short':'')+'"></div><div class="sk sk-line small"></div><div class="skeleton-card-bottom"><span class="sk sk-dot"></span><span class="sk sk-score"></span></div></article>'}).join('')+'</div></section>'}
+
+function gh(s){var gs=s.groups||[];if(!gs.length)return'<div class="empty">Группы пока не сформированы</div>';return'<div class="grid groups">'+gs.map(function(g){return'<div class="card"><div class="gname">'+e(g.name)+'</div>'+(g.teams||[]).map(function(t,i){return'<div class="team"><span class="pos">'+(i+1)+'</span><div><b>'+e(t.name)+'</b><small>'+e(t.subtitle||'')+'</small></div></div>'}).join('')+'</div>'}).join('')+'</div>'}
+function ruForm(n,one,few,many){n=Math.abs(Number(n)||0);var n10=n%10,n100=n%100;if(n10===1&&n100!==11)return one;if(n10>=2&&n10<=4&&(n100<12||n100>14))return few;return many}
+function ruCount(n,one,few,many){return String(Number(n)||0)+' '+ruForm(n,one,few,many)}
+function ruTournaments(n){return ruCount(n,'турнир','турнира','турниров')}
+function ruParticipants(n){return ruCount(n,'участник','участника','участников')}
+function ruPoints(n){return ruCount(n,'очко','очка','очков')}
+function ruWins(n){return ruCount(n,'победа','победы','побед')}
+function ruDraws(n){return ruCount(n,'ничья','ничьи','ничьих')}
+function ruLosses(n){return ruCount(n,'поражение','поражения','поражений')}
+function ratingAvg(x){var t=Math.max(1,Number(x&&x.tournaments)||1);return (Number(x&&x.avg)||((Number(x&&x.total)||0)/t))}
+function fmtAvg(v){var n=Number(v)||0;return n.toLocaleString('ru-RU',{minimumFractionDigits:Number.isInteger(n)?0:1,maximumFractionDigits:1})}
+function signedDiff(v){var n=Number(v)||0;return n>0?'+'+n:String(n)}
+function ratingClubMark(x){var fav=clubInfo(x&&x.favoriteClub);return fav?'<span class="rating-club-mark">'+clubImg(fav.key,fav.label)+'</span>':'<span class="rating-club-mark rating-club-empty"></span>'}
+function rh(rows){if(!rows||!rows.length)return'<div class="empty">Рейтинг пока пуст</div>';var top=rows.slice(0,3),rest=rows.slice(3);return'<div class="rating-podium">'+top.map(function(x,i){var medal=i===0?'I':i===1?'II':'III';return'<button class="rating-podium-card place-'+(i+1)+'" data-player="'+e(x.teamName)+'"><div class="rating-podium-top"><div class="rating-medal">'+medal+'</div>'+ratingClubMark(x)+'</div><div class="rating-podium-name">'+e(x.teamName)+'</div><div class="rating-podium-score"><strong>'+e(fmtAvg(ratingAvg(x)))+'</strong><span>ср. за турнир</span></div><div class="rating-podium-meta">'+e(x.tournaments||1)+' турн. · '+e(x.total||0)+' всего</div></button>'}).join('')+'</div>'+(rest.length?'<div class="rating-table-premium">'+rest.map(function(x){return'<button class="rating-row-premium" data-player="'+e(x.teamName)+'"><div class="rating-rank">'+e(x.rank)+'</div>'+ratingClubMark(x)+'<div class="rating-person"><b>'+e(x.teamName)+'</b><small>'+e(ruTournaments(x.tournaments||1))+' · '+e(ruWins(x.w||0))+' · '+e(ruLosses(x.l||0))+'</small></div><div class="rating-average"><strong>'+e(fmtAvg(ratingAvg(x)))+'</strong><span>ср.</span></div><div class="rating-total"><b>'+e(x.total||0)+'</b><span>всего</span></div></button>'}).join('')+'</div>':'')}
+function home(){var c=S.data&&S.data.current,s=c&&c.state||{},archives=S.data&&S.data.archives||[],now=Date.now(),anns=((S.data&&S.data.tournaments)||s.ligaAnnouncements||[]).filter(function(a){var t=Date.parse(a.dateTime||'');return a.status!=='completed'&&Number.isFinite(t)&&t>=now-21600000}).sort(function(a,b){return Date.parse(a.dateTime)-Date.parse(b.dateTime)}).slice(0,8),next=anns[0]||null;var profile='';if(S.me&&S.me.linked){var p=S.me.player||{},pr=S.me.profile||{},initial=(pr.participantName||'?').charAt(0).toUpperCase(),av=pr.photoUrl?'<img src="'+e(pr.photoUrl)+'" alt="">':e(initial),fav=clubInfo(pr.favoriteClub),favMark=fav?clubImg(fav.key,fav.label):'<span class="favorite-plus">+</span>';profile='<section class="lt-section"><div class="lt-section-head"><h2>Мой профиль</h2><button type="button" data-home-view="profile">Открыть <span>→</span></button></div><article class="lt-profile-card"><button class="lt-profile-main" type="button" data-home-view="profile"><div class="avatar">'+av+'</div><div class="lt-profile-copy"><strong>'+e(pr.participantName)+'</strong><span>'+(p.rank?'№ '+e(p.rank)+' · '+e(fmtAvg(ratingAvg(p)))+' ср. за турнир':'Участник Лиги Трибун')+'</span></div><span class="lt-chevron">›</span></button><div class="lt-profile-stats"><div><strong>'+(p.rank?'№'+e(p.rank):'—')+'</strong><span>место</span></div><div><strong>'+e(fmtAvg(ratingAvg(p)))+'</strong><span>ср. очков</span></div><div><strong>'+e(p.tournaments||0)+'</strong><span>турниров</span></div></div><div class="favorite-row"><div class="favorite-club"><div class="favorite-crest">'+favMark+'</div><div class="favorite-club-copy"><b>'+(fav?e(fav.label):'Любимый клуб')+'</b><small>'+(fav?'выбран в профиле':'выбери клуб')+'</small></div></div><button type="button" class="favorite-btn" data-favorite-club-open>'+(fav?'Изменить':'Выбрать')+'</button></div></article></section>'}else if(S.me&&S.me.ok&&S.me.configured&&S.me.linked===false){profile='<section class="lt-section"><div class="lt-section-head"><h2>Мой профиль</h2></div><article class="lt-profile-card lt-profile-empty"><span class="home-label">Участник</span><h3>Профиль пока не привязан</h3><p>После привязки Telegram здесь появятся место в рейтинге, средний балл, история и любимый клуб.</p></article></section>'};var hero;if(next){var heroLink=/^https:\/\//i.test(next.registrationUrl||'')?'<a class="lt-primary-btn" href="'+e(next.registrationUrl)+'" target="_blank" rel="noopener">Регистрация <span>↗</span></a>':'<button class="lt-primary-btn" type="button" data-home-view="tours">Подробнее <span>→</span></button>',day=new Intl.DateTimeFormat('ru-RU',{day:'2-digit'}).format(new Date(next.dateTime)),mon=new Intl.DateTimeFormat('ru-RU',{month:'short'}).format(new Date(next.dateTime)).replace('.','');hero='<article class="lt-event-hero">'+homeLogoWatermark()+'<div class="lt-hero-top"><span>'+(next.status==='registration'?'Регистрация открыта':next.status==='soon'?'Скоро':'Ближайший турнир')+'</span><span>Лига Трибун</span></div><div class="lt-hero-main"><div class="lt-date-tile"><strong>'+e(day)+'</strong><span>'+e(mon)+'</span></div><div class="lt-hero-copy"><h2>'+e(next.name||'Турнир')+'</h2><p>'+e(dt(next.dateTime))+(next.venue?' · '+e(next.venue):'')+'</p></div></div><div class="lt-hero-actions">'+heroLink+'<button class="lt-secondary-btn" type="button" data-home-view="rating">Рейтинг</button></div></article>'}else{hero='<article class="lt-next-placeholder"><div class="lt-placeholder-watermark">ЛТ</div><span class="home-label">Следующий турнир</span><h2>Новый анонс появится здесь</h2><p>А пока можно посмотреть результаты прошлых турниров и актуальный рейтинг участников.</p><div class="lt-placeholder-actions"><button class="lt-primary-btn" type="button" data-home-view="tours">Все турниры <span>→</span></button><button class="lt-secondary-btn" type="button" data-home-view="rating">Рейтинг</button></div></article>'};var future=next?anns.slice(1):anns,upcoming=future.length?'<section class="lt-section"><div class="lt-section-head"><h2>Ближайшие турниры</h2><span>'+future.length+'</span></div><div class="lt-horizontal">'+future.map(function(a){var d=new Date(a.dateTime),day=new Intl.DateTimeFormat('ru-RU',{day:'2-digit'}).format(d),mon=new Intl.DateTimeFormat('ru-RU',{month:'short'}).format(d).replace('.',''),tm=new Intl.DateTimeFormat('ru-RU',{hour:'2-digit',minute:'2-digit'}).format(d),st=a.status==='registration'?'Регистрация':a.status==='soon'?'Скоро':'Анонс';return'<article class="lt-event-card"><div class="lt-event-card-top"><span>'+e(st)+'</span><b>'+e(day)+' '+e(mon)+'</b></div><h3>'+e(a.name||'Турнир')+'</h3><p>'+e(tm)+(a.venue?' · '+e(a.venue):'')+'</p>'+( /^https:\/\//i.test(a.registrationUrl||'')?'<a href="'+e(a.registrationUrl)+'" target="_blank" rel="noopener">Подробнее <span>↗</span></a>':'')+'</article>'}).join('')+'</div></section>':'';var recent=archives.length?'<section class="lt-section"><div class="lt-section-head"><h2>Последние турниры</h2><button type="button" data-home-view="tours">Все <span>→</span></button></div><div class="lt-horizontal">'+archives.slice(0,5).map(function(x){return'<button class="lt-archive-card" type="button" data-a="'+e(x.id)+'"><span class="home-label">'+e(fl(x.format))+'</span><h3>'+e(x.name)+'</h3><p>'+date(x.createdAt)+' · '+e(ruParticipants(x.participants))+'</p>'+(x.champion?'<div class="lt-champion">Победитель · '+e(x.champion)+'</div>':'')+'<span class="lt-card-arrow">›</span></button>'}).join('')+'</div></section>':'';var contacts='<section class="lt-section lt-contacts-section"><div class="lt-section-head"><h2>Контакты</h2><span>Лига Трибун</span></div><article class="lt-contact-card"><div class="lt-contact-copy"><span class="lt-contact-icon"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l7 2 2 7 9-16Z"/><path d="m10 13 5-4"/></svg></span><div><strong>Связаться с организаторами</strong><small>Вопросы по участию, регистрации и турнирам</small></div></div><a href="https://t.me/danx95" target="_blank" rel="noopener">@danx95 <span>↗</span></a></article></section>';R.innerHTML='<section class="lt-home-page"><div class="home-label">Лига Трибун</div><h1 class="lt-manifesto"><span>Турниры среди</span><span>фанатов клубов</span></h1><p class="lt-intro">Представляй свой любимый клуб, следи за результатами и поднимайся в общем рейтинге!</p>'+hero+contacts+profile+upcoming+recent+'</section>'}
+function tours(){var a=S.data&&S.data.archives||[];R.innerHTML='<section class="hero"><div class="kicker">Архив</div><h1>Турниры</h1><div class="muted">Все завершённые турниры Лиги Трибун</div></section><div class="grid">'+(a.length?a.map(function(x){var hasPhoto=/^https:\/\//i.test(x.photoReportUrl||'');return'<button class="card tour" data-a="'+e(x.id)+'"><div><b>'+e(x.name)+'</b><small>'+date(x.createdAt)+' · '+fl(x.format)+' · '+e(ruParticipants(x.participants))+'</small>'+(x.champion?'<div class="winner">🏆 '+e(x.champion)+'</div>':'')+(hasPhoto?'<div class="tour-photo-badge">Фотоотчёт</div>':'')+'</div><span class="arrow">›</span></button>'}).join(''):'<div class="empty">Архив пока пуст</div>')+'</div>';R.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){openA(b.getAttribute('data-a'))}})}
+function rows(){if(S.ratingArchive==='all'){var rr=(S.data&&S.data.rating&&S.data.rating.solo&&S.data.rating.solo.rows||[]).slice().sort(function(a,b){return ratingAvg(b)-ratingAvg(a)||(Number(b.total)||0)-(Number(a.total)||0)||String(a.teamName||'').localeCompare(String(b.teamName||''),'ru')});return rr.map(function(x,i){return Object.assign({},x,{rank:i+1,avg:ratingAvg(x)})})}if(!S.archive||S.archive.id!==S.ratingArchive)return[];return(S.archive.ratings||[]).slice().sort(function(a,b){return(Number(b.total)||0)-(Number(a.total)||0)}).map(function(x,i){return Object.assign({rank:i+1,tournaments:1,avg:Number(x.total)||0},x)})}
+function rating(){S.ratingArchive='all';S.archive=null;R.innerHTML='<section class="rating-page-head"><div class="kicker">Рейтинг</div><h1>Сильнейшие участники</h1><p>Рейтинг участников по среднему количеству рейтинговых очков за один турнир.</p></section><section class="rating-premium-wrap">'+rh(rows())+'</section>'}
+function archiveTeamName(x){return x&&x.name?String(x.name):'—'}
+function archiveLoser(m){if(!m||!m.a||!m.b||!m.winner)return null;return String(m.winner.id)===String(m.a.id)?m.b:m.a}
+function archiveTop3(bracket,fallbackChampion){var rounds=bracket&&Array.isArray(bracket.rounds)?bracket.rounds:[],last=rounds.length?rounds[rounds.length-1]:[],final=last&&last[0]||null,first=final&&final.winner||null,second=archiveLoser(final),third=bracket&&bracket.placementMatch&&bracket.placementMatch.winner||null;if(!first&&fallbackChampion)first={name:fallbackChampion};return[first,second,third]}
+function archivePodium(title,bracket,fallbackChampion,tone){var top=archiveTop3(bracket,fallbackChampion),labels=['1 место','2 место','3 место'];return'<article class="archive-podium archive-podium-'+tone+'"><div class="archive-podium-head"><span>'+e(title)+'</span><small>топ-3</small></div><div class="archive-podium-grid">'+top.map(function(x,i){return'<div class="archive-podium-place place-'+(i+1)+'"><div class="archive-place-num">'+(i+1)+'</div><div><span>'+labels[i]+'</span><strong>'+e(archiveTeamName(x))+'</strong><small>'+(x&&x.subtitle?e(x.subtitle):'')+'</small></div></div>'}).join('')+'</div></article>'}
+function archiveGroupStandings(s,g){var stats={},rounds=s&&s.groupRounds&&s.groupRounds[g.id]||[];(g.teams||[]).forEach(function(t){stats[t.id]={team:t,p:0,w:0,l:0,gf:0,ga:0,pts:0}});rounds.forEach(function(r){(r.matches||[]).forEach(function(m){if(m.bye||String(m.sa||'')===''||String(m.sb||'')==='')return;var a=stats[m.a],b=stats[m.b];if(!a||!b)return;var sa=Number(m.sa)||0,sb=Number(m.sb)||0;a.p++;b.p++;a.gf+=sa;a.ga+=sb;b.gf+=sb;b.ga+=sa;if(sa>sb){a.w++;b.l++;a.pts+=3}else if(sb>sa){b.w++;a.l++;b.pts+=3}else if(m.penWinner){if(String(m.penWinner)===String(m.a)){a.w++;b.l++;a.pts+=2;b.pts+=1}else{b.w++;a.l++;b.pts+=2;a.pts+=1}}else{a.pts++;b.pts++}})});return Object.keys(stats).map(function(k){return stats[k]}).sort(function(a,b){return b.pts-a.pts||((b.gf-b.ga)-(a.gf-a.ga))||b.gf-a.gf||String(a.team.name||'').localeCompare(String(b.team.name||''),'ru')})}
+function archiveGroupMatches(s,g){var tm=tmap(s),out=[],rounds=s&&s.groupRounds&&s.groupRounds[g.id]||[];rounds.forEach(function(r){(r.matches||[]).forEach(function(m){if(m.bye||String(m.sa||'')===''||String(m.sb||'')==='')return;out.push({stage:'Тур '+r.number,a:tm[m.a]||{name:'—'},b:tm[m.b]||{name:'—'},sa:m.sa,sb:m.sb,clubA:m.clubA||'',clubB:m.clubB||'',penWinner:m.penWinner||''})})});return out}
+function archiveGroupHtml(s,g){var st=archiveGroupStandings(s,g),ms=archiveGroupMatches(s,g);return'<section class="archive-group-card"><div class="archive-group-title"><div><span class="kicker">Групповой этап</span><h2>'+e(g.name)+'</h2></div><span>'+e(ruParticipants(st.length))+'</span></div><div class="archive-standings-head"><span>№</span><span>Участник</span><span>И</span><span>В</span><span>П</span><span>О</span></div><div class="archive-standings">'+st.map(function(x,i){return'<div class="archive-standing-row '+(i<3?'qual-gold':'qual-silver')+'"><span class="archive-standing-pos">'+(i+1)+'</span><div><strong>'+e(x.team.name)+'</strong><small>'+e(x.team.subtitle||'')+'</small></div><span>'+x.p+'</span><span>'+x.w+'</span><span>'+x.l+'</span><b>'+x.pts+'</b></div>'}).join('')+'</div></section><section class="archive-stage-matches"><div class="archive-section-title"><h2>Матчи группы</h2><span>'+ms.length+'</span></div>'+(ms.length?'<div class="grid matches">'+ms.map(mc).join('')+'</div>':'<div class="empty">Нет сыгранных матчей</div>')+'</section>'}
+function archiveRoundLabel(i,total){var left=total-i;if(left===1)return'Финал';if(left===2)return'1/2 финала';if(left===3)return'1/4 финала';if(left===4)return'1/8 финала';return'Раунд '+(i+1)}
+function bracketScore(v){return String(v==null||v===''?'—':v)}
+function bracketTeamRow(team,score,winner){var name=team&&team.name?team.name:'—',sub=team&&team.subtitle?team.subtitle:'',isWinner=winner&&team&&String(winner.id)===String(team.id);return'<div class="bracket-team '+(isWinner?'winner':'')+'"><div class="bracket-team-copy"><strong>'+e(name)+'</strong>'+(sub?'<small>'+e(sub)+'</small>':'')+'</div><b>'+e(bracketScore(score))+'</b></div>'}
+function bracketMatch(m,label){var winner=m&&m.winner||null;return'<article class="bracket-match">'+bracketTeamRow(m&&m.a,m&&m.sa,winner)+bracketTeamRow(m&&m.b,m&&m.sb,winner)+(m&&m.penWinner?'<div class="bracket-pen">пенальти</div>':'')+'</article>'}
+function archivePlayoffHtml(s,tier){var b=s&&s.playoffs&&s.playoffs[tier],title=tier==='gold'?'Золотая сетка':'Серебряная сетка';if(!b||!Array.isArray(b.rounds)||!b.rounds.length)return'<div class="empty">Сетка '+title+' пока не сформирована</div>';var cls=tier==='gold'?'tier-gold':'tier-silver';return'<section class="archive-playoff-shell '+cls+'"><div class="archive-playoff-head"><div><span class="archive-playoff-kicker">'+e(title)+'</span><h2>Плей-офф</h2></div><span class="archive-swipe-hint">Листай →</span></div><div class="bracket-scroll"><div class="bracket-board">'+b.rounds.map(function(round,i){var label=archiveRoundLabel(i,b.rounds.length),matches=(round||[]).filter(Boolean);return'<section class="bracket-col"><div class="bracket-col-head"><span>'+e(label)+'</span><small>'+matches.length+' '+ruForm(matches.length,'матч','матча','матчей')+'</small></div><div class="bracket-col-matches '+(i===b.rounds.length-1?'is-final':'')+'">'+matches.map(function(m){return bracketMatch(m,label)}).join('')+'</div></section>'}).join('')+'</div></div>'+(b.placementMatch?'<section class="bracket-third"><div class="bracket-col-head"><span>Матч за 3 место</span></div>'+bracketMatch(b.placementMatch,'3 место')+'</section>':'')+'</section>'}
+function archive(){var a=S.archive;if(!a){tours();return}var photoReportUrl=a.photoReportUrl||'',photoReport=/^https:\/\//i.test(photoReportUrl)?'<a class="archive-photo-report" href="'+e(photoReportUrl)+'" target="_blank" rel="noopener"><span class="archive-photo-icon"><svg viewBox="0 0 24 24"><path d="M4 7.5h4l1.3-2h5.4l1.3 2h4v11H4z"/><circle cx="12" cy="13" r="3.2"/></svg></span><span><b>Фотоотчёт турнира</b><small>Открыть фотографии</small></span><i>↗</i></a>':'';var s=a.state||{},groups=s.groups||[],po=s.playoffs||{},stage=S.archiveStage||'groups',tier=S.archiveTier||'gold',activeGroup=S.archiveGroupId&&groups.some(function(g){return g.id===S.archiveGroupId})?S.archiveGroupId:(groups[0]&&groups[0].id||'');S.archiveGroupId=activeGroup;var group=groups.find(function(g){return g.id===activeGroup})||groups[0],body='';if(stage==='groups'){body='<div class="archive-subnav archive-group-nav">'+groups.map(function(g){return'<button class="'+(g.id===activeGroup?'on':'')+'" data-archive-group="'+e(g.id)+'">'+e(g.name.replace('Группа ',''))+'</button>'}).join('')+'</div>'+(group?archiveGroupHtml(s,group):'<div class="empty">Группы пока не сформированы</div>')}else if(stage==='playoff'){var tiers=[{id:'gold',label:'Золото'}];if(po.silver)tiers.push({id:'silver',label:'Серебро'});if(!tiers.some(function(x){return x.id===tier}))tier=tiers[0].id;S.archiveTier=tier;body='<div class="archive-subnav archive-tier-nav">'+tiers.map(function(x){return'<button class="'+(x.id===tier?'on':'')+'" data-archive-tier="'+x.id+'">'+x.label+'</button>'}).join('')+'</div>'+archivePlayoffHtml(s,tier)}else{body='<div class="archive-winners-grid">'+archivePodium('Золотая сетка',po.gold,a.champion,'gold')+archivePodium('Серебряная сетка',po.silver,a.silverChampion,'silver')+'</div>'}R.innerHTML='<button class="back archive-back" id="back">← Все турниры</button><section class="archive-hero"><div class="kicker">'+fl(a.format)+' турнир</div><h1>'+e(a.name)+'</h1><div class="muted">'+date(a.createdAt)+' · '+e(ruParticipants(a.participants))+'</div>'+photoReport+((S.me&&S.me.isAdmin)?'<div class="archive-photo-admin"><div><strong>Фотоотчёт</strong><small>Добавь ссылку прямо к этому архивному турниру</small></div><div class="archive-photo-admin-row"><input type="url" data-archive-photo-input value="'+e(photoReportUrl)+'" placeholder="https://..."><button type="button" data-archive-photo-save>Сохранить</button></div></div>':'')+'</section><nav class="archive-stage-nav"><button class="'+(stage==='groups'?'on':'')+'" data-archive-stage="groups"><span>01</span>Групповой этап</button><button class="'+(stage==='playoff'?'on':'')+'" data-archive-stage="playoff"><span>02</span>Плей-офф</button><button class="'+(stage==='winners'?'on':'')+'" data-archive-stage="winners"><span>03</span>Победители</button></nav><div class="archive-stage-body">'+body+'</div>';document.getElementById('back').onclick=function(){S.archive=null;S.archiveStage='groups';S.archiveTier='gold';S.archiveGroupId='';S.view='tours';nav();tours()};R.querySelectorAll('[data-archive-stage]').forEach(function(b){b.onclick=function(){S.archiveStage=b.getAttribute('data-archive-stage');archive()}});R.querySelectorAll('[data-archive-tier]').forEach(function(b){b.onclick=function(){S.archiveTier=b.getAttribute('data-archive-tier');archive()}});R.querySelectorAll('[data-archive-group]').forEach(function(b){b.onclick=function(){S.archiveGroupId=b.getAttribute('data-archive-group');archive()}})}
+async function openA(id){R.innerHTML=skeleton('archive');try{var d=await(await fetch(API+'?app=archive&id='+encodeURIComponent(id),{cache:'no-store'})).json();if(!d.ok)throw 0;S.archive=d.archive;S.archiveStage='groups';S.archiveTier='gold';S.archiveGroupId='';S.view='archive';nav();archive()}catch(x){R.innerHTML='<div class="empty">Не удалось загрузить турнир</div>'}}
+async function loadForRating(id){R.innerHTML=skeleton('archive');try{var d=await(await fetch(API+'?app=archive&id='+encodeURIComponent(id),{cache:'no-store'})).json();if(!d.ok)throw 0;S.archive=d.archive;rating()}catch(x){S.ratingArchive='all';S.archive=null;rating()}}
+
+function profile(){var isAdmin=Boolean(S.me&&S.me.isAdmin),organizer=isAdmin?'<section class="profile-tab-section"><div class="profile-tab-section-head"><h2>Организатор</h2><span>доступ открыт</span></div><button class="profile-admin-entry" type="button" data-home-view="admin"><span class="profile-admin-icon"><svg viewBox="0 0 24 24"><path d="M12 3.8 19 7v5.1c0 4.2-2.7 7.2-7 8.8-4.3-1.6-7-4.6-7-8.8V7l7-3.2Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Панель администратора</strong><small>создание и управление турнирами</small></div><i>›</i></button></section>':'';var linked=S.me&&S.me.linked&&S.me.profile;if(!linked){R.innerHTML='<section class="profile-tab-page"><div class="kicker">Профиль</div><h1 class="profile-tab-title">Твой профиль</h1><p class="profile-tab-sub">После привязки Telegram здесь появятся личная статистика, рейтинг, любимый клуб и история турниров.</p><article class="profile-tab-empty"><div class="profile-tab-empty-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.7-3.4 3.2-5.4 6.5-5.4s5.8 2 6.5 5.4"/></svg></div><strong>Профиль пока не привязан</strong><span>Администратору нужно указать твой Telegram @username у участника.</span></article>'+organizer+'</section>';return}var p=S.player||S.me.player||{},pr=S.me.profile||{},h=S.player&&S.player.history||[],fav=clubInfo(pr.favoriteClub),favMark=fav?clubImg(fav.key,fav.label):'<span class="favorite-plus">+</span>',initial=(pr.participantName||'?').charAt(0).toUpperCase(),av=pr.photoUrl?'<img src="'+e(pr.photoUrl)+'" alt="">':e(initial);var clubSection='<section class="profile-tab-section profile-favorite-section"><div class="profile-tab-section-head"><h2>Любимый клуб</h2><span>виден в рейтинге</span></div><article class="profile-favorite-card"><div class="favorite-club"><div class="favorite-crest">'+favMark+'</div><div class="favorite-club-copy"><b>'+(fav?e(fav.label):'Клуб не выбран')+'</b><small>'+(fav?'Эмблема отображается рядом с твоим именем в рейтинге.':'Выбери клуб, который представляешь в Лиге Трибун.')+'</small></div></div><button type="button" class="favorite-btn" data-favorite-club-open>'+(fav?'Изменить':'Выбрать клуб')+'</button></article></section>';R.innerHTML='<section class="profile-tab-page"><div class="profile-tab-head"><div><div class="kicker">Профиль</div><h1 class="profile-tab-title">Моя статистика</h1></div></div><article class="profile-tab-hero"><div class="profile-tab-person"><div class="avatar profile-tab-avatar">'+av+'</div><div><strong>'+e(pr.participantName)+'</strong><span>'+(p.rank?'№ '+e(p.rank)+' в общем рейтинге':'Участник Лиги Трибун')+'</span></div></div><div class="profile-tab-primary-stats"><div><strong>'+e(fmtAvg(ratingAvg(p)))+'</strong><span>ср. очков</span></div><div><strong>'+(p.rank?'№'+e(p.rank):'—')+'</strong><span>место</span></div><div><strong>'+e(p.tournaments||0)+'</strong><span>'+e(ruForm(p.tournaments||0,'турнир','турнира','турниров'))+'</span></div></div></article>'+clubSection+'<section class="profile-tab-section"><div class="profile-tab-section-head"><h2>Общая статистика</h2><span>за все турниры</span></div><div class="profile-tab-grid"><div class="profile-metric"><strong>'+e(p.w||0)+'</strong><span>'+e(ruForm(p.w||0,'победа','победы','побед'))+'</span></div><div class="profile-metric"><strong>'+e(p.d||0)+'</strong><span>'+e(ruForm(p.d||0,'ничья','ничьи','ничьих'))+'</span></div><div class="profile-metric"><strong>'+e(p.l||0)+'</strong><span>'+e(ruForm(p.l||0,'поражение','поражения','поражений'))+'</span></div><div class="profile-metric"><strong>'+e(signedDiff((p.gf||0)-(p.ga||0)))+'</strong><span>разница мячей</span></div><div class="profile-metric"><strong>'+e(p.gf||0)+'</strong><span>забито</span></div><div class="profile-metric"><strong>'+e(p.ga||0)+'</strong><span>пропущено</span></div></div></section><section class="profile-tab-section"><div class="profile-tab-section-head"><h2>История турниров</h2><span>'+h.length+'</span></div><div class="profile-history">'+(h.length?h.map(function(x){var place=x.goldPlace?'Золото · '+x.goldPlace+' место':x.silverPlace?'Серебро · '+x.silverPlace+' место':'№ '+x.rank+' в рейтинге турнира';return'<button class="profile-history-card" type="button" data-a="'+e(x.id)+'"><div class="profile-history-main"><span class="home-label">'+e(place)+'</span><strong>'+e(x.name)+'</strong><small>'+date(x.createdAt)+' · '+e(ruPoints(x.total))+'</small></div><div class="profile-history-side"><b>'+e(x.w||0)+'–'+e(x.l||0)+'</b><span>В–П</span><i>›</i></div></button>'}).join(''):'<div class="profile-history-empty">История турниров пока пустая.</div>')+'</div></section>'+organizer+'</section>'}
+async function openMyProfile(){S.view='profile';S.archive=null;S.ratingArchive='all';nav();syncChrome();if(!(S.me&&S.me.linked&&S.me.profile&&S.me.profile.participantName)){S.player=null;profile();return}var name=S.me.profile.participantName;if(S.player&&keyNameSafe(S.player.teamName)===keyNameSafe(name)){profile();return}R.innerHTML=skeleton('profile');try{var d=await(await fetch(API+'?app=player&name='+encodeURIComponent(name),{cache:'no-store'})).json();if(!d.ok)throw 0;S.player=d.player;S.view='profile';nav();profile()}catch(x){S.player=S.me.player||null;S.view='profile';nav();profile()}}
+function keyNameSafe(v){return String(v||'').trim().toLocaleLowerCase('ru-RU').replace(/ё/g,'е').replace(/\s+/g,' ')}
+
+function adminStatusLabel(v){return v==='registration'?'Регистрация':v==='soon'?'Скоро':v==='completed'?'Завершён':v==='cancelled'?'Отменён':'Анонс'}
+function admin(){if(!(S.me&&S.me.isAdmin)){S.view='profile';nav();profile();return}var items=((S.data&&S.data.tournaments)||[]).slice().sort(function(a,b){return Date.parse(a.dateTime||0)-Date.parse(b.dateTime||0)}),archives=(S.data&&S.data.archives)||[];R.innerHTML='<section class="admin-page"><div class="kicker">Администратор</div><h1 class="admin-title">Турниры</h1><p class="admin-subtitle">Создавай анонс в приложении, а после создания турнира в генераторе свяжи их одной кнопкой. После связи результаты, группы, плей-офф и история берутся из генератора.</p><form id="adminTournamentForm" class="admin-tournament-form"><div class="admin-form-row full"><label><span>Название турнира</span><input name="name" required maxlength="100" placeholder="Например: Лига Трибун · Октябрь"></label></div><div class="admin-form-grid"><label><span>Дата и время</span><input name="startsAt" type="datetime-local" required></label><label><span>Формат</span><select name="format"><option value="solo">Одиночный</option><option value="pair">Парный</option></select></label></div><div class="admin-form-row full"><label><span>Место проведения</span><input name="venue" maxlength="140" placeholder="Finnegan’s Wake"></label></div><div class="admin-form-grid"><label><span>Статус</span><select name="status"><option value="announcement">Анонс</option><option value="registration">Регистрация открыта</option><option value="soon">Скоро</option></select></label><label><span>Ссылка на регистрацию</span><input name="registrationUrl" type="url" placeholder="https://..."></label></div><button class="admin-create-btn" type="submit">Создать турнир</button></form><section class="admin-list-section"><div class="profile-tab-section-head"><h2>Опубликованные турниры</h2><span>'+items.length+'</span></div><div class="admin-tournament-list">'+(items.length?items.map(function(x){var linked=x.generatorArchiveId,linkedArchive=linked&&archives.find(function(a){return a.id===linked}),opts='<option value="">Выбрать турнир генератора</option>'+archives.map(function(a){return'<option value="'+e(a.id)+'" '+(a.id===linked?'selected':'')+'>'+e(a.name)+' · '+date(a.createdAt)+'</option>'}).join('');return'<article class="admin-tournament-card admin-tournament-card-linked"><div class="admin-tournament-main"><div class="admin-tournament-badges"><span>'+e(adminStatusLabel(x.status))+'</span><i>'+e(fl(x.format))+'</i>'+(linked?'<em>Связан</em>':'')+'</div><strong>'+e(x.name)+'</strong><small>'+e(dt(x.dateTime))+(x.venue?' · '+e(x.venue):'')+'</small><div class="admin-generator-link"><label><span>Турнир в генераторе</span><select data-admin-archive-select="'+e(x.id)+'">'+opts+'</select></label><div class="admin-generator-actions"><button type="button" data-admin-link="'+e(x.id)+'">'+(linked?'Обновить связь':'Связать')+'</button>'+(linked?'<button class="ghost" type="button" data-admin-unlink="'+e(x.id)+'">Отвязать</button>':'')+'</div>'+(linkedArchive?'<small>Сейчас связан с: '+e(linkedArchive.name)+'</small>':'<small>После связи результаты будут открываться из генератора.</small>')+'</div></div><button class="admin-delete-btn" type="button" data-admin-delete="'+e(x.id)+'" aria-label="Удалить турнир"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 10v7M12 10v7M16 10v7M7 7l1 13h8l1-13"/></svg></button></article>'}).join(''):'<div class="profile-history-empty">Турниры пока не созданы.</div>')+'</div></section></section>'}
+async function refreshAfterAdmin(){S.meChecked=false;await load(true);if(!S.meChecked)await identify();syncChrome();if(S.view==='admin')admin()}
+function player(){var p=S.player;if(!p){S.view='rating';rating();return}var h=p.history||[],fav=clubInfo(p.favoriteClub),clubBlock='<section class="section"><div class="head"><h2>Любимый клуб</h2><span>представляет в Лиге Трибун</span></div><article class="player-favorite-card"><div class="favorite-club"><div class="favorite-crest">'+(fav?clubImg(fav.key,fav.label):'<span class="favorite-plus">—</span>')+'</div><div class="favorite-club-copy"><b>'+(fav?e(fav.label):'Не выбран')+'</b><small>'+(fav?'Эмблема клуба отображается в рейтинге.':'Участник ещё не выбрал любимый клуб.')+'</small></div></div></article></section>';R.innerHTML='<button class="back" id="backp">← Рейтинг</button><section class="hero"><div class="kicker">Профиль участника</div><h1>'+e(p.teamName)+'</h1><div class="muted">№ '+e(p.rank)+' в общем рейтинге · '+e(ruTournaments(p.tournaments))+'</div></section><div class="stats"><div class="stat"><b>'+e(p.total||0)+'</b><span>'+e(ruForm(p.total||0,'очко рейтинга','очка рейтинга','очков рейтинга'))+'</span></div><div class="stat"><b>'+e(fmtAvg(ratingAvg(p)))+'</b><span>ср. за турнир</span></div><div class="stat"><b>'+e(p.w||0)+'</b><span>'+e(ruForm(p.w||0,'победа в матче','победы в матчах','побед в матчах'))+'</span></div><div class="stat"><b>'+e(signedDiff((p.gf||0)-(p.ga||0)))+'</b><span>разница мячей</span></div></div>'+clubBlock+'<section class="section"><div class="head"><h2>Статистика</h2><span>за все турниры</span></div><div class="card profile-match-summary"><div class="rr"><div class="rk profile-match-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5h10M5 9h14M7 13h10M9 17h6"/></svg></div><div class="rn"><b>'+e(ruWins(p.w||0))+'</b><small>'+e(ruDraws(p.d||0))+' · '+e(ruLosses(p.l||0))+'</small></div><div class="pts"><b>'+e(p.gf||0)+':'+e(p.ga||0)+'</b><small>голы</small></div></div></div></section><section class="section"><div class="head"><h2>История турниров</h2><span>'+h.length+'</span></div><div class="grid">'+(h.length?h.map(function(x){var place=x.goldPlace?'Золото · '+x.goldPlace+' место':x.silverPlace?'Серебро · '+x.silverPlace+' место':'Место в рейтинге турнира: '+x.rank;return'<button class="card tour" data-a="'+e(x.id)+'"><div class="history"><div><b>'+e(x.name)+'</b><small>'+date(x.createdAt)+' · '+e(ruPoints(x.total))+' · '+e(ruWins(x.w))+' / '+e(ruLosses(x.l))+'</small><div class="place">'+e(place)+'</div></div><span class="arrow">›</span></div></button>'}).join(''):'<div class="empty">История пока пустая</div>')+'</div></section>';document.getElementById('backp').onclick=function(){S.player=null;S.view='rating';nav();rating()};R.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){openA(b.getAttribute('data-a'))}})}
+async function openPlayer(name){R.innerHTML=skeleton('profile');try{var d=await(await fetch(API+'?app=player&name='+encodeURIComponent(name),{cache:'no-store'})).json();if(!d.ok)throw 0;S.player=d.player;S.view='player';nav();player()}catch(x){R.innerHTML='<div class="empty">Не удалось загрузить профиль участника</div>'}}
+function nav(){document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===S.view)})}
+function syncChrome(){var btn=document.querySelector('[data-top-profile]'),lab=document.getElementById('topProfileLabel'),img=document.getElementById('topProfilePhoto'),navEl=document.querySelector('.nav'),adminNav=document.getElementById('adminNav');if(!btn||!lab||!img)return;var linked=S.me&&S.me.linked&&S.me.profile;if(linked){lab.textContent='Профиль';if(S.me.profile.photoUrl){img.src=S.me.profile.photoUrl;img.hidden=false;btn.classList.add('has-photo')}else{img.hidden=true;btn.classList.remove('has-photo')}}else{lab.textContent='Профиль';img.hidden=true;btn.classList.remove('has-photo')}var isAdmin=Boolean(S.me&&S.me.isAdmin);if(adminNav)adminNav.hidden=!isAdmin;if(navEl)navEl.classList.toggle('has-admin',isAdmin)}
+function render(){nav();syncChrome();if(S.view==='home')home();else if(S.view==='tours')tours();else if(S.view==='rating')rating();else if(S.view==='profile')profile();else if(S.view==='admin')admin();else if(S.view==='player')player();else archive()}
+async function identify(){if(S.meChecked)return;S.meChecked=true;if(!tg||!tg.initData)return;try{var r=await fetch(API+'?app=me',{method:'POST',body:tg.initData,cache:'no-store'}),d=await r.json(),uid=Number(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user&&tg.initDataUnsafe.user.id||0);if(uid===446763142)d.isAdmin=true;S.me=d}catch(x){S.me=null}}async function load(silent){try{var d=await(await fetch(API+'?app=bootstrap&_='+Date.now(),{cache:'no-store'})).json();if(!d.ok)throw 0;S.data=d;if(!S.meChecked)await identify();document.body.classList.remove('is-loading');if(!silent&&S.view!=='archive'&&S.view!=='player')render()}catch(x){document.body.classList.remove('is-loading');if(!silent)R.innerHTML='<div class="empty">Не удалось подключиться к данным Лиги Трибун</div>'}}
+R.addEventListener('click',function(ev){var topProfile=ev.target&&ev.target.closest?ev.target.closest('[data-top-profile]'):null;if(topProfile){ev.preventDefault();openMyProfile();return}var archiveCard=ev.target&&ev.target.closest?ev.target.closest('[data-a]'):null;if(archiveCard){ev.preventDefault();openA(archiveCard.getAttribute('data-a'));return}var go=ev.target&&ev.target.closest?ev.target.closest('[data-home-view]'):null;if(go){ev.preventDefault();var gv=go.getAttribute('data-home-view');if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.selectionChanged()}catch(e){}if(gv==='profile'){openMyProfile();return}S.view=gv;S.archive=null;S.player=null;S.ratingArchive='all';render();return}var archivePhotoSave=ev.target&&ev.target.closest?ev.target.closest('[data-archive-photo-save]'):null;if(archivePhotoSave){ev.preventDefault();adminSaveArchivePhoto();return}var photoSave=ev.target&&ev.target.closest?ev.target.closest('[data-admin-photo-save]'):null;if(photoSave){ev.preventDefault();adminSavePhotoReport(photoSave.getAttribute('data-admin-photo-save'));return}var linkBtn=ev.target&&ev.target.closest?ev.target.closest('[data-admin-link]'):null;if(linkBtn){ev.preventDefault();adminLinkArchive(linkBtn.getAttribute('data-admin-link'),false);return}var unlinkBtn=ev.target&&ev.target.closest?ev.target.closest('[data-admin-unlink]'):null;if(unlinkBtn){ev.preventDefault();adminLinkArchive(unlinkBtn.getAttribute('data-admin-unlink'),true);return}var del=ev.target&&ev.target.closest?ev.target.closest('[data-admin-delete]'):null;if(del){ev.preventDefault();if(!confirm('Удалить этот турнир?'))return;adminDeleteTournament(del.getAttribute('data-admin-delete'));return}var fav=ev.target&&ev.target.closest?ev.target.closest('[data-favorite-club-open]'):null;if(fav){ev.preventDefault();openClubSheet();return}var el=ev.target&&ev.target.closest?ev.target.closest('[data-player]'):null;if(el){ev.preventDefault();openPlayer(el.getAttribute('data-player'))}});
+async function adminSaveArchivePhoto(){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin)||!S.archive)return;var inp=document.querySelector('[data-archive-photo-input]'),url=String(inp&&inp.value||'').trim();if(url&&!/^https:\/\//i.test(url)){if(tg&&tg.showAlert)tg.showAlert('Ссылка должна начинаться с https://');return}try{var r=await fetch(API+'?app=admin-archive-photo',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,id:S.archive.id,photoReportUrl:url}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'save failed');S.archive.photoReportUrl=d.photoReportUrl||'';if(S.data&&Array.isArray(S.data.archives)){var meta=S.data.archives.find(function(x){return x.id===S.archive.id});if(meta)meta.photoReportUrl=S.archive.photoReportUrl}archive();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось сохранить фотоотчёт.');}}
+async function adminSavePhotoReport(id){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;var inp=document.querySelector('[data-admin-photo-input="'+CSS.escape(id)+'"]'),url=String(inp&&inp.value||'').trim();if(url&&!/^https:\/\//i.test(url)){if(tg&&tg.showAlert)tg.showAlert('Ссылка на фотоотчёт должна начинаться с https://');return}try{var r=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,action:'photo-report',id:id,photoReportUrl:url}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'save failed');await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось сохранить ссылку на фотоотчёт.');}}
+async function adminLinkArchive(id,unlink){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;var sel=document.querySelector('[data-admin-archive-select="'+CSS.escape(id)+'"]'),archiveId=sel&&sel.value||'';if(!unlink&&!archiveId){if(tg&&tg.showAlert)tg.showAlert('Выбери турнир из генератора.');return}try{var r=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,action:unlink?'unlink-archive':'link-archive',id:id,archiveId:archiveId}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'link failed');await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){var msg=x&&x.message==='archive_already_linked'?'Этот турнир генератора уже связан с другим анонсом.':'Не удалось сохранить связь.';if(tg&&tg.showAlert)tg.showAlert(msg);}}
+async function adminDeleteTournament(id){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;try{var r=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,action:'delete',id:id}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'delete failed');await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось удалить турнир.');}}
+R.addEventListener('submit',async function(ev){var form=ev.target;if(form&&form.id==='adminClaimForm'){ev.preventDefault();if(!tg||!tg.initData)return;var btn=form.querySelector('button[type="submit"]');if(btn)btn.disabled=true;try{var fd=new FormData(form),r=await fetch(API+'?app=admin-claim',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,code:String(fd.get('code')||'')}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'claim failed');S.meChecked=false;await identify();syncChrome();S.view='admin';nav();admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){};}catch(x){if(tg&&tg.showAlert)tg.showAlert(x&&x.message==='admin_already_claimed'?'Администратор уже назначен.':'Неверный код администратора.');}finally{if(btn)btn.disabled=false}return}
+if(form&&form.id==='adminTournamentForm'){ev.preventDefault();if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;var btn2=form.querySelector('button[type="submit"]');if(btn2)btn2.disabled=true;try{var fd2=new FormData(form),rawDate=String(fd2.get('startsAt')||''),iso=rawDate?new Date(rawDate).toISOString():'',payload={initData:tg.initData,action:'create',name:String(fd2.get('name')||''),startsAt:iso,venue:String(fd2.get('venue')||''),format:String(fd2.get('format')||'solo'),status:String(fd2.get('status')||'announcement'),registrationUrl:String(fd2.get('registrationUrl')||''),photoReportUrl:String(fd2.get('photoReportUrl')||'')},rr=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),cache:'no-store'}),dd=await rr.json();if(!rr.ok||!dd.ok)throw new Error(dd.error||'create failed');form.reset();await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){};}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось создать турнир. Проверь дату и данные.');}finally{if(btn2)btn2.disabled=false}}});
+document.addEventListener('click',function(ev){var sh=document.getElementById('favorite-club-sheet');if(!sh||sh.hidden)return;var close=ev.target&&ev.target.closest?ev.target.closest('[data-club-close]'):null;if(close||ev.target===sh){closeClubSheet();return}var opt=ev.target&&ev.target.closest?ev.target.closest('[data-club-key]'):null;if(opt)saveFavoriteClub(opt.getAttribute('data-club-key'))});
+document.querySelectorAll('.nav button').forEach(function(b){b.onclick=function(){var v=b.getAttribute('data-v');if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.selectionChanged()}catch(e){}if(v==='profile'){openMyProfile();return}if(v==='admin'&&!(S.me&&S.me.isAdmin))return;S.view=v;S.archive=null;S.player=null;S.ratingArchive='all';render()}});load(false);setInterval(function(){load(true)},30000)
+})();
+</script><script src="profile-link.js?v=6231142b"></script></body></html>
