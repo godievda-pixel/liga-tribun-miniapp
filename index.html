@@ -951,29 +951,26 @@ body{margin:0;overscroll-behavior:none;background:radial-gradient(circle at 8% 0
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Roboto+Condensed:ital,wght@1,700&amp;display=swap" rel="stylesheet">
 <style id="lt-brand-typography-v1">
-/* Brand typography: use Inter for UI and Roboto Condensed Bold Italic for
-   editorial headings. Existing logo assets and small data labels are unchanged. */
+/* Лига Трибун: consistent typography across all views.
+   Never alter the original SVG/WebP logo assets or data components. */
 :root {
   --lt-font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --lt-font-display: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
 }
+/* All interface labels, controls, statistics and regular text stay in Inter. */
 html, body { font-family: var(--lt-font-ui); }
-.hero h1,
-.home-premium-hero h1,
-.rating-hero h1,
-.rating-page-head h1,
-.archive-hero h1,
-.lt-hero-copy h2,
-.lt-next-placeholder h2,
-.archive-group-title h2,
-.archive-playoff-head h2,
-.home-title-row h2,
-.lt-event-card h3,
-.lt-archive-card h3 {
+/* Headings rendered by Home, Tournaments, Rating, Profile, Admin,
+   tournament/archive details and user/registration sheets. */
+h1, h2, h3 {
   font-family: var(--lt-font-display);
   font-style: italic;
   font-weight: 700;
-  letter-spacing: -.02em;
+}
+/* Keep italic text consistent for colored emphasis inside large headings. */
+h1 em, h2 em, h3 em, .home-premium-hero h1 em { font-style: italic; }
+/* Avoid over-compression of large condensed Cyrillic display headlines. */
+.lt-manifesto, .profile-tab-title, .admin-title {
+  letter-spacing: -.025em;
 }
 </style>
 </head>
