@@ -1025,6 +1025,55 @@ h1 em,h2 em,h3 em,.home-premium-hero h1 em { font-style:italic; }
 .admin-user-club-edit select{max-width:none;width:100%;font-size:12px!important;min-height:38px}
 @media(max-width:390px){.lt-date-tile{width:76px;height:78px}.lt-date-tile strong{font-size:21px!important}.lt-hero-copy h2{font-size:20px}}
 </style>
+<style id="lt-tournament-edit-fields-v30">
+#admin-tournament-edit-sheet{align-items:flex-end;padding:max(10px,env(safe-area-inset-top,0px)) 10px max(10px,env(safe-area-inset-bottom,0px))}
+#admin-tournament-edit-sheet .admin-edit-tournament-panel{width:min(560px,100%);max-height:calc(100dvh - 36px);overflow-y:auto;overscroll-behavior:contain;padding:18px;border-radius:23px;scrollbar-width:thin}
+#admin-tournament-edit-sheet .admin-reg-head{align-items:flex-start;margin-bottom:17px}
+#admin-tournament-edit-sheet .admin-reg-head>div{min-width:0}
+#admin-tournament-edit-sheet .admin-reg-head h2{font-size:24px;line-height:1.05;margin:6px 0}
+#admin-tournament-edit-sheet .admin-reg-head small{display:block;font-size:11px;line-height:1.4}
+#admin-tournament-edit-sheet .admin-reg-head>button{flex:0 0 38px;width:38px;height:38px}
+.admin-edit-form{border-radius:19px;padding:16px;gap:15px;min-width:0}
+.admin-edit-form .admin-form-row,.admin-edit-form .admin-form-grid,.admin-edit-form label{min-width:0}
+.admin-edit-form .admin-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.admin-edit-form label{display:flex;flex-direction:column;gap:7px}
+.admin-edit-form label>span{display:block;font-size:10px;line-height:1.3;letter-spacing:.045em;color:#abb8ad}
+.admin-edit-form input:not([type="checkbox"]):not([type="hidden"]),.admin-edit-form select{
+  display:block;width:100%;min-width:0;max-width:100%;height:48px;min-height:48px;
+  box-sizing:border-box;margin:0;border:1px solid rgba(255,255,255,.13);border-radius:12px;
+  background:#0b120e;color:#f3f8f3;font-family:var(--lt-font-ui),system-ui,sans-serif;
+  font-size:16px!important;line-height:1.25;padding:0 12px;outline:0;color-scheme:dark;
+  -webkit-appearance:none;appearance:none
+}
+.admin-edit-form input[type="date"],.admin-edit-form input[type="time"]{font-variant-numeric:tabular-nums;letter-spacing:0;padding-right:9px}
+.admin-edit-form input[type="date"]::-webkit-calendar-picker-indicator,.admin-edit-form input[type="time"]::-webkit-calendar-picker-indicator{filter:invert(.8);opacity:.85;cursor:pointer}
+.admin-edit-form select{padding-right:28px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%2394a798' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.admin-edit-form input:focus-visible,.admin-edit-form select:focus-visible{border-color:#26ce29;box-shadow:0 0 0 2px rgba(38,206,41,.10)}
+.admin-edit-form input::placeholder{color:#68776b;opacity:1}
+.admin-date-settings{min-width:0;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.018);padding:13px;margin:0}
+.admin-date-settings legend{color:#bbcbbf;font-size:11px;font-weight:800;padding:0 5px}
+.admin-date-mode{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:4px;background:#080e0a;border-radius:12px;margin:0 0 13px}
+.admin-date-mode button{min-width:0;min-height:41px;border:0;border-radius:9px;background:transparent;color:#98a99c;font-size:12px;font-weight:800;padding:7px 5px}
+.admin-date-mode button[aria-pressed="true"]{background:rgba(38,206,41,.15);color:#65eb68;box-shadow:inset 0 0 0 1px rgba(38,206,41,.26)}
+.admin-edit-form [hidden]{display:none!important}
+.admin-date-explainer{display:block;color:#809086;font-size:10px;line-height:1.45;margin-top:9px}
+.admin-time-toggle{flex-direction:row!important;align-items:center!important;gap:10px!important;color:#d1dbd2;cursor:pointer}
+.admin-edit-form .admin-time-toggle input[type="checkbox"]{appearance:auto!important;accent-color:#26ce29;flex:0 0 17px;width:17px;height:17px;margin:0}
+.admin-edit-form .admin-time-toggle span{font-size:11px;color:#b1c0b5}
+.admin-edit-form input:disabled{opacity:.55}
+.admin-edit-form .admin-notification-hint{display:block;color:#8b9a8f;font-size:10px;line-height:1.5}
+.admin-edit-error{padding:11px 12px;border:1px solid rgba(255,100,100,.25);background:rgba(255,75,75,.055);border-radius:10px;color:#ffaaaa;font-size:11px;line-height:1.4;margin:0}
+.admin-edit-form .admin-edit-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.47fr);gap:9px;margin-top:0}
+.admin-edit-form .admin-edit-actions button{width:100%;min-width:0;min-height:49px;height:auto;padding:10px;border-radius:12px;font-size:12px;line-height:1.2}
+.admin-edit-form .admin-create-btn:disabled{opacity:.7}
+@media(max-width:480px){
+  #admin-tournament-edit-sheet .admin-edit-tournament-panel{padding:14px}
+  .admin-edit-form{padding:12px;gap:13px}
+  .admin-edit-form .admin-form-grid{grid-template-columns:minmax(0,1fr);gap:13px}
+  .admin-edit-form .admin-edit-actions{grid-template-columns:minmax(0,1fr);gap:8px}
+  .admin-date-settings{padding:11px}
+}
+</style>
 </head>
 <body class="is-loading">
 <div class="app"><div class="top"><div class="brand"><div class="logo logo-img"><img src="data:image/webp;base64,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" alt="Лига Трибун"></div><div><b>ЛИГА ТРИБУН</b><small>турниры среди фанатов клубов</small></div></div><button class="profile-chip" type="button" data-top-profile aria-label="Профиль"><span class="profile-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5.5 20c.8-3.4 3.2-5.4 6.5-5.4s5.7 2 6.5 5.4"/></svg></span><img id="topProfilePhoto" class="profile-chip-photo" alt="" hidden><span id="topProfileLabel">Профиль</span></button></div><main id="root"><div class="loading-screen"><img class="loading-brand-logo" src="./assets/liga-tribun-loading.svg?v=20261013-1" alt="Лига Трибун"><div class="load-line"><span></span></div><div class="load-caption">Загружаем турниры</div></div></main>
@@ -1095,7 +1144,110 @@ function openTournamentDetails(id){var a=S.data&&Array.isArray(S.data.tournament
 
 function adminTournamentSaveMessage(d,fallback){var n=d&&d.notification;if(!n)return fallback||'Изменения сохранены.';var title=n.kind==='registration'?'Продажа билетов открыта.':'Турнир переведён в анонс.';return title+' Уведомление отправлено: '+Number(n.sent||0)+(Number(n.failed||0)?'. Не доставлено: '+Number(n.failed||0)+'.':'.')}
 function closeAdminTournamentEdit(){var sh=document.getElementById('admin-tournament-edit-sheet');if(sh)sh.remove();if(!document.querySelector('.admin-reg-sheet'))document.body.style.overflow=''}
-function openAdminTournamentEdit(id){if(!(S.me&&S.me.isAdmin))return;var a=S.data&&Array.isArray(S.data.tournaments)?S.data.tournaments.find(function(x){return x.id===id}):null;if(!a)return;closeAdminTournamentEdit();var sh=document.createElement('div');sh.id='admin-tournament-edit-sheet';sh.className='admin-reg-sheet';sh.innerHTML='<div class="admin-reg-panel admin-edit-tournament-panel"><div class="admin-reg-head"><div><span class="kicker">Редактирование</span><h2>'+e(a.name)+'</h2><small>Можно изменить статус, даты, время и площадку</small></div><button type="button" data-admin-edit-close>×</button></div><form id="adminTournamentEditForm" class="admin-tournament-form"><div class="admin-form-row full"><label><span>Название турнира</span><input name="name" required maxlength="100" value="'+e(a.name||'')+'"></label></div><div class="admin-form-grid"><label><span>Дата от</span><input name="startDate" type="date" required value="'+e(moscowInputDate(a.dateTime))+'"></label><label><span>Дата по <i>необязательно</i></span><input name="endDate" type="date" value="'+e(a.endsAt?moscowInputDate(a.endsAt):'')+'"></label></div><div class="admin-form-grid"><label><span>Время <i>необязательно</i></span><input name="startTime" type="time" value="'+e(a.timeTbd?'':moscowInputTime(a.dateTime))+'"><small>Пусто = время уточняется.</small></label><label><span>Формат</span><select name="format"><option value="solo" '+(a.format==='solo'?'selected':'')+'>Одиночный</option><option value="pair" '+(a.format==='pair'?'selected':'')+'>Парный</option></select></label></div><div class="admin-form-row full"><label><span>Место проведения <i>необязательно</i></span><input name="venue" maxlength="140" value="'+e(a.venue||'')+'" placeholder="Оставь пустым — площадка уточняется"></label></div><div class="admin-form-row full"><label><span>Статус</span><select name="status"><option value="announcement" '+(a.status==='announcement'?'selected':'')+'>Анонс</option><option value="soon" '+(a.status==='soon'?'selected':'')+'>Скоро</option><option value="registration" '+(a.status==='registration'?'selected':'')+'>Продажа билетов открыта</option><option value="completed" '+(a.status==='completed'?'selected':'')+'>Завершён</option><option value="cancelled" '+(a.status==='cancelled'?'selected':'')+'>Отменён</option></select></label><small class="admin-notification-hint">Если статус впервые меняется на «Анонс» или «Продажа билетов открыта», бот отправит уведомление всем пользователям.</small></div><div class="admin-edit-actions"><button class="admin-create-btn" type="submit">Сохранить изменения</button><button class="admin-edit-cancel" type="button" data-admin-edit-close>Отмена</button></div></form></div>';document.body.appendChild(sh);document.body.style.overflow='hidden';sh.addEventListener('click',function(ev){if(ev.target===sh||ev.target.closest('[data-admin-edit-close]'))closeAdminTournamentEdit()});var form=sh.querySelector('#adminTournamentEditForm');form.addEventListener('submit',async function(ev){ev.preventDefault();var btn=form.querySelector('button[type="submit"]');if(btn)btn.disabled=true;try{var fd=new FormData(form),startDate=String(fd.get('startDate')||''),endDate=String(fd.get('endDate')||''),startTime=String(fd.get('startTime')||''),iso=startDate?new Date(startDate+'T'+(startTime||'12:00')+':00+03:00').toISOString():'',endIso=endDate?new Date(endDate+'T23:59:59+03:00').toISOString():'';if(endDate&&endDate<startDate)throw new Error('bad_date_range');var payload={initData:tg.initData,action:'update',id:a.id,name:String(fd.get('name')||''),startsAt:iso,endsAt:endIso,timeTbd:!startTime,venue:String(fd.get('venue')||''),format:String(fd.get('format')||'solo'),status:String(fd.get('status')||'announcement'),registrationUrl:'',photoReportUrl:'',priceRub:900,paymentUrl:''};var r=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'update_failed');closeAdminTournamentEdit();await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}if(d&&d.notification&&tg&&tg.showAlert)tg.showAlert(adminTournamentSaveMessage(d));}catch(x){var msg=x&&x.message==='bad_date_range'?'Дата «по» не может быть раньше даты «от».':'Не удалось сохранить изменения.';if(tg&&tg.showAlert)tg.showAlert(msg);else alert(msg)}finally{if(btn)btn.disabled=false}})}
+function openAdminTournamentEdit(id){
+  if(!(S.me&&S.me.isAdmin))return;
+  var a=S.data&&Array.isArray(S.data.tournaments)?S.data.tournaments.find(function(x){return x.id===id}):null;
+  if(!a)return;
+  closeAdminTournamentEdit();
+  var sh=document.createElement('div');
+  sh.id='admin-tournament-edit-sheet';sh.className='admin-reg-sheet';
+  var isPeriod=Boolean(a.endsAt),tbd=Boolean(a.timeTbd);
+  sh.innerHTML=
+    '<div class="admin-reg-panel admin-edit-tournament-panel">'+
+      '<div class="admin-reg-head"><div><span class="kicker">Редактирование</span><h2>Параметры турнира</h2><small>Измени дату, время и остальные данные</small></div><button type="button" data-admin-edit-close aria-label="Закрыть">×</button></div>'+
+      '<form id="adminTournamentEditForm" class="admin-tournament-form admin-edit-form" novalidate>'+
+        '<div class="admin-form-row full"><label><span>Название турнира</span><input name="name" type="text" autocomplete="off" required maxlength="100" value="'+e(a.name||'')+'"></label></div>'+
+        '<fieldset class="admin-date-settings"><legend>Когда пройдёт турнир?</legend><div class="admin-date-mode">'+
+          '<button type="button" data-date-mode="single" aria-pressed="'+(!isPeriod)+'">Точная дата</button>'+
+          '<button type="button" data-date-mode="period" aria-pressed="'+isPeriod+'">Период дат</button>'+
+        '</div><input type="hidden" name="dateMode" value="'+(isPeriod?'period':'single')+'">'+
+        '<div class="admin-form-grid admin-edit-date-fields">'+
+          '<label><span data-start-date-label>'+(isPeriod?'Дата начала':'Дата турнира')+'</span><input name="startDate" type="date" required value="'+e(moscowInputDate(a.dateTime))+'"></label>'+
+          '<label data-end-date-field '+(!isPeriod?'hidden':'')+'><span>Дата окончания</span><input name="endDate" type="date" value="'+e(a.endsAt?moscowInputDate(a.endsAt):'')+'" '+(!isPeriod?'disabled':'')+'></label>'+
+        '</div><small class="admin-date-explainer" data-date-explainer>'+(isPeriod?'Турнир запланирован на несколько дней.':'Турнир состоится в один конкретный день.')+'</small></fieldset>'+
+        '<div class="admin-form-grid admin-edit-other-fields">'+
+          '<label><span>Время начала (МСК)</span><input name="startTime" type="time" step="60" value="'+e(tbd?'':moscowInputTime(a.dateTime))+'" '+(tbd?'disabled':'')+' '+(!tbd?'required':'')+'></label>'+
+          '<label><span>Формат турнира</span><select name="format"><option value="solo" '+(a.format==='solo'?'selected':'')+'>Одиночный</option><option value="pair" '+(a.format==='pair'?'selected':'')+'>Парный</option></select></label>'+
+        '</div>'+
+        '<label class="admin-time-toggle"><input type="checkbox" name="timeTbd" '+(tbd?'checked':'')+'><span>Время пока уточняется</span></label>'+
+        '<div class="admin-form-row full"><label><span>Площадка проведения</span><input name="venue" type="text" maxlength="140" value="'+e(a.venue||'')+'" placeholder="Площадка уточняется"></label></div>'+
+        '<div class="admin-form-row full"><label><span>Статус турнира</span><select name="status">'+
+          '<option value="soon" '+(a.status==='soon'?'selected':'')+'>Скоро</option>'+
+          '<option value="announcement" '+(a.status==='announcement'?'selected':'')+'>Анонс</option>'+
+          '<option value="registration" '+(a.status==='registration'?'selected':'')+'>Продажа билетов открыта</option>'+
+          '<option value="completed" '+(a.status==='completed'?'selected':'')+'>Завершён</option>'+
+          '<option value="cancelled" '+(a.status==='cancelled'?'selected':'')+'>Отменён</option>'+
+        '</select></label></div>'+
+        '<small class="admin-notification-hint">При первом переходе в «Анонс» или «Продажа билетов открыта» бот отправит уведомление участникам приложения.</small>'+
+        '<p class="admin-edit-error" role="alert" aria-live="polite" hidden></p>'+
+        '<div class="admin-edit-actions"><button class="admin-create-btn" type="submit">Сохранить изменения</button><button class="admin-edit-cancel" type="button" data-admin-edit-close>Отмена</button></div>'+
+      '</form></div>';
+  document.body.appendChild(sh);document.body.style.overflow='hidden';
+  sh.addEventListener('click',function(ev){if(ev.target===sh||ev.target.closest('[data-admin-edit-close]'))closeAdminTournamentEdit()});
+  var form=sh.querySelector('#adminTournamentEditForm');
+  var modeInput=form.elements.namedItem('dateMode'),startInput=form.elements.namedItem('startDate'),
+      endInput=form.elements.namedItem('endDate'),timeInput=form.elements.namedItem('startTime'),
+      tbdInput=form.elements.namedItem('timeTbd'),errorNode=form.querySelector('.admin-edit-error');
+  function showError(message){
+    errorNode.textContent=message;errorNode.hidden=!message;
+    if(message)errorNode.scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+  function syncDates(){
+    var period=modeInput.value==='period';
+    form.querySelectorAll('[data-date-mode]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-date-mode')===modeInput.value))});
+    form.querySelector('[data-end-date-field]').hidden=!period;
+    endInput.disabled=!period;
+    endInput.required=period;
+    form.querySelector('[data-start-date-label]').textContent=period?'Дата начала':'Дата турнира';
+    form.querySelector('[data-date-explainer]').textContent=period?'Выбери первый и последний день мероприятия.':'Турнир состоится в выбранный день, без диапазона.';
+    if(period&&startInput.value&&!endInput.value)endInput.value=startInput.value;
+    if(period&&startInput.value)endInput.min=startInput.value;
+  }
+  function syncTime(){timeInput.disabled=tbdInput.checked;timeInput.required=!tbdInput.checked}
+  form.querySelectorAll('[data-date-mode]').forEach(function(b){
+    b.addEventListener('click',function(){modeInput.value=b.getAttribute('data-date-mode');syncDates();showError('')});
+  });
+  startInput.addEventListener('change',function(){if(modeInput.value==='period'&&endInput.value&&endInput.value<startInput.value)endInput.value=startInput.value;syncDates()});
+  tbdInput.addEventListener('change',syncTime);
+  syncDates();syncTime();
+  form.addEventListener('submit',async function(ev){
+    ev.preventDefault();
+    showError('');
+    var btn=form.querySelector('button[type="submit"]');
+    var name=String(form.elements.namedItem('name').value||'').trim(),
+        startDate=String(startInput.value||''),period=modeInput.value==='period',
+        endDate=period?String(endInput.value||''):'',
+        tbd=Boolean(tbdInput.checked),startTime=tbd?'':String(timeInput.value||'');
+    if(name.length<2){showError('Укажи название турнира (от 2 символов).');form.elements.namedItem('name').focus();return}
+    if(!startDate||!startInput.validity.valid){showError('Выбери точную дату турнира.');startInput.focus();return}
+    if(period&&(!endDate||!endInput.validity.valid)){showError('Укажи дату окончания периода.');endInput.focus();return}
+    if(period&&endDate<startDate){showError('Дата окончания не может быть раньше даты начала.');endInput.focus();return}
+    if(!tbd&&(!startTime||!timeInput.validity.valid)){showError('Укажи время начала или отметь «Время пока уточняется».');timeInput.focus();return}
+    var iso=new Date(startDate+'T'+(tbd?'12:00':startTime)+':00+03:00'),
+        endIso=period?new Date(endDate+'T23:59:59+03:00'):null;
+    if(!Number.isFinite(iso.getTime())||(endIso&&!Number.isFinite(endIso.getTime()))){showError('Дата или время введены некорректно.');return}
+    var payload={initData:tg.initData,action:'update',id:a.id,name:name,
+      startsAt:iso.toISOString(),endsAt:endIso?endIso.toISOString():'',
+      timeTbd:tbd,venue:String(form.elements.namedItem('venue').value||'').trim(),
+      format:String(form.elements.namedItem('format').value||'solo'),
+      status:String(form.elements.namedItem('status').value||'announcement')};
+    btn.disabled=true;btn.textContent='Сохраняем…';
+    try{
+      var response=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),cache:'no-store'}),
+          data=await response.json();
+      if(!response.ok||!data.ok)throw new Error(data.error||'update_failed');
+      await load(true);
+      closeAdminTournamentEdit();S.view='admin';admin();
+      if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(_){}
+      if(tg&&tg.showAlert)tg.showAlert(adminTournamentSaveMessage(data,'Данные турнира сохранены.'));
+    }catch(x){
+      var message=x&&x.message==='bad_date_range'?'Дата окончания не может быть раньше даты начала.':
+        x&&x.message==='bad_date'?'Не удалось сохранить дату турнира.':
+        'Не удалось сохранить изменения. Проверь поля и попробуй снова.';
+      showError(message);
+    }finally{btn.disabled=false;btn.textContent='Сохранить изменения'}
+  });
+}
 
 function home(){var c=S.data&&S.data.current,s=c&&c.state||{},archives=S.data&&S.data.archives||[],now=Date.now(),anns=((S.data&&S.data.tournaments)||s.ligaAnnouncements||[]).filter(function(a){var t=Date.parse(a.dateTime||'');var end=Date.parse(a.endsAt||a.dateTime||'');return a.status!=='completed'&&Number.isFinite(t)&&Number.isFinite(end)&&end>=now-21600000}).sort(function(a,b){return Date.parse(a.dateTime)-Date.parse(b.dateTime)}).slice(0,8),next=anns[0]||null;var profile='';if(S.me&&S.me.linked){var p=S.me.player||{},pr=S.me.profile||{},displayName=profileDisplayName(pr),initial=(displayName||'?').charAt(0).toUpperCase(),av=pr.photoUrl?'<img src="'+e(pr.photoUrl)+'" alt="">':e(initial),fav=clubInfo(pr.favoriteClub),favMark=fav?clubImg(fav.key,fav.label):'<span class="favorite-plus">+</span>';profile='<section class="lt-section"><div class="lt-section-head"><h2>Мой профиль</h2><button type="button" data-home-view="profile">Открыть <span>→</span></button></div><article class="lt-profile-card"><button class="lt-profile-main" type="button" data-home-view="profile"><div class="avatar">'+av+'</div><div class="lt-profile-copy"><strong>'+e(displayName)+'</strong><span>'+(p.rank?'№ '+e(p.rank)+' · '+e(fmtAvg(ratingAvg(p)))+' ср. за турнир':'Участник Лиги Трибун')+'</span></div><span class="lt-chevron">›</span></button><div class="lt-profile-stats"><div><strong>'+(p.rank?'№'+e(p.rank):'—')+'</strong><span>место</span></div><div><strong>'+e(fmtAvg(ratingAvg(p)))+'</strong><span>ср. очков</span></div><div><strong>'+e(p.tournaments||0)+'</strong><span>турниров</span></div></div><div class="favorite-row"><div class="favorite-club"><div class="favorite-crest">'+favMark+'</div><div class="favorite-club-copy"><b>'+(fav?e(fav.label):'Любимый клуб')+'</b><small>'+(fav?'выбран в профиле':'выбери клуб')+'</small></div></div><button type="button" class="favorite-btn" data-favorite-club-open>'+(fav?'Изменить':'Выбрать')+'</button></div></article></section>'};var hero;if(next){var tile=eventTile(next);hero='<article class="lt-event-hero">'+homeLogoWatermark()+'<div class="lt-hero-top"><span>'+(next.status==='registration'?'Продажа билетов':next.status==='soon'?'Скоро':'Ближайший турнир')+'</span>'+tournamentRegistrationMeta(next)+'</div><div class="lt-hero-main"><div class="lt-date-tile"><strong>'+e(tile.big).replace(/^(\d{1,2})\s*[–—-]\s*(\d{1,2})$/, '<span class="lt-date-day">$1</span><span class="lt-date-separator">–</span><span class="lt-date-day">$2</span>')+'</strong><span>'+e(tile.small)+'</span></div><div class="lt-hero-copy"><h2>'+e(next.name||'Турнир')+'</h2><p>'+e(eventScheduleText(next))+' · '+e(eventVenueText(next))+'</p></div></div><div class="lt-hero-actions">'+tournamentRegistrationActions(next,false)+'<button class="lt-secondary-btn" type="button" data-home-view="rating">Рейтинг</button></div></article>'}else{hero='<article class="lt-next-placeholder"><div class="lt-placeholder-watermark">ЛТ</div><span class="home-label">Следующий турнир</span><h2>Новый анонс появится здесь</h2><p>А пока можно посмотреть результаты прошлых турниров и актуальный рейтинг участников.</p><div class="lt-placeholder-actions"><button class="lt-primary-btn" type="button" data-home-view="tours">Все турниры <span>→</span></button><button class="lt-secondary-btn" type="button" data-home-view="rating">Рейтинг</button></div></article>'};var future=next?anns.slice(1):anns,upcoming=future.length?'<section class="lt-section"><div class="lt-section-head"><h2>Ближайшие турниры</h2><span>'+future.length+'</span></div><div class="lt-horizontal">'+future.map(function(a){var tile=eventTile(a),st=a.status==='registration'?'Продажа билетов':a.status==='soon'?'Скоро':'Анонс';return'<article class="lt-event-card"><div class="lt-event-card-top"><span>'+e(st)+'</span><b>'+e(tile.big)+' '+e(tile.small)+'</b></div><h3>'+e(a.name||'Турнир')+'</h3><p>'+e(eventScheduleText(a))+' · '+e(eventVenueText(a))+'</p><div class="lt-event-card-register"><small>'+tournamentRegistrationMeta(a)+'</small>'+tournamentRegistrationActions(a,true)+'</div></article>'}).join('')+'</div></section>':'';var recent=archives.length?'<section class="lt-section"><div class="lt-section-head"><h2>Последние турниры</h2><button type="button" data-home-view="tours">Все <span>→</span></button></div><div class="lt-horizontal">'+archives.slice(0,5).map(function(x){return'<button class="lt-archive-card" type="button" data-a="'+e(x.id)+'"><span class="home-label">'+e(fl(x.format))+'</span><h3>'+e(x.name)+'</h3><p>'+date(x.createdAt)+' · '+e(ruParticipants(x.participants))+'</p>'+(x.champion?'<div class="lt-champion">Победитель · '+e(x.champion)+'</div>':'')+'<span class="lt-card-arrow">›</span></button>'}).join('')+'</div></section>':'';var contacts='<section class="lt-section lt-contacts-section"><div class="lt-section-head"><h2>Контакты</h2><span>Лига Трибун</span></div><article class="lt-contact-card"><div class="lt-contact-copy"><span class="lt-contact-icon"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l7 2 2 7 9-16Z"/><path d="m10 13 5-4"/></svg></span><div><strong>Связаться с организаторами</strong><small>Вопросы по участию, регистрации и турнирам</small></div></div><div class="lt-contact-actions"><a href="https://t.me/danx95" target="_blank" rel="noopener"><span>Организатор</span><b>@danx95 ↗</b></a><a class="chat" href="https://t.me/+z5hFsBc6gPU4ZGEy" target="_blank" rel="noopener"><span>Чат участников</span><b>Вступить ↗</b></a></div></article></section>';R.innerHTML='<section class="lt-home-page"><div class="home-label">Лига Трибун</div><h1 class="lt-manifesto"><span>Турниры среди</span><span>фанатов клубов</span></h1><p class="lt-intro">Представляй свой любимый клуб, следи за результатами и поднимайся в общем рейтинге!</p>'+hero+contacts+profile+upcoming+recent+'</section>'}
 
