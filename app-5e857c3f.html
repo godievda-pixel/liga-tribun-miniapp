@@ -1074,6 +1074,35 @@ h1 em,h2 em,h3 em,.home-premium-hero h1 em { font-style:italic; }
   .admin-date-settings{padding:11px}
 }
 </style>
+<style id="lt-manual-bookings-v32">
+.admin-bookings-panel{max-height:calc(100dvh - 30px);overflow:auto;overscroll-behavior:contain}
+.admin-bookings-panel .admin-reg-head small{display:block;margin-top:7px;font-size:11px}
+.admin-seat-progress{height:7px;margin:13px 0 17px;border-radius:10px;background:#263128;overflow:hidden}
+.admin-seat-progress>span{display:block;height:100%;background:#26ce29;border-radius:10px}
+.admin-manual-reserve{padding:15px;background:rgba(38,206,41,.035);border:1px solid rgba(38,206,41,.19);border-radius:16px;display:grid;gap:11px}
+.admin-manual-reserve h3{margin:0;color:#f1f7f1;font-size:17px}
+.admin-manual-reserve p{margin:0;color:#87978a;font-size:10px;line-height:1.5}
+.admin-manual-reserve label{display:grid;gap:6px;min-width:0}
+.admin-manual-reserve label>span{font-size:10px;color:#b8c7b9}
+.admin-manual-reserve input,.admin-manual-reserve select{display:block;width:100%;min-width:0;height:44px;padding:0 11px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:#0a100c;color:#f3f8f3;font-size:16px;font-family:var(--lt-font-ui),sans-serif;box-sizing:border-box}
+.admin-manual-reserve select{color-scheme:dark}
+.admin-manual-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;min-width:0}
+.admin-manual-submit{width:100%;min-height:44px;background:#26ce29;border:0;border-radius:11px;color:#051008;font-size:12px;font-weight:900}
+.admin-manual-submit:disabled{opacity:.48}
+.admin-manual-error{color:#ffaaaa!important;padding:9px;border-radius:8px;background:rgba(255,50,50,.08)}
+.admin-bookings-panel .admin-reg-tools{gap:12px}.admin-bookings-panel .admin-reg-tools b{font-size:11px}
+.admin-booking-row{grid-template-columns:24px minmax(0,1fr) auto;gap:8px}
+.admin-booking-actions{display:flex;align-items:center;gap:7px;min-width:0}
+.admin-booking-status{max-width:122px;min-height:33px;border:1px solid rgba(38,206,41,.22);border-radius:9px;padding:0 5px;background:#111c13;color:#d2f3d3;font-size:10px}
+.admin-booking-actions .admin-reg-pay{font-size:9px}
+.admin-booking-actions .admin-reg-remove{flex-shrink:0}
+@media(max-width:480px){
+.admin-manual-grid{grid-template-columns:1fr}
+.admin-booking-row{grid-template-columns:20px minmax(0,1fr);align-items:start}
+.admin-booking-actions{grid-column:2;justify-content:flex-start;margin-top:3px}
+.admin-booking-status{max-width:180px}
+}
+</style>
 </head>
 <body class="is-loading">
 <div class="app"><div class="top"><div class="brand"><div class="logo logo-img"><img src="data:image/webp;base64,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" alt="Лига Трибун"></div><div><b>ЛИГА ТРИБУН</b><small>турниры среди фанатов клубов</small></div></div><button class="profile-chip" type="button" data-top-profile aria-label="Профиль"><span class="profile-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5.5 20c.8-3.4 3.2-5.4 6.5-5.4s5.7 2 6.5 5.4"/></svg></span><img id="topProfilePhoto" class="profile-chip-photo" alt="" hidden><span id="topProfileLabel">Профиль</span></button></div><main id="root"><div class="loading-screen"><img class="loading-brand-logo" src="./assets/liga-tribun-loading.svg?v=20261013-1" alt="Лига Трибун"><div class="load-line"><span></span></div><div class="load-caption">Загружаем турниры</div></div></main>
@@ -1371,14 +1400,105 @@ async function openAdminUsers(){
 }
 function closeAdminRegistrations(){var sh=document.getElementById('admin-registration-sheet');if(sh)sh.remove();document.body.style.overflow=''}
 function paymentStatusLabel(v){return v==='paid'?'Оплачено':v==='waived'?'Без оплаты':'Не оплачено'}
-async function openAdminRegistrations(id){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;closeAdminRegistrations();var sh=document.createElement('div');sh.id='admin-registration-sheet';sh.className='admin-reg-sheet';sh.innerHTML='<div class="admin-reg-panel"><div class="admin-reg-loading">Загружаем список…</div></div>';document.body.appendChild(sh);document.body.style.overflow='hidden';sh.addEventListener('click',function(ev){if(ev.target===sh||ev.target.closest('[data-admin-reg-close]'))closeAdminRegistrations()});try{var r=await fetch(API+'?app=admin-registrations',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,tournamentId:id,action:'list'}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'load_failed');var rows=d.rows||[],panel=sh.querySelector('.admin-reg-panel');panel.innerHTML='<div class="admin-reg-head"><div><span class="kicker">Билеты</span><h2>'+e(d.tournament.name)+'</h2><small>'+rows.length+' / 32 · 900 ₽ · '+(d.paymentsConfigured?'ЮKassa подключена':'ЮKassa не подключена')+'</small></div><button type="button" data-admin-reg-close>×</button></div><div class="admin-reg-tools"><button type="button" data-admin-reg-copy>Скопировать список</button>'+(d.tournament.priceRub?'<span>'+e(Number(d.tournament.priceRub).toLocaleString('ru-RU'))+' ₽</span>':'')+'</div><div class="admin-reg-list">'+(rows.length?rows.map(function(x,i){var club=clubInfo(x.favoriteClub),user=x.telegramUsername?'@'+x.telegramUsername:'без username';return'<article class="admin-reg-row"><div class="admin-reg-num">'+(i+1)+'</div><div class="admin-reg-person"><b>'+e(x.name)+'</b><small>'+e(user)+(club?' · '+e(club.label):'')+'</small></div><span class="admin-reg-pay '+(x.paymentStatus==='paid'?'paid':'')+'">'+e(paymentStatusLabel(x.paymentStatus))+'</span><button type="button" class="admin-reg-remove" data-admin-reg-remove="'+e(x.id)+'" data-tournament="'+e(id)+'">×</button></article>'}).join(''):'<div class="profile-history-empty">Пока никто не зарегистрировался.</div>')+'</div>';var copy=panel.querySelector('[data-admin-reg-copy]');if(copy)copy.onclick=function(){var lines=rows.map(function(x,i){return(i+1)+'. '+x.name+(x.telegramUsername?' @'+x.telegramUsername:'')+' — '+paymentStatusLabel(x.paymentStatus)}).join('\n');navigator.clipboard&&navigator.clipboard.writeText(lines);if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}}catch(x){var p=sh.querySelector('.admin-reg-panel');if(p)p.innerHTML='<div class="admin-reg-loading">Не удалось загрузить список.</div>'}}
+async function openAdminRegistrations(id){
+  if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;
+  closeAdminRegistrations();
+  var sh=document.createElement('div');
+  sh.id='admin-registration-sheet';sh.className='admin-reg-sheet';
+  sh.innerHTML='<div class="admin-reg-panel admin-bookings-panel"><div class="admin-reg-loading">Загружаем билеты…</div></div>';
+  document.body.appendChild(sh);document.body.style.overflow='hidden';
+  sh.addEventListener('click',function(ev){
+    if(ev.target===sh||ev.target.closest('[data-admin-reg-close]'))closeAdminRegistrations();
+  });
+  try{
+    var response=await fetch(API+'?app=admin-registrations',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({initData:tg.initData,tournamentId:id,action:'list'}),cache:'no-store'});
+    var d=await response.json();if(!response.ok||!d.ok)throw new Error(d.error||'load_failed');
+    var rows=d.rows||[],panel=sh.querySelector('.admin-bookings-panel');
+    var free=Number(d.available==null?32-rows.length:d.available);
+    var moneyOptions=[['waived','Без оплаты'],['unpaid','Ожидает оплаты'],['paid','Оплачено']];
+    var options=moneyOptions.map(function(x){return'<option value="'+x[0]+'">'+x[1]+'</option>'}).join('');
+    var list=rows.map(function(x,i){
+      var club=clubInfo(x.favoriteClub),user=x.telegramUsername?'@'+x.telegramUsername:(x.manual?'Добавлен вручную':'Нет username');
+      return'<article class="admin-reg-row admin-booking-row"><div class="admin-reg-num">'+(i+1)+'</div>'+
+        '<div class="admin-reg-person"><b>'+e(x.name)+'</b><small>'+e(user)+(club?' · '+e(club.label):'')+(x.manual?' · Резерв':'')+'</small></div>'+
+        '<div class="admin-booking-actions">'+
+          (x.manual?'<select class="admin-booking-status" data-booking-payment="'+e(x.id)+'" aria-label="Оплата '+e(x.name)+'">'+moneyOptions.map(function(z){return'<option value="'+z[0]+'" '+(x.paymentStatus===z[0]?'selected':'')+'>'+z[1]+'</option>'}).join('')+'</select>':
+            '<span class="admin-reg-pay '+(x.paymentStatus==='paid'?'paid':'')+'">'+e(paymentStatusLabel(x.paymentStatus))+'</span>')+
+          '<button type="button" class="admin-reg-remove" data-admin-reg-remove="'+e(x.id)+'" data-tournament="'+e(id)+'" data-manual="'+(x.manual?'1':'0')+'" aria-label="Убрать '+e(x.name)+'">×</button>'+
+        '</div></article>';
+    }).join('');
+    panel.innerHTML='<div class="admin-reg-head"><div><span class="kicker">Билеты · 32 места</span><h2>'+e(d.tournament.name)+'</h2>'+
+      '<small>'+rows.length+' / 32 занято · '+free+' свободно · '+e(d.manualCount||0)+' вручную</small></div>'+
+      '<button type="button" data-admin-reg-close aria-label="Закрыть">×</button></div>'+
+      '<div class="admin-seat-progress" role="progressbar" aria-label="Занятые места" aria-valuemin="0" aria-valuemax="32" aria-valuenow="'+rows.length+'"><span style="width:'+Math.min(100,rows.length/32*100)+'%"></span></div>'+
+      '<form class="admin-manual-reserve" id="adminManualReserveForm"><h3>Зарезервировать место</h3><p>Добавь участника без Telegram-приложения. Резерв занимает одно из 32 мест.</p>'+
+      '<label><span>Имя и фамилия</span><input type="text" name="participantName" maxlength="100" minlength="2" placeholder="Например, Иван Иванов" required autocomplete="off"></label>'+
+      '<div class="admin-manual-grid"><label><span>Telegram (необязательно)</span><input type="text" name="telegramUsername" placeholder="@username" autocomplete="off"></label>'+
+      '<label><span>Статус оплаты</span><select name="paymentStatus">'+options+'</select></label></div>'+
+      '<button class="admin-manual-submit" type="submit" '+(free<=0?'disabled':'')+'>'+(free<=0?'Все 32 места заняты':'Зарезервировать место')+'</button>'+
+      '<p class="admin-manual-error" role="alert" hidden></p></form>'+
+      '<div class="admin-reg-tools"><b>Участники · '+rows.length+'</b><button type="button" data-admin-reg-copy>Скопировать список</button></div>'+
+      '<div class="admin-reg-list">'+(list||'<div class="profile-history-empty">Пока никто не зарегистрировался.</div>')+'</div>';
+    var form=panel.querySelector('#adminManualReserveForm');
+    form.addEventListener('submit',async function(ev){
+      ev.preventDefault();if(free<=0)return;
+      var btn=form.querySelector('button[type="submit"]'),err=form.querySelector('.admin-manual-error'),fd=new FormData(form);
+      err.hidden=true;err.textContent='';btn.disabled=true;
+      try{
+        var body={initData:tg.initData,tournamentId:id,action:'reserve',
+          participantName:String(fd.get('participantName')||''),telegramUsername:String(fd.get('telegramUsername')||''),
+          paymentStatus:String(fd.get('paymentStatus')||'waived')};
+        var res=await fetch(API+'?app=admin-registrations',{method:'POST',
+          headers:{'content-type':'application/json'},body:JSON.stringify(body),cache:'no-store'});
+        var dat=await res.json();if(!res.ok||!dat.ok)throw new Error(dat.error||'save_failed');
+        await load(true);openAdminRegistrations(id);
+        if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(_){}
+      }catch(error){
+        var code=String(error&&error.message||'');
+        err.textContent=code==='tournament_full'?'Все 32 места уже заняты.':
+          code==='already_reserved'||code==='already_registered'?'Этот участник уже есть в списке.':
+          code==='bad_username'?'Проверь Telegram username.':
+          code==='bad_name'?'Укажи имя участника.':'Не удалось добавить участника. Проверь данные.';
+        err.hidden=false;btn.disabled=false;
+      }
+    });
+    panel.addEventListener('change',async function(ev){
+      var select=ev.target&&ev.target.closest?ev.target.closest('[data-booking-payment]'):null;
+      if(!select)return;
+      var row=rows.find(function(x){return x.id===select.getAttribute('data-booking-payment')});
+      if(!row||!row.manual)return;
+      var old=row.paymentStatus;select.disabled=true;
+      try{
+        var res=await fetch(API+'?app=admin-registrations',{method:'POST',headers:{'content-type':'application/json'},
+          body:JSON.stringify({initData:tg.initData,tournamentId:id,action:'manual-payment',
+            reservationId:row.id,paymentStatus:select.value}),cache:'no-store'});
+        var data=await res.json();if(!res.ok||!data.ok)throw Error(data.error||'update_failed');
+        row.paymentStatus=select.value;
+      }catch(_){
+        select.value=old;
+        if(tg&&tg.showAlert)tg.showAlert('Не удалось обновить оплату.');
+      }finally{select.disabled=false}
+    });
+    var copy=panel.querySelector('[data-admin-reg-copy]');
+    if(copy)copy.onclick=function(){
+      var text=rows.map(function(x,i){return(i+1)+'. '+x.name+(x.telegramUsername?' @'+x.telegramUsername:'')+
+        ' — '+paymentStatusLabel(x.paymentStatus)+(x.manual?' (резерв)':'')}).join('\n');
+      if(navigator.clipboard)navigator.clipboard.writeText(text);
+      if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(_){}
+    };
+  }catch(x){
+    var p=sh.querySelector('.admin-reg-panel');
+    if(p)p.innerHTML='<div class="admin-reg-loading">Не удалось загрузить список билетов.</div>';
+  }
+}
 async function adminSetRegistrationPayment(tournamentId,registrationId,paid){try{var r=await fetch(API+'?app=admin-registrations',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,tournamentId:tournamentId,action:'payment',registrationId:registrationId,paymentStatus:paid?'paid':'unpaid'}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw 0;openAdminRegistrations(tournamentId)}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось изменить статус оплаты.')}}
-async function adminRemoveRegistration(tournamentId,registrationId){if(!confirm('Убрать участника из списка?'))return;try{var r=await fetch(API+'?app=admin-registrations',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,tournamentId:tournamentId,action:'remove',registrationId:registrationId}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw 0;await load(true);openAdminRegistrations(tournamentId)}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось убрать участника.')}}
+async function adminRemoveRegistration(tournamentId,registrationId,manual){if(!confirm('Освободить место участника?'))return;try{var payload={initData:tg.initData,tournamentId:tournamentId,action:manual?'manual-remove':'remove'};payload[manual?'reservationId':'registrationId']=registrationId;var r=await fetch(API+'?app=admin-registrations',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'remove_failed');await load(true);openAdminRegistrations(tournamentId)}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось освободить место.')}}
 async function adminLinkArchive(id,unlink){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;var sel=document.querySelector('[data-admin-archive-select="'+CSS.escape(id)+'"]'),archiveId=sel&&sel.value||'';if(!unlink&&!archiveId){if(tg&&tg.showAlert)tg.showAlert('Выбери турнир из генератора.');return}try{var r=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,action:unlink?'unlink-archive':'link-archive',id:id,archiveId:archiveId}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'link failed');await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){var msg=x&&x.message==='archive_already_linked'?'Этот турнир генератора уже связан с другим анонсом.':'Не удалось сохранить связь.';if(tg&&tg.showAlert)tg.showAlert(msg);}}
 async function adminDeleteTournament(id){if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;try{var r=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,action:'delete',id:id}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'delete failed');await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){if(tg&&tg.showAlert)tg.showAlert('Не удалось удалить турнир.');}}
 R.addEventListener('submit',async function(ev){var form=ev.target;if(form&&form.id==='profileNameForm'){ev.preventDefault();if(!tg||!tg.initData)return;var btn=form.querySelector('button[type="submit"]');if(btn)btn.disabled=true;try{var fd=new FormData(form),r=await fetch(API+'?app=profile-name',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,firstName:String(fd.get('firstName')||''),lastName:String(fd.get('lastName')||'')}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'save failed');S.me.profile=Object.assign({},S.me.profile,d.profile||{});await load(true);var pd=await(await fetch(API+'?app=player&name='+encodeURIComponent(S.me.profile.participantName),{cache:'no-store'})).json();if(pd&&pd.ok){S.player=pd.player;S.me.player=pd.player}profile();syncChrome();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){}}catch(x){var msg=x&&x.message==='name_taken'?'Такое имя уже занято другим участником.':'Проверь имя и фамилию.';if(tg&&tg.showAlert)tg.showAlert(msg);else alert(msg)}finally{if(btn)btn.disabled=false}return}if(form&&form.id==='adminClaimForm'){ev.preventDefault();if(!tg||!tg.initData)return;var btn=form.querySelector('button[type="submit"]');if(btn)btn.disabled=true;try{var fd=new FormData(form),r=await fetch(API+'?app=admin-claim',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:tg.initData,code:String(fd.get('code')||'')}),cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'claim failed');S.meChecked=false;await identify();syncChrome();S.view='admin';nav();admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){};}catch(x){if(tg&&tg.showAlert)tg.showAlert(x&&x.message==='admin_already_claimed'?'Администратор уже назначен.':'Неверный код администратора.');}finally{if(btn)btn.disabled=false}return}
 if(form&&form.id==='adminTournamentForm'){ev.preventDefault();if(!tg||!tg.initData||!(S.me&&S.me.isAdmin))return;var btn2=form.querySelector('button[type="submit"]');if(btn2)btn2.disabled=true;try{var fd2=new FormData(form),startDate=String(fd2.get('startDate')||''),endDate=String(fd2.get('endDate')||''),startTime=String(fd2.get('startTime')||''),iso=startDate?new Date(startDate+'T'+(startTime||'12:00')+':00+03:00').toISOString():'',endIso=endDate?new Date(endDate+'T23:59:59+03:00').toISOString():'';if(endDate&&endDate<startDate)throw new Error('bad_date_range');var payload={initData:tg.initData,action:'create',name:String(fd2.get('name')||''),startsAt:iso,endsAt:endIso,timeTbd:!startTime,venue:String(fd2.get('venue')||''),format:String(fd2.get('format')||'solo'),status:String(fd2.get('status')||'announcement'),registrationUrl:'',photoReportUrl:'',priceRub:900,paymentUrl:''},rr=await fetch(API+'?app=admin-tournament',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),cache:'no-store'}),dd=await rr.json();if(!rr.ok||!dd.ok)throw new Error(dd.error||'create failed');form.reset();await load(true);S.view='admin';admin();if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.notificationOccurred('success')}catch(e){};if(dd&&dd.notification&&tg&&tg.showAlert)tg.showAlert(adminTournamentSaveMessage(dd));}catch(x){var msg=x&&x.message==='bad_date_range'?'Дата «по» не может быть раньше даты «от».':'Не удалось создать турнир. Проверь дату и данные.';if(tg&&tg.showAlert)tg.showAlert(msg);}finally{if(btn2)btn2.disabled=false}}});
-document.addEventListener('click',function(ev){var rem=ev.target&&ev.target.closest?ev.target.closest('[data-admin-reg-remove]'):null;if(rem){ev.preventDefault();adminRemoveRegistration(rem.getAttribute('data-tournament'),rem.getAttribute('data-admin-reg-remove'));return}var sh=document.getElementById('favorite-club-sheet');if(!sh||sh.hidden)return;var close=ev.target&&ev.target.closest?ev.target.closest('[data-club-close]'):null;if(close||ev.target===sh){closeClubSheet();return}var opt=ev.target&&ev.target.closest?ev.target.closest('[data-club-key]'):null;if(opt)saveFavoriteClub(opt.getAttribute('data-club-key'))});
+document.addEventListener('click',function(ev){var rem=ev.target&&ev.target.closest?ev.target.closest('[data-admin-reg-remove]'):null;if(rem){ev.preventDefault();adminRemoveRegistration(rem.getAttribute('data-tournament'),rem.getAttribute('data-admin-reg-remove'),rem.getAttribute('data-manual')==='1');return}var sh=document.getElementById('favorite-club-sheet');if(!sh||sh.hidden)return;var close=ev.target&&ev.target.closest?ev.target.closest('[data-club-close]'):null;if(close||ev.target===sh){closeClubSheet();return}var opt=ev.target&&ev.target.closest?ev.target.closest('[data-club-key]'):null;if(opt)saveFavoriteClub(opt.getAttribute('data-club-key'))});
 document.querySelectorAll('.nav button').forEach(function(b){b.onclick=function(){var v=b.getAttribute('data-v');if(tg&&tg.HapticFeedback)try{tg.HapticFeedback.selectionChanged()}catch(e){}if(v==='profile'){openMyProfile();return}if(v==='admin'&&!(S.me&&S.me.isAdmin))return;S.view=v;S.archive=null;S.player=null;S.ratingArchive='all';render()}});load(false);setInterval(function(){load(true)},30000)
 })();
 </script><script src="profile-link.js?v=6231142b"></script></body></html>
