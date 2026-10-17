@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, os, urllib.parse, urllib.request
+import json, os, urllib.parse, urllib.request, urllib.error, random, time
 from concurrent.futures import ThreadPoolExecutor
 
 CLUBS = {
@@ -58,18 +58,27 @@ os.makedirs(OUT, exist_ok=True)
 manifest = {}
 headers = {"User-Agent": "LigaTribunMiniApp/1.0 (GitHub Pages build)"}
 
+def open_with_retry(req):
+    for attempt in range(4):
+        try:
+            return urllib.request.urlopen(req, timeout=12)
+        except urllib.error.HTTPError as exc:
+            if exc.code != 429 or attempt == 3:
+                raise
+            time.sleep((1.5 * (2 ** attempt)) + random.uniform(0, 0.4))
+
 def download_one(item):
     key, title = item
     try:
         api = "https://en.wikipedia.org/api/rest_v1/page/summary/" + urllib.parse.quote(title.replace(" ", "_"), safe="")
         req = urllib.request.Request(api, headers=headers)
-        with urllib.request.urlopen(req, timeout=12) as r:
+        with open_with_retry(req) as r:
             data = json.load(r)
         source = (data.get("thumbnail") or {}).get("source") or (data.get("originalimage") or {}).get("source")
         if not source:
             raise RuntimeError(f"No logo image found for {title}")
         img_req = urllib.request.Request(source, headers=headers)
-        with urllib.request.urlopen(img_req, timeout=12) as r:
+        with open_with_retry(img_req) as r:
             blob = r.read()
             ctype = (r.headers.get("Content-Type") or "").split(";")[0].lower()
         ext = {"image/png": ".png", "image/jpeg": ".jpg", "image/webp": ".webp", "image/svg+xml": ".svg"}.get(ctype)
@@ -83,7 +92,7 @@ def download_one(item):
         return key, None, 0, str(exc)
 
 # Bound concurrent downloads so adding clubs doesn't slow down every Pages release.
-with ThreadPoolExecutor(max_workers=6) as pool:
+with ThreadPoolExecutor(max_workers=3) as pool:
     for key, filename, size, error in pool.map(download_one, CLUBS.items()):
         if filename:
             manifest[key] = "./assets/clubs/" + filename
