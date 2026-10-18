@@ -1169,6 +1169,25 @@ h1 em,h2 em,h3 em,.home-premium-hero h1 em { font-style:italic; }
 .lt-date-tile>span{font-size:9px!important;letter-spacing:0!important}
 @media(max-width:370px){.lt-hero-partners{margin-top:15px}.lt-partner-chip{width:calc((100% - 18px)/3);height:51px;min-height:51px;padding:7px}}
 </style>
+<style id="lt-admin-partners-v1">
+.admin-tournament-partners{padding:16px;margin:14px 0 18px;border:1px solid rgba(38,206,41,.18);background:rgba(38,206,41,.035);border-radius:17px;display:grid;gap:11px}
+.admin-partners-title{display:grid;gap:5px}
+.admin-partners-title b{font-size:13px;color:#f0f6f0}
+.admin-partners-title small,.admin-partner-empty{font-size:10px;color:#91a497;line-height:1.55}
+.admin-partner-empty{margin:0;padding:9px;border-radius:10px;background:rgba(0,0,0,.15)}
+.admin-partners-list{display:grid;gap:7px}
+.admin-partner-item{display:grid;grid-template-columns:67px minmax(0,1fr) 32px;align-items:center;gap:10px;padding:8px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(0,0,0,.17)}
+.admin-partner-preview{width:67px;height:46px;border-radius:9px;background:rgba(255,255,255,.06);display:grid;place-items:center;overflow:hidden;padding:5px;box-sizing:border-box}
+.admin-partner-preview img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}
+.admin-partner-item strong{font-size:10px;overflow-wrap:anywhere}
+.admin-partner-item button{border:0;border-radius:8px;height:32px;width:32px;background:rgba(255,255,255,.08);color:#e2ece4;font-size:22px}
+.admin-tournament-partners label{display:grid;gap:6px;color:#d6e8d9;font-size:11px}
+.admin-tournament-partners input[type=text]{min-width:0;width:100%;height:42px;box-sizing:border-box;border:1px solid rgba(255,255,255,.17);background:#111b14;border-radius:11px;padding:0 11px;color:white}
+.admin-tournament-partners input[type=file]{width:100%;max-width:100%;font-size:11px;color:#e5efe5;border:1px dashed rgba(255,255,255,.18);border-radius:11px;padding:11px;background:rgba(0,0,0,.13);box-sizing:border-box}
+.admin-partner-upload{min-height:44px;border:0;border-radius:12px;background:#26ce29;color:#071709;font-size:11px;font-weight:900}
+.admin-partner-upload:disabled{opacity:.5}
+.admin-tournament-partners>small{font-size:10px;line-height:1.5}
+</style>
 </head>
 <body class="is-loading">
 <div class="app"><div class="top"><div class="brand"><div class="logo logo-img"><img src="data:image/webp;base64,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" alt="Лига Трибун"></div><div><b>ЛИГА ТРИБУН</b><small>турниры среди фанатов клубов</small></div></div><button class="profile-chip" type="button" data-top-profile aria-label="Профиль"><span class="profile-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5.5 20c.8-3.4 3.2-5.4 6.5-5.4s5.7 2 6.5 5.4"/></svg></span><img id="topProfilePhoto" class="profile-chip-photo" alt="" hidden><span id="topProfileLabel">Профиль</span></button></div><main id="root"><div class="loading-screen"><img class="loading-brand-logo" src="./assets/liga-tribun-loading.svg?v=20261013-1" alt="Лига Трибун"><div class="load-line"><span></span></div><div class="load-caption">Загружаем турниры</div></div></main>
@@ -1309,6 +1328,59 @@ function refreshTournamentLive(){
 
 function adminTournamentSaveMessage(d,fallback){var n=d&&d.notification;if(!n)return fallback||'Изменения сохранены.';var title=n.kind==='registration'?'Продажа билетов открыта.':'Турнир переведён в анонс.';return title+' Уведомление отправлено: '+Number(n.sent||0)+(Number(n.failed||0)?'. Не доставлено: '+Number(n.failed||0)+'.':'.')}
 function closeAdminTournamentEdit(){var sh=document.getElementById('admin-tournament-edit-sheet');if(sh)sh.remove();if(!document.querySelector('.admin-reg-sheet'))document.body.style.overflow=''}
+
+function setupAdminPartnerLogos(sheet,tournament){
+ var area=sheet.querySelector('#adminTournamentPartners');if(!area)return;
+ var list=area.querySelector('[data-partners-list]'),label=area.querySelector('[data-partner-message]'),nameInput=area.querySelector('[data-partner-name]'),fileInput=area.querySelector('[data-partner-file]'),uploadBtn=area.querySelector('[data-partner-upload]'),busy=false;
+ function render(){
+  var partners=Array.isArray(tournament.partners)?tournament.partners:[];
+  list.innerHTML=partners.length?partners.map(function(p){
+   return'<div class="admin-partner-item"><div class="admin-partner-preview"><img src="'+e(p.url)+'" alt="'+e(p.name)+'"></div><strong>'+e(p.name)+'</strong><button type="button" data-partner-remove="'+e(p.id)+'" aria-label="Удалить логотип '+e(p.name)+'">×</button></div>';
+  }).join(''):'<p class="admin-partner-empty">Партнёры ещё не добавлены. Логотипы появятся в карточке турнира после загрузки.</p>';
+  uploadBtn.disabled=busy||partners.length>=8;
+ }
+ function message(text,error){label.textContent=text;label.style.color=error?'#ffa09b':'#b1c9b5'}
+ function setBusy(value){busy=value;uploadBtn.textContent=value?'Загружаем…':'＋ Добавить логотип партнёра';render()}
+ async function request(body){
+  var response=await fetch(API+'?app=admin-partner-logo',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(Object.assign({initData:tg.initData,tournamentId:tournament.id},body)),cache:'no-store'});
+  var result=await response.json();if(!response.ok||!result.ok)throw new Error(result.error||'request_failed');return result;
+ }
+ render();
+ area.addEventListener('click',async function(ev){
+  if(busy)return;
+  var remove=ev.target&&ev.target.closest?ev.target.closest('[data-partner-remove]'):null;
+  if(remove){
+   var partnerId=remove.getAttribute('data-partner-remove');
+   if(!confirm('Убрать логотип этого партнёра с карточки турнира?'))return;
+   setBusy(true);
+   try{
+    var d=await request({action:'remove',logoId:partnerId});
+    tournament.partners=d.partners||[];
+    message('Логотип удалён.',false);
+   }catch(err){message('Не удалось удалить логотип. Попробуйте снова.',true)}
+   finally{setBusy(false)}
+   return;
+  }
+  if(!ev.target.closest('[data-partner-upload]'))return;
+  var name=String(nameInput.value||'').replace(/\s+/g,' ').trim(),file=fileInput.files&&fileInput.files[0];
+  if(name.length<2){message('Укажи название партнёра.',true);nameInput.focus();return}
+  if(!file){message('Выбери файл с логотипом.',true);fileInput.focus();return}
+  if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>2097152||file.size<100){
+   message('Нужен PNG, JPG или WebP не более 2 МБ.',true);return;
+  }
+  setBusy(true);
+  try{
+   var base64=await new Promise(function(resolve,reject){var fr=new FileReader();fr.onload=function(){resolve(String(fr.result||'').split(',')[1]||'')};fr.onerror=function(){reject(new Error('read_failed'))};fr.readAsDataURL(file)});
+   var out=await request({action:'upload',name:name,mime:file.type,base64:base64});
+   tournament.partners=out.partners||[];
+   nameInput.value='';fileInput.value='';
+   message('Логотип добавлен. Он появится на главной странице.',false);
+  }catch(err){
+   message(err.message==='too_many_partners'?'Можно добавить не более 8 партнёров.':err.message==='bad_image'?'Не удалось прочитать изображение. Проверь PNG/JPG/WebP и размер.':'Загрузка не удалась. Попробуйте ещё раз.',true);
+  }finally{setBusy(false)}
+ });
+}
+
 function openAdminTournamentEdit(id){
   if(!(S.me&&S.me.isAdmin))return;
   var a=S.data&&Array.isArray(S.data.tournaments)?S.data.tournaments.find(function(x){return x.id===id}):null;
@@ -1349,6 +1421,14 @@ function openAdminTournamentEdit(id){
 '<label class="tournament-live-toggle"><input type="checkbox" name="liveEnabled" '+(a.liveEnabled?'checked':'')+'><span>Показывать LIVE-результаты из генератора</span></label>'+
 '<small class="tournament-live-hint">Включи во время турнира. Покажется текущая сетка генератора Лиги Трибун. Одновременно активен один турнир.</small>'+
 '</fieldset>'+
+         '<section class="admin-tournament-partners" id="adminTournamentPartners">'+
+'<div class="admin-partners-title"><b>Логотипы партнёров</b><small>Отображаются под кнопками на зелёной карточке главной страницы</small></div>'+
+'<div class="admin-partners-list" data-partners-list></div>'+
+'<label class="admin-partner-name"><span>Название партнёра</span><input type="text" data-partner-name maxlength="80" placeholder="Например, название компании" autocomplete="off"></label>'+
+'<label class="admin-partner-file"><span>Логотип PNG, JPG или WebP (до 2 МБ)</span><input type="file" data-partner-file accept="image/png,image/jpeg,image/webp"></label>'+
+'<button type="button" class="admin-partner-upload" data-partner-upload>＋ Добавить логотип партнёра</button>'+
+'<small data-partner-message aria-live="polite">Рекомендуем прозрачный PNG или WebP. Можно добавить до 8 партнёров.</small>'+
+'</section>'+
          '<div class="admin-form-row full"><label><span>Статус турнира</span><select name="status">'+
           '<option value="soon" '+(a.status==='soon'?'selected':'')+'>Скоро</option>'+
           '<option value="announcement" '+(a.status==='announcement'?'selected':'')+'>Анонс</option>'+
@@ -1362,6 +1442,7 @@ function openAdminTournamentEdit(id){
       '</form></div>';
   document.body.appendChild(sh);document.body.style.overflow='hidden';
   sh.addEventListener('click',function(ev){if(ev.target===sh||ev.target.closest('[data-admin-edit-close]'))closeAdminTournamentEdit()});
+  setupAdminPartnerLogos(sh,a);
   var form=sh.querySelector('#adminTournamentEditForm');
   var modeInput=form.elements.namedItem('dateMode'),startInput=form.elements.namedItem('startDate'),
       endInput=form.elements.namedItem('endDate'),timeInput=form.elements.namedItem('startTime'),
