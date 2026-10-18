@@ -1224,6 +1224,64 @@ function tournamentMoreInfoHtml(a){
 function closeTournamentDetails(){var sh=document.getElementById('tournament-details-sheet');if(sh)sh.remove();if(!document.querySelector('.admin-reg-sheet'))document.body.style.overflow=''}
 function openTournamentDetails(id){var a=S.data&&Array.isArray(S.data.tournaments)?S.data.tournaments.find(function(x){return x.id===id}):null;if(!a)return;closeTournamentDetails();var sh=document.createElement('div');sh.id='tournament-details-sheet';sh.className='admin-reg-sheet tournament-details-sheet';var status=tournamentStatusText(a.status),reg=myTournamentRegistration(a.id),open=a.status==='registration'&&Date.parse(a.dateTime||0)>Date.now(),count=Number(a.registrationCount)||0,cap=Number(a.capacity)||32;var action=reg&&reg.paymentStatus==='paid'?'<button class="tournament-detail-paid" type="button" disabled>Билет оплачен ✓</button>':open&&count<cap?'<button class="tournament-detail-buy" type="button" data-yookassa-pay="'+e(a.id)+'">'+(reg&&reg.confirmationUrl?'Продолжить оплату · 900 ₽':'Купить билет · 900 ₽')+'</button>':'<div class="tournament-detail-note">'+(a.status==='soon'?'Продажа билетов откроется позже.':'Регистрация сейчас недоступна.')+'</div>';sh.innerHTML='<div class="admin-reg-panel tournament-details-panel"><div class="admin-reg-head"><div><span class="kicker">'+e(status)+'</span><h2>'+e(a.name||'Турнир')+'</h2><small>'+e(fl(a.format))+'</small></div><button type="button" data-tournament-details-close>×</button></div><div class="tournament-detail-grid"><div class="tournament-detail-item"><span>Когда</span><b>'+e(eventScheduleText(a))+'</b></div><div class="tournament-detail-item"><span>Где</span><b>'+e(eventVenueText(a))+'</b></div><div class="tournament-detail-item"><span>Формат</span><b>'+e(fl(a.format))+'</b></div><div class="tournament-detail-item"><span>Участники</span><b>'+count+' / '+cap+'</b></div></div>'+tournamentMapLinks(a)+tournamentMoreInfoHtml(a)+'<div class="tournament-detail-price"><span>Билет</span><strong>900 ₽</strong></div><div class="tournament-detail-action">'+action+(a.liveEnabled?'<button type="button" class="tournament-live-cta" data-tournament-live="'+e(a.id)+'">● Смотреть LIVE · сетки и результаты</button>':'')+'</div></div>';document.body.appendChild(sh);document.body.style.overflow='hidden';sh.addEventListener('click',function(ev){if(ev.target===sh||ev.target.closest('[data-tournament-details-close]')){closeTournamentDetails();return}var mapButton=ev.target&&ev.target.closest?ev.target.closest('[data-map-service]'):null;if(mapButton){ev.preventDefault();var service=mapButton.getAttribute('data-map-service'),link=venueMapUrl(service==='yandex'?a.yandexMapsUrl:a.twoGisUrl,service);if(link){if(tg&&tg.openLink)tg.openLink(link);else window.open(link,'_blank','noopener,noreferrer')}return}var live=ev.target&&ev.target.closest?ev.target.closest('[data-tournament-live]'):null;if(live){ev.preventDefault();closeTournamentDetails();openTournamentLive(live.getAttribute('data-tournament-live'));return}var pay=ev.target&&ev.target.closest?ev.target.closest('[data-yookassa-pay]'):null;if(pay){ev.preventDefault();startYooKassaPayment(pay.getAttribute('data-yookassa-pay'))}})}
 
+
+function closeTournamentLive(){var sh=document.getElementById('tournament-live-sheet');if(sh)sh.remove();if(!document.querySelector('.admin-reg-sheet'))document.body.style.overflow=''}
+function openTournamentLive(id){
+ var a=S.data&&Array.isArray(S.data.tournaments)?S.data.tournaments.find(function(x){return x.id===id}):null;
+ if(!a||!a.liveEnabled)return;
+ closeTournamentLive();
+ S.liveStage='groups';S.liveGroupId='';S.liveTier='gold';
+ var sh=document.createElement('div');sh.id='tournament-live-sheet';sh.className='admin-reg-sheet tournament-live-sheet';
+ sh.setAttribute('data-live-id',a.id);
+ sh.innerHTML='<div class="admin-reg-panel tournament-live-panel"><div class="admin-reg-head"><div><span class="kicker">● LIVE · Лига Трибун</span><h2>'+e(a.name||'Турнир')+'</h2><small>Результаты из генератора · обновление каждые 30 секунд</small></div><button type="button" data-live-close aria-label="Закрыть">×</button></div><div class="tournament-live-refresh-bar"><span data-live-stamp>Подключение к генератору…</span><button type="button" data-live-refresh>↻ Обновить</button></div><div id="tournament-live-content"></div></div>';
+ document.body.appendChild(sh);document.body.style.overflow='hidden';
+ sh.addEventListener('click',function(ev){
+  var target=ev.target;
+  if(target===sh||target.closest('[data-live-close]')){closeTournamentLive();return}
+  var refresh=target.closest('[data-live-refresh]');
+  if(refresh){refresh.disabled=true;load(true).finally(function(){if(refresh.isConnected)refresh.disabled=false});return}
+  var stage=target.closest('[data-live-stage]');
+  if(stage){S.liveStage=stage.getAttribute('data-live-stage');refreshTournamentLive();return}
+  var group=target.closest('[data-live-group]');
+  if(group){S.liveGroupId=group.getAttribute('data-live-group');refreshTournamentLive();return}
+  var tier=target.closest('[data-live-tier]');
+  if(tier){S.liveTier=tier.getAttribute('data-live-tier');refreshTournamentLive();return}
+ });
+ refreshTournamentLive();
+}
+function refreshTournamentLive(){
+ var sh=document.getElementById('tournament-live-sheet'),panel=document.getElementById('tournament-live-content');
+ if(!sh||!panel)return;
+ var id=sh.getAttribute('data-live-id'),a=S.data&&Array.isArray(S.data.tournaments)?S.data.tournaments.find(function(x){return x.id===id}):null,stamp=sh.querySelector('[data-live-stamp]');
+ if(!a||!a.liveEnabled){panel.innerHTML='<div class="empty">Онлайн-трансляция турнира отключена организатором.</div>';return}
+ var workspace=S.data&&S.data.current||{},state=workspace.state||{},updated=Date.parse(workspace.updatedAt||''),start=Date.parse(a.dateTime||''),now=Date.now();
+ var relevant=Number.isFinite(updated)&&Number.isFinite(start)&&updated>=start-24*3600000&&updated<=now+60000;
+ if(stamp)stamp.textContent=relevant?'Сетка обновлена '+eventMoscowDate(workspace.updatedAt,{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})+' МСК · автообновление 30 сек.':'Ожидаем актуальную сетку турнира';
+ if(!relevant){
+  panel.innerHTML='<div class="tournament-live-empty"><strong>Результаты пока не опубликованы</strong><p>Когда организатор откроет этот турнир в генераторе «Лиги Трибун» и сохранит группы или матчи, здесь появятся таблицы и сетки. Результаты прежних турниров не показываются.</p></div>';
+  return;
+ }
+ var groups=Array.isArray(state.groups)?state.groups:[],po=state.playoffs||{},hasPlayoff=Boolean(po.gold||po.silver),stage=S.liveStage||'groups',tier=S.liveTier||'gold';
+ if(stage==='playoff'&&!hasPlayoff)stage='groups';
+ var group=groups.find(function(x){return String(x.id)===String(S.liveGroupId)})||groups[0];
+ if(group)S.liveGroupId=group.id;
+ var tabs='<nav class="archive-stage-nav tournament-live-tabs"><button type="button" data-live-stage="groups" class="'+(stage==='groups'?'on':'')+'">Группы</button><button type="button" data-live-stage="playoff" class="'+(stage==='playoff'?'on':'')+'" '+(!hasPlayoff?'disabled':'')+'>Плей-офф</button></nav>';
+ var body='';
+ if(stage==='groups'){
+  var sub=groups.length?'<div class="archive-subnav archive-group-nav">'+groups.map(function(g){return'<button type="button" data-live-group="'+e(g.id)+'" class="'+(group&&group.id===g.id?'on':'')+'">'+e(String(g.name||'Группа').replace('Группа ',''))+'</button>'}).join('')+'</div>':'';
+  body=sub+(group?archiveGroupHtml(state,group):'<div class="empty">Состав групп пока не внесён в генератор.</div>');
+ }else{
+  var tiers=[{id:'gold',label:'Золото'}];
+  if(po.silver)tiers.push({id:'silver',label:'Серебро'});
+  if(!tiers.some(function(t){return t.id===tier}))tier='gold';
+  S.liveTier=tier;
+  body='<div class="archive-subnav archive-tier-nav">'+tiers.map(function(t){return'<button type="button" data-live-tier="'+e(t.id)+'" class="'+(t.id===tier?'on':'')+'">'+e(t.label)+'</button>'}).join('')+'</div>'+archivePlayoffHtml(state,tier);
+ }
+ var before=panel.scrollTop;
+ panel.innerHTML=tabs+'<div class="archive-stage-body tournament-live-stage">'+body+'</div>';
+ panel.scrollTop=before;
+}
+
 function adminTournamentSaveMessage(d,fallback){var n=d&&d.notification;if(!n)return fallback||'Изменения сохранены.';var title=n.kind==='registration'?'Продажа билетов открыта.':'Турнир переведён в анонс.';return title+' Уведомление отправлено: '+Number(n.sent||0)+(Number(n.failed||0)?'. Не доставлено: '+Number(n.failed||0)+'.':'.')}
 function closeAdminTournamentEdit(){var sh=document.getElementById('admin-tournament-edit-sheet');if(sh)sh.remove();if(!document.querySelector('.admin-reg-sheet'))document.body.style.overflow=''}
 function openAdminTournamentEdit(id){
