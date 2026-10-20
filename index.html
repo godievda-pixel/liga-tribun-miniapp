@@ -1644,7 +1644,7 @@ async function load(silent){
  var timeout=setTimeout(function(){if(controller)controller.abort()},14000);
  if(!S.meChecked){
   identify().then(function(){
-   if(S.data&&['home','tournaments','rating','profile'].indexOf(S.view)>=0)render()
+   if(S.data&&['home','tours','rating','profile'].indexOf(S.view)>=0)render()
   })
  }
  try{
