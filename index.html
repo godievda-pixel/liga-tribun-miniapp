@@ -1695,6 +1695,17 @@ async function load(silent){
    if(!silent&&S.view!=='archive'&&S.view!=='player')render()
   }
  }
+ if(!S.data){
+  requestBackupBootstrap().then(function(backup){
+   if(S.data)return;
+   S.data=backup.data;
+   S.cacheSavedAt=backup.savedAt;
+   savePublicCache(backup);
+   markStale(true);
+   document.body.classList.remove('is-loading');
+   if(!silent&&S.view!=='archive'&&S.view!=='player')render()
+  }).catch(function(){})
+ }
  try{
   var data;
   try{data=await requestLiveBootstrap(9000)}
@@ -1711,7 +1722,7 @@ async function load(silent){
   if(S.view!=='archive'&&S.view!=='player')render()
  }catch(error){
   var fallback=null;
-  try{fallback=await requestBackupBootstrap()}catch(backupError){}
+  if(!S.data)try{fallback=await requestBackupBootstrap()}catch(backupError){}
   if(fallback&&(!S.data||Date.parse(fallback.savedAt)>Date.parse(S.cacheSavedAt||''))){
    S.data=fallback.data;
    S.cacheSavedAt=fallback.savedAt;
