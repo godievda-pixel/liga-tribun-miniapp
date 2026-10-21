@@ -1,0 +1,36 @@
+name: Refresh public tournament fallback
+on:
+  schedule:
+    - cron: "13 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch verified public bootstrap
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --show-error --silent --retry 3 --retry-all-errors --connect-timeout 10 --max-time 40 \
+            "https://dkefzepiiudehhzbbrjn.supabase.co/functions/v1/qptg-live?app=bootstrap&_=$(date +%s)" -o /tmp/lt-bootstrap.json
+          jq -e '.ok == true and (.archives | type == "array") and (.tournaments | type == "array") and (.rating.solo.rows | type == "array")' /tmp/lt-bootstrap.json >/dev/null
+          jq -nc --arg savedAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --slurpfile data /tmp/lt-bootstrap.json \
+            '{savedAt:$savedAt,data:$data[0]}' > bootstrap-snapshot.json
+
+      - name: Commit only the public snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- bootstrap-snapshot.json; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bootstrap-snapshot.json
+          git commit -m "Refresh Liga Tribun public data fallback"
+          git push
