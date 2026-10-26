@@ -1284,7 +1284,7 @@ var TICKET_SITE_BASE='https://liga-tribun.ru/tournaments/';
 function tournamentTicketPageUrl(id){
  var url=new URL(TICKET_SITE_BASE);
  url.searchParams.set('id',String(id));
- url.searchParams.set('buy','1');
+ url.hash='registration';
  return url.href;
 }
 function openTournamentTicketPage(id){
