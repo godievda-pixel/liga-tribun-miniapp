@@ -1280,11 +1280,11 @@ function rh(rows){if(!rows||!rows.length)return'<div class="empty">Рейтин�
 function myTournamentRegistration(id){var regs=S.me&&Array.isArray(S.me.registrations)?S.me.registrations:[];return regs.find(function(r){return r.tournamentId===id&&r.status==='registered'})||null}
 function tournamentRegistrationActions(a,compact){var reg=myTournamentRegistration(a.id),count=Number(a.registrationCount)||0,cap=Number(a.capacity)||32,open=a.status==='registration'&&Date.parse(a.dateTime||0)>Date.now(),full=count>=cap;if(reg&&reg.paymentStatus==='paid')return'<button class="'+(compact?'lt-event-reg-btn ':'lt-primary-btn ')+'is-confirmed" type="button" disabled>Билет оплачен ✓</button>';if(reg&&reg.confirmationUrl)return'<button class="'+(compact?'lt-event-reg-btn ':'lt-primary-btn ')+'is-payment" type="button" data-yookassa-pay="'+e(a.id)+'" >Продолжить оплату на сайте ↗</button>';if(open&&!full)return'<button class="'+(compact?'lt-event-reg-btn ':'lt-primary-btn ')+'" type="button" data-yookassa-pay="'+e(a.id)+'">Купить билет</button>';if(open&&full)return'<button class="'+(compact?'lt-event-reg-btn ':'lt-primary-btn ')+'is-full" type="button" disabled>Билеты закончились</button>';return'<button class="'+(compact?'lt-event-reg-btn ':'lt-primary-btn ')+'" type="button" data-tournament-details="'+e(a.id)+'">Подробнее'+(compact?'':' <span>→</span>')+'</button>'}
 function tournamentRegistrationMeta(a){var reg=myTournamentRegistration(a.id);if(reg&&reg.paymentStatus==='paid')return'<span class="lt-registration-state paid">Билет оплачен</span>';if(reg)return'<span class="lt-registration-state">Место забронировано</span>';if(a.status!=='registration')return'<span class="lt-registration-count">'+(a.status==='soon'?'Детали уточняются':'Анонс')+'</span>';return'<span class="lt-registration-count">Билеты доступны</span>'}
-var TICKET_SITE_BASE='https://liga-tribun.ru/tournaments/';
+var TICKET_SITE_BASE='https://liga-tribun.ru/tournaments/buy/';
 function tournamentTicketPageUrl(id){
  var url=new URL(TICKET_SITE_BASE);
  url.searchParams.set('id',String(id));
- url.searchParams.set('buy','1');
+ // Checkout now lives on the exact tournament ticket page.
  return url.href;
 }
 function openTournamentTicketPage(id){
