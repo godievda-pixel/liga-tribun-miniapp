@@ -1,0 +1,22 @@
+/* Shared club crests for the Liga Tribun Telegram Mini App. Original club marks are not redrawn. */
+window.LT_CLUB_LOGOS=Object.assign(window.LT_CLUB_LOGOS||{},{
+  'sporting':'https://commons.wikimedia.org/wiki/Special:FilePath/Sporting_Clube_de_Portugal_2026_cut.png',
+  'liverpool':'https://assets.footylogos.com/logos/liverpool-fc/liverpool-fc-logo-footylogos.svg',
+  'shakhtar':'https://assets.footylogos.com/logos/shakhtar-donetsk/shakhtar-donetsk-logo-footylogos.svg',
+  'milan':'https://crests.football-data.org/98.png',
+  'chelsea':'https://crests.football-data.org/61.png',
+  'real-madrid':'https://crests.football-data.org/86.png',
+  'juventus':'https://crests.football-data.org/109.png',
+  'arsenal':'https://crests.football-data.org/57.png',
+  'inter':'https://crests.football-data.org/108.png',
+  'lazio':'https://crests.football-data.org/110.png',
+  'roma':'https://crests.football-data.org/100.png',
+  'man-city':'https://crests.football-data.org/65.png',
+  'man-united':'https://crests.football-data.org/66.png',
+  'barcelona':'https://crests.football-data.org/81.png',
+  'napoli':'https://crests.football-data.org/113.png',
+  'bayern':'https://crests.football-data.org/5.png',
+  'psg':'https://crests.football-data.org/524.png',
+  'tottenham':'https://crests.football-data.org/73.png',
+  'aston-villa':'https://crests.football-data.org/58.png'
+});
