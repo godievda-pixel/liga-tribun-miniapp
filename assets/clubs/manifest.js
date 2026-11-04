@@ -2,7 +2,7 @@
 window.LT_CLUB_LOGOS=Object.assign(window.LT_CLUB_LOGOS||{},{
   'sporting':'https://commons.wikimedia.org/wiki/Special:FilePath/Sporting_Clube_de_Portugal_2026_cut.png',
   'liverpool':'https://assets.footylogos.com/logos/liverpool-fc/liverpool-fc-logo-footylogos.svg',
-  'shakhtar':'https://assets.footylogos.com/logos/shakhtar-donetsk/shakhtar-donetsk-logo-footylogos.svg',
+  'shakhtar':'./assets/clubs/shakhtar.svg?v=20261104',
   'milan':'https://crests.football-data.org/98.png',
   'chelsea':'https://crests.football-data.org/61.png',
   'real-madrid':'https://crests.football-data.org/86.png',
